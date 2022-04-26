@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Assembly-Debugger.iml" filepath="$PROJECT_DIR$/.idea/Assembly-Debugger.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Emulator/Emulator.iml" filepath="$PROJECT_DIR$/Emulator/Emulator.iml" />
     </modules>
   </component>
 </project>
