@@ -1,18 +1,43 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.*;
 
 public class AssemblyEmulator {
 
     private Map<String, Integer> registers;
+    private ArrayList<Integer> memory;
 
-    public AssemblyEmulator(String text) {
-        text = text.replaceAll(" ", ""); //Delete white spaces.
-        text = text.toUpperCase(Locale.ROOT);
+    public AssemblyEmulator(FileReader file) throws IOException {
+        ArrayList<String> list = readFile(file);
         registers = new HashMap<>();
-        fillRegistersMaps(text);
+        memory = new ArrayList<>();
+        for(int i = 0; i < list.size(); i++){
+            processLine(list.get(i));
+        }
         printMap();
+    }
+
+    private void processLine(String line){
+        line = line.replaceAll(" ", ""); //Delete white spaces.
+        if(!line.equals("")) {
+            line = line.toUpperCase(Locale.ROOT);
+            fillRegistersMaps(line);
+        }
+    }
+
+    private ArrayList<String> readFile(FileReader file) throws IOException {
+        ArrayList<String> list = new ArrayList<>();
+        BufferedReader rd = new BufferedReader(file);
+        while (true) {
+            String line = rd.readLine();
+            if (line == null) {
+                break;
+            }
+            list.add(line);
+        }
+        rd.close();
+        return list;
     }
 
     private void printMap() {
@@ -110,16 +135,28 @@ public class AssemblyEmulator {
     }
 
     private String getRightSide(String str) {
-        //loads constants.
-        if (Character.isDigit(str.charAt(0))) {
+        if (isNumber(str)) { //loads constants.
             return str;
         } else if (str.charAt(0) == '-' && Character.isDigit(str.charAt(1))) { //is negative number.
             return str;
+        } else if (containsOperator(str)) { //anu unda daviangarisho
+            char operator = getOperator(str);
+            int index = str.indexOf(operator);
+            int a = registers.get(str.substring(0, index));
+            int b = Integer.parseInt(str.substring(index + 1), str.length() - 1);
+            return Integer.toString(compute(a, b, operator));
+        } else if (str.startsWith("R")) {
+            //anu marto registria
+            return Integer.toString(registers.get(str));
+        } else {
+            //anu M-it iwyeba.
+            int res = getAddress(str.substring(str.indexOf('[') + 1, str.indexOf(']')));
+            //daabrune mag misamartze ra mnishvnelobaa
+            return "";
         }
-        return "";
     }
 
-    public static void main(String[] args) {
-        AssemblyEmulator emulator = new AssemblyEmulator("R1 =- 5  ;");
+    public static void main(String[] args) throws IOException {
+        AssemblyEmulator emulator = new AssemblyEmulator(new FileReader("\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\Emulator\\src\\assembly.txt"));
     }
 }
