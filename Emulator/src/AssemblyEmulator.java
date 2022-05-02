@@ -6,23 +6,48 @@ import java.util.*;
 public class AssemblyEmulator {
 
     private Map<String, Integer> registers;
-    private ArrayList<Integer> memory;
+    private int[] memory;
 
     public AssemblyEmulator(FileReader file) throws IOException {
         ArrayList<String> list = readFile(file);
         registers = new HashMap<>();
-        memory = new ArrayList<>();
-        for(int i = 0; i < list.size(); i++){
+        memory = new int[0];
+        for (int i = 0; i < list.size(); i++) {
             processLine(list.get(i));
         }
         printMap();
+        printMemory();
     }
 
-    private void processLine(String line){
+    private void printMemory(){
+        for (int i = 0 ; i < memory.length; i++){
+            System.out.println(i);
+            System.out.println(memory[i]);
+        }
+    }
+
+    private void processLine(String line) {
         line = line.replaceAll(" ", ""); //Delete white spaces.
-        if(!line.equals("")) {
+        if (!line.equals("")) {
             line = line.toUpperCase(Locale.ROOT);
-            fillRegistersMaps(line);
+            String left = getLeftSide(line);
+            if (left.startsWith("R")) {
+                fillRegistersMaps(line);
+            } else if (left.startsWith("S")) {
+                allocateMemory(line);
+            } else if (line.startsWith("M")) {
+                fillMemoryArray(Integer.parseInt(left), line);
+            }
+        }
+    }
+
+    private void fillMemoryArray(int location, String line){
+        if(location / 4 >= memory.length){
+            System.out.println(location / 4 +  " " + memory.length);
+            System.out.println("error");
+        } else {
+            String res = getRightSide(line.substring(line.indexOf("=") + 1, line.indexOf(";")));
+            memory[location / 4] = Integer.parseInt(res);
         }
     }
 
@@ -46,15 +71,35 @@ public class AssemblyEmulator {
         }
     }
 
-    private String getInstructionType(String line) {
-        return "";
-    }
-
     private void fillRegistersMaps(String line) {
         int index = line.indexOf("=");
         String leftSide = getLeftSide(line.substring(0, index));
         String rightSide = getRightSide(line.substring(index + 1, line.indexOf(";")));
         registers.put(leftSide, Integer.parseInt(rightSide));
+    }
+
+    private void allocateMemory(String line) {
+        int index = line.indexOf("=");
+        int size = computeMemorySize(line.substring(index + 1, line.indexOf(";")));
+        resizeMemory(size);
+    }
+
+    private void resizeMemory(int size) {
+        int[] curr = new int[size];
+        for (int i = 0; i < Math.min(size, memory.length); i++) {
+            curr[i] = memory[i];
+        }
+        memory = curr;
+    }
+
+    private int computeMemorySize(String str) {
+        if (str.contains("-")) {
+            int index = str.indexOf("-");
+            return memory.length + Integer.parseInt(str.substring(index + 1)) / 4;
+        } else {
+            int index = str.indexOf("+");
+            return memory.length - Integer.parseInt(str.substring(index + 1)) / 4;
+        }
     }
 
     private String getLeftSide(String str) {
@@ -63,13 +108,16 @@ public class AssemblyEmulator {
         } else if (str.startsWith("M")) {
             String address = str.substring(str.indexOf("[") + 1, str.indexOf("]"));
             int res = getAddress(address);
+            return Integer.toString(res);
+        } else if (str.startsWith("S")) {
+            return str;
         }
         return "";
     }
 
     private int getAddress(String address) {
         if (isNumber(address)) {
-            //amoige konkretuli misamartidan.
+            return Integer.parseInt(address);
         } else if (Character.isDigit(address.charAt(0))) {
             //anu ragac aseti weria 2 + R1
             char operator = getOperator(address);
@@ -78,10 +126,11 @@ public class AssemblyEmulator {
             int b = 0;
             if (address.charAt(index + 1) == 'R') {
                 b = registers.get(address.substring(index + 1));
+                return compute(a, b, operator);
             } else {
-                //anu sp-a.
+                //anu a + sp.
+                return a + 4 * memory.length;
             }
-            return compute(a, b, operator);
         } else if (address.startsWith("R")) {
             //sheidzleba marto registri iyos an r + 4
             if (containsOperator(address)) {
@@ -95,9 +144,19 @@ public class AssemblyEmulator {
                 return registers.get(address);
             }
         } else {
-            //sp-a.
+            //sp+a.
+            if (containsOperator(address)) {
+                char operator = getOperator(address);
+                int index = address.indexOf(operator);
+                int a = Integer.parseInt(address.substring(index + 1));
+                if(operator == '+'){
+                    return 4 * memory.length - a;
+                }
+                return a + 4 * memory.length;
+            } else {
+                return memory.length - 1;
+            }
         }
-        return -1;
     }
 
     private boolean containsOperator(String address) {
@@ -137,22 +196,38 @@ public class AssemblyEmulator {
     private String getRightSide(String str) {
         if (isNumber(str)) { //loads constants.
             return str;
-        } else if (str.charAt(0) == '-' && Character.isDigit(str.charAt(1))) { //is negative number.
+        } else if (str.charAt(0) == '-' && isNumber(str.substring(1))) { //is negative number.
             return str;
-        } else if (containsOperator(str)) { //anu unda daviangarisho
+        } else if (containsOperator(str) && !str.startsWith("M")) { //anu unda daviangarisho
             char operator = getOperator(str);
             int index = str.indexOf(operator);
-            int a = registers.get(str.substring(0, index));
-            int b = Integer.parseInt(str.substring(index + 1), str.length() - 1);
+            int a = 0;
+            int b = 0;
+            if(registers.containsKey(str.substring(0, index))){
+                a = registers.get(str.substring(0, index));
+            } else if(str.startsWith("S")){
+                a = memory.length - 1;
+            } else {
+                a = Integer.parseInt(str.substring(0, index));
+            }
+            if(registers.containsKey(str.substring(index + 1))){
+                b = registers.get(str.substring(index + 1));
+            } else if(str.charAt(index + 1) == 'S'){
+                b = memory.length - 1;
+            } else {
+                b = Integer.parseInt(str.substring(index + 1));
+            }
             return Integer.toString(compute(a, b, operator));
         } else if (str.startsWith("R")) {
             //anu marto registria
             return Integer.toString(registers.get(str));
+        } else if(str.startsWith("S")) {
+            return Integer.toString(memory.length - 1);
         } else {
             //anu M-it iwyeba.
             int res = getAddress(str.substring(str.indexOf('[') + 1, str.indexOf(']')));
             //daabrune mag misamartze ra mnishvnelobaa
-            return "";
+            return Integer.toString(memory[res / 4]);
         }
     }
 
