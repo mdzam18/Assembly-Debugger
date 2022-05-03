@@ -19,8 +19,8 @@ public class AssemblyEmulator {
         printMemory();
     }
 
-    private void printMemory(){
-        for (int i = 0 ; i < memory.length; i++){
+    private void printMemory() {
+        for (int i = 0; i < memory.length; i++) {
             System.out.println(i);
             System.out.println(memory[i]);
         }
@@ -41,13 +41,13 @@ public class AssemblyEmulator {
         }
     }
 
-    private void fillMemoryArray(int location, String line){
-        if(location / 4 >= memory.length){
-            System.out.println(location / 4 +  " " + memory.length);
+    private void fillMemoryArray(int location, String line) {
+        if (location >= memory.length) {
+            System.out.println(location + " " + memory.length);
             System.out.println("error");
         } else {
-            String res = getRightSide(line.substring(line.indexOf("=") + 1, line.indexOf(";")));
-            memory[location / 4] = Integer.parseInt(res);
+            int res = getValueOfTheRightSide(line.substring(line.indexOf("=") + 1, line.indexOf(";")));
+            memory[location] = res;
         }
     }
 
@@ -73,9 +73,89 @@ public class AssemblyEmulator {
 
     private void fillRegistersMaps(String line) {
         int index = line.indexOf("=");
-        String leftSide = getLeftSide(line.substring(0, index));
-        String rightSide = getRightSide(line.substring(index + 1, line.indexOf(";")));
-        registers.put(leftSide, Integer.parseInt(rightSide));
+        String leftSide = line.substring(0, index);
+        int rightSide = getValueOfTheRightSide(line.substring(index + 1, line.indexOf(";")));
+        registers.put(leftSide, rightSide);
+        System.out.println(leftSide + "       " + rightSide);
+    }
+
+    private int getAddress(String str) {
+        if (isNumber(str)) {
+            return Integer.parseInt(str) / 4; //zustad ar vici es
+        } else if (containsOperator(str)) {
+            //an sp + a an a + sp an a + r an r + 1 an r1 + r2
+            if(str.contains("SP")){
+                int res = computeResult(str);
+                return res;
+            }
+            return computeResult(str) / 4;
+        } else {
+            if (str.startsWith("R")) {
+                return registers.get(str) / 4;
+            } else {
+                return memory.length - 1;
+            }
+        }
+    }
+
+    private int getValueOfTheRightSide(String str) {
+        if (isNumber(str)) { //loads constants.
+            return Integer.parseInt(str);
+        } else if (str.charAt(0) == '-' && isNumber(str.substring(1))) { //is negative number.
+            return -1 * Integer.parseInt(str.substring(1));
+        } else if (containsOperator(str) && !str.startsWith("M")) {
+            //an sp + a an a + sp an a + r an r + 1 an r1 + r2
+            return computeResult(str);
+        } else if (str.startsWith("M")) {
+            int res = getAddress(str.substring(str.indexOf('[') + 1, str.indexOf(']')));
+            return memory[res];
+        } else {
+            if (str.startsWith("R")) {
+                return registers.get(str);
+            } else {
+                return memory.length - 1;
+            }
+        }
+    }
+
+    private int computeResult(String str) {
+        char operator = getOperator(str);
+        int index = str.indexOf(operator);
+        String first = str.substring(0, index);
+        String second = str.substring(index + 1);
+        if (isNumber(first)) {
+            return computeValue(first, second, operator, true);
+        } else if (isNumber(second)) {
+            return computeValue(second, first, operator, false);
+        } else if (isNumber(first) && isNumber(second)) {
+            return Integer.parseInt(first) + Integer.parseInt(second);
+        } else {
+            int value1 = registers.get(first);
+            int value2 = registers.get(second);
+            return compute(value1, value2, operator);
+        }
+    }
+
+    private int computeValue(String first, String second, char operator, boolean isOrdered) {
+        if (second.startsWith("S")) {
+            return findMemoryArrayIndex(operator, Integer.parseInt(first));
+        } else {
+            //starts with R.
+            int val = registers.get(second);
+            if (isOrdered) {
+                return compute(Integer.parseInt(first), val, operator);
+            } else {
+                return compute(val, Integer.parseInt(first), operator);
+            }
+        }
+    }
+
+    private int findMemoryArrayIndex(char operator, int number) {
+        if (operator == '+') {
+            return memory.length - number / 4 - 1;
+        } else {
+            return memory.length + number / 4 - 1;
+        }
     }
 
     private void allocateMemory(String line) {
@@ -85,6 +165,7 @@ public class AssemblyEmulator {
     }
 
     private void resizeMemory(int size) {
+        System.out.println("size " + size);
         int[] curr = new int[size];
         for (int i = 0; i < Math.min(size, memory.length); i++) {
             curr[i] = memory[i];
@@ -104,59 +185,15 @@ public class AssemblyEmulator {
 
     private String getLeftSide(String str) {
         if (str.startsWith("R")) {
-            return str;
+            return str.substring(0, str.indexOf("="));
         } else if (str.startsWith("M")) {
             String address = str.substring(str.indexOf("[") + 1, str.indexOf("]"));
             int res = getAddress(address);
             return Integer.toString(res);
         } else if (str.startsWith("S")) {
-            return str;
+            return str.substring(0, str.indexOf("="));
         }
         return "";
-    }
-
-    private int getAddress(String address) {
-        if (isNumber(address)) {
-            return Integer.parseInt(address);
-        } else if (Character.isDigit(address.charAt(0))) {
-            //anu ragac aseti weria 2 + R1
-            char operator = getOperator(address);
-            int index = address.indexOf(operator);
-            int a = Integer.parseInt(address.substring(0, index));
-            int b = 0;
-            if (address.charAt(index + 1) == 'R') {
-                b = registers.get(address.substring(index + 1));
-                return compute(a, b, operator);
-            } else {
-                //anu a + sp.
-                return a + 4 * memory.length;
-            }
-        } else if (address.startsWith("R")) {
-            //sheidzleba marto registri iyos an r + 4
-            if (containsOperator(address)) {
-                char operator = getOperator(address);
-                int index = address.indexOf(operator);
-                int a = registers.get(address.substring(0, index));
-                int b = Integer.parseInt(address.substring(index + 1));
-                return compute(a, b, operator);
-            } else {
-                //anu marto registria
-                return registers.get(address);
-            }
-        } else {
-            //sp+a.
-            if (containsOperator(address)) {
-                char operator = getOperator(address);
-                int index = address.indexOf(operator);
-                int a = Integer.parseInt(address.substring(index + 1));
-                if(operator == '+'){
-                    return 4 * memory.length - a;
-                }
-                return a + 4 * memory.length;
-            } else {
-                return memory.length - 1;
-            }
-        }
     }
 
     private boolean containsOperator(String address) {
@@ -191,44 +228,6 @@ public class AssemblyEmulator {
             }
         }
         return true;
-    }
-
-    private String getRightSide(String str) {
-        if (isNumber(str)) { //loads constants.
-            return str;
-        } else if (str.charAt(0) == '-' && isNumber(str.substring(1))) { //is negative number.
-            return str;
-        } else if (containsOperator(str) && !str.startsWith("M")) { //anu unda daviangarisho
-            char operator = getOperator(str);
-            int index = str.indexOf(operator);
-            int a = 0;
-            int b = 0;
-            if(registers.containsKey(str.substring(0, index))){
-                a = registers.get(str.substring(0, index));
-            } else if(str.startsWith("S")){
-                a = memory.length - 1;
-            } else {
-                a = Integer.parseInt(str.substring(0, index));
-            }
-            if(registers.containsKey(str.substring(index + 1))){
-                b = registers.get(str.substring(index + 1));
-            } else if(str.charAt(index + 1) == 'S'){
-                b = memory.length - 1;
-            } else {
-                b = Integer.parseInt(str.substring(index + 1));
-            }
-            return Integer.toString(compute(a, b, operator));
-        } else if (str.startsWith("R")) {
-            //anu marto registria
-            return Integer.toString(registers.get(str));
-        } else if(str.startsWith("S")) {
-            return Integer.toString(memory.length - 1);
-        } else {
-            //anu M-it iwyeba.
-            int res = getAddress(str.substring(str.indexOf('[') + 1, str.indexOf(']')));
-            //daabrune mag misamartze ra mnishvnelobaa
-            return Integer.toString(memory[res / 4]);
-        }
     }
 
     public static void main(String[] args) throws IOException {
