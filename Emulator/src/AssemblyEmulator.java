@@ -5,13 +5,13 @@ import java.util.*;
 
 public class AssemblyEmulator {
 
-    private Map<String, Integer> registers;
-    private int[] memory;
+    private Map<String, Double> registers;
+    private double[] memory;
 
     public AssemblyEmulator(FileReader file) throws IOException {
         ArrayList<String> list = readFile(file);
         registers = new HashMap<>();
-        memory = new int[0];
+        memory = new double[0];
         for (int i = 0; i < list.size(); i++) {
             processLine(list.get(i));
         }
@@ -36,30 +36,45 @@ public class AssemblyEmulator {
             } else if (left.startsWith("S")) {
                 allocateMemory(line);
             } else if (line.startsWith("M")) {
-                fillMemoryArray(Integer.parseInt(left), line);
+                fillMemoryArray(Double.parseDouble(left), line);
             }
         }
     }
 
-    private void fillMemoryArray(int location, String line) {
+    private void fillMemoryArray(double location, String line) {
         if (location >= memory.length) {
             System.out.println(location + " " + memory.length);
             System.out.println("error");
         } else {
             String str = line.substring(line.indexOf("=") + 1, line.indexOf(";"));
-            char c = '0';
-            if(str.startsWith(".")){
-                c = str.charAt(1);
-                str = str.substring(2);
-            }
-            int res = getValueOfTheRightSide(str);
-            if(c != '0'){
-                int n = c - '0';
-                n = 32 - n * 8;
-                res = res << n; //es vikitxo romel mxares aris sachiro gaweva.
-            }
-            memory[location] = res;
+            double res = computeBytes(str);
+            memory[(int)location] = res;
         }
+    }
+
+    private double computeBytes(String str) {
+        char c = '0';
+        boolean toInt = false;
+        if(str.startsWith(".")){
+            c = str.charAt(1);
+            str = str.substring(2);
+        } else if(str.startsWith("FTOI")) {
+            toInt = true;
+            str = str.substring(4);
+        }
+        double res = getValueOfTheRightSide(str);
+        if(toInt){
+            System.out.println("naruto");
+            int number = (int) res;
+            res = number;
+        }
+        if(c != '0'){
+            int n = c - '0';
+            n = 32 - n * 8;
+            System.out.println(res); //double-is saxit cota sxvanairi ricxvi iwereba da iyos ase?
+            res = (int)res << n; //es vikitxo romel mxares aris sachiro gaweva.
+        }
+        return res;
     }
 
     private ArrayList<String> readFile(FileReader file) throws IOException {
@@ -86,28 +101,18 @@ public class AssemblyEmulator {
         int index = line.indexOf("=");
         String leftSide = line.substring(0, index);
         String str = line.substring(index + 1, line.indexOf(";"));
-        char c = '0';
-        if(str.startsWith(".")){
-            c = str.charAt(1);
-            str = str.substring(2);
-        }
-        int rightSide = getValueOfTheRightSide(str);
-        if(c != '0'){
-            int n = c - '0';
-            n = 32 - n * 8;
-            rightSide = rightSide << n; //es vikitxo romel mxares aris sachiro gaweva.
-        }
+        double rightSide = computeBytes(str);
         registers.put(leftSide, rightSide);
         System.out.println(leftSide + "       " + rightSide);
     }
 
-    private int getAddress(String str) {
+    private double getAddress(String str) {
         if (isNumber(str)) {
             return Integer.parseInt(str) / 4; //zustad ar vici es
         } else if (containsOperator(str)) {
             //an sp + a an a + sp an a + r an r + 1 an r1 + r2
             if(str.contains("SP")){
-                int res = computeResult(str);
+                double res = computeResult(str);
                 return res;
             }
             return computeResult(str) / 4;
@@ -120,18 +125,18 @@ public class AssemblyEmulator {
         }
     }
 
-    private int getValueOfTheRightSide(String str) {
+    private double getValueOfTheRightSide(String str) {
         if (isNumber(str)) { //loads constants.
-            return Integer.parseInt(str);
+            return Double.parseDouble(str);
         } else if (str.charAt(0) == '-' && isNumber(str.substring(1))) { //is negative number.
-            return -1 * Integer.parseInt(str.substring(1));
+            return -1 * Double.parseDouble(str.substring(1));
         } else if (containsOperator(str) && !str.startsWith("M")) {
             //an sp + a an a + sp an a + r an r + 1 an r1 + r2
             return computeResult(str);
         } else if (str.startsWith("M")) {
-            int res = getAddress(str.substring(str.indexOf('[') + 1, str.indexOf(']')));
-            return memory[res];
-        } else {
+            double res = getAddress(str.substring(str.indexOf('[') + 1, str.indexOf(']')));
+            return memory[(int)res];
+        }else {
             if (str.startsWith("R")) {
                 return registers.get(str);
             } else {
@@ -140,7 +145,7 @@ public class AssemblyEmulator {
         }
     }
 
-    private int computeResult(String str) {
+    private double computeResult(String str) {
         char operator = getOperator(str);
         int index = str.indexOf(operator);
         String first = str.substring(0, index);
@@ -152,18 +157,18 @@ public class AssemblyEmulator {
         } else if (isNumber(first) && isNumber(second)) {
             return Integer.parseInt(first) + Integer.parseInt(second);
         } else {
-            int value1 = registers.get(first);
-            int value2 = registers.get(second);
+            double value1 = registers.get(first);
+            double value2 = registers.get(second);
             return compute(value1, value2, operator);
         }
     }
 
-    private int computeValue(String first, String second, char operator, boolean isOrdered) {
+    private double computeValue(String first, String second, char operator, boolean isOrdered) {
         if (second.startsWith("S")) {
             return findMemoryArrayIndex(operator, Integer.parseInt(first));
         } else {
             //starts with R.
-            int val = registers.get(second);
+            double val = registers.get(second);
             if (isOrdered) {
                 return compute(Integer.parseInt(first), val, operator);
             } else {
@@ -188,7 +193,7 @@ public class AssemblyEmulator {
 
     private void resizeMemory(int size) {
         System.out.println("size " + size);
-        int[] curr = new int[size];
+        double[] curr = new double[size];
         for (int i = 0; i < Math.min(size, memory.length); i++) {
             curr[i] = memory[i];
         }
@@ -210,8 +215,8 @@ public class AssemblyEmulator {
             return str.substring(0, str.indexOf("="));
         } else if (str.startsWith("M")) {
             String address = str.substring(str.indexOf("[") + 1, str.indexOf("]"));
-            int res = getAddress(address);
-            return Integer.toString(res);
+            double res = getAddress(address);
+            return Double.toString(res);
         } else if (str.startsWith("S")) {
             return str.substring(0, str.indexOf("="));
         }
@@ -222,7 +227,7 @@ public class AssemblyEmulator {
         return address.indexOf('+') != -1 || address.indexOf('-') != -1 || address.indexOf('*') != -1 || address.indexOf('/') != -1;
     }
 
-    private int compute(int a, int b, char operator) {
+    private double compute(double a, double b, char operator) {
         if (operator == '+') {
             return a + b;
         } else if (operator == '-') {
@@ -245,7 +250,7 @@ public class AssemblyEmulator {
 
     private boolean isNumber(String address) {
         for (int i = 0; i < address.length(); i++) {
-            if (!Character.isDigit(address.charAt(i))) {
+            if (!Character.isDigit(address.charAt(i)) && address.charAt(i) != '.') {
                 return false;
             }
         }
