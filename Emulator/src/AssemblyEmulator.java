@@ -46,7 +46,18 @@ public class AssemblyEmulator {
             System.out.println(location + " " + memory.length);
             System.out.println("error");
         } else {
-            int res = getValueOfTheRightSide(line.substring(line.indexOf("=") + 1, line.indexOf(";")));
+            String str = line.substring(line.indexOf("=") + 1, line.indexOf(";"));
+            char c = '0';
+            if(str.startsWith(".")){
+                c = str.charAt(1);
+                str = str.substring(2);
+            }
+            int res = getValueOfTheRightSide(str);
+            if(c != '0'){
+                int n = c - '0';
+                n = 32 - n * 8;
+                res = res << n; //es vikitxo romel mxares aris sachiro gaweva.
+            }
             memory[location] = res;
         }
     }
@@ -74,7 +85,18 @@ public class AssemblyEmulator {
     private void fillRegistersMaps(String line) {
         int index = line.indexOf("=");
         String leftSide = line.substring(0, index);
-        int rightSide = getValueOfTheRightSide(line.substring(index + 1, line.indexOf(";")));
+        String str = line.substring(index + 1, line.indexOf(";"));
+        char c = '0';
+        if(str.startsWith(".")){
+            c = str.charAt(1);
+            str = str.substring(2);
+        }
+        int rightSide = getValueOfTheRightSide(str);
+        if(c != '0'){
+            int n = c - '0';
+            n = 32 - n * 8;
+            rightSide = rightSide << n; //es vikitxo romel mxares aris sachiro gaweva.
+        }
         registers.put(leftSide, rightSide);
         System.out.println(leftSide + "       " + rightSide);
     }
