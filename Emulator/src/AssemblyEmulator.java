@@ -13,7 +13,12 @@ public class AssemblyEmulator {
         registers = new HashMap<>();
         memory = new double[0];
         for (int i = 0; i < list.size(); i++) {
-            processLine(list.get(i));
+            int line = processLine(list.get(i), i);
+            if(line != -1){
+                i = line - 1;
+                System.out.println("sasuke");
+            }
+            System.out.println("i " + i);
         }
         printMap();
         printMemory();
@@ -26,7 +31,7 @@ public class AssemblyEmulator {
         }
     }
 
-    private void processLine(String line) {
+    private int processLine(String line, int numberOfLine) {
         line = line.replaceAll(" ", ""); //Delete white spaces.
         if (!line.equals("")) {
             line = line.toUpperCase(Locale.ROOT);
@@ -37,6 +42,58 @@ public class AssemblyEmulator {
                 allocateMemory(line);
             } else if (line.startsWith("M")) {
                 fillMemoryArray(Double.parseDouble(left), line);
+            } else if (line.startsWith("B")) {
+                return branches(line, numberOfLine);
+            }
+        }
+        return -1;
+    }
+
+    private int branches(String str, int numberOfLine) {
+        String type = str.substring(0, 3);
+        int index = str.indexOf(',');
+        double a = getValue(str.substring(3, index), numberOfLine);
+        double b = getValue(str.substring(index + 1, str.indexOf(',', index + 1)), numberOfLine);
+        int pc = (int) getValue(str.substring(str.indexOf(',', index + 1) + 1, str.indexOf(";")), numberOfLine);
+        System.out.println("a " + a + " b= " + b + " pc= " + pc );
+        return compareValues(type, a, b, pc);
+    }
+
+    private int compareValues(String type, double n, double m, int pc) {
+        boolean isTrue = false;
+        if (type.equals("BLT")) {
+            if (n < m) isTrue = true;
+        } else if (type.equals("BLE")) {
+            if (n <= m) isTrue = true;
+        } else if (type.equals("BEQ")) {
+            if (n == m) isTrue = true;
+        } else if (type.equals("BNE")) {
+            if (n != m) isTrue = true;
+        } else if (type.equals("BGT")) {
+            if (n > m) isTrue = true;
+        } else if (type.equals("BGE")) {
+            if (n >= m) isTrue = true;
+        }
+        if (isTrue) return pc;
+        return -1;
+    }
+
+    private double getValue(String str, int numberOfLine) {
+        if (str.startsWith("R")) {
+            return registers.get(str);
+        } else if (isNumber(str)) {
+            return Double.parseDouble(str);
+        } else {
+            if (containsOperator(str)) {
+                char operator = getOperator(str);
+                int number = Integer.parseInt(str.substring(str.indexOf(operator) + 1)) / 4;
+                if (operator == '-') {
+                    return numberOfLine - number;
+                } else {
+                    return numberOfLine + number;
+                }
+            } else {
+                return numberOfLine;
             }
         }
     }
@@ -48,31 +105,31 @@ public class AssemblyEmulator {
         } else {
             String str = line.substring(line.indexOf("=") + 1, line.indexOf(";"));
             double res = computeBytes(str);
-            memory[(int)location] = res;
+            memory[(int) location] = res;
         }
     }
 
     private double computeBytes(String str) {
         char c = '0';
         boolean toInt = false;
-        if(str.startsWith(".")){
+        if (str.startsWith(".")) {
             c = str.charAt(1);
             str = str.substring(2);
-        } else if(str.startsWith("FTOI")) {
+        } else if (str.startsWith("FTOI")) {
             toInt = true;
             str = str.substring(4);
         }
         double res = getValueOfTheRightSide(str);
-        if(toInt){
+        if (toInt) {
             System.out.println("naruto");
             int number = (int) res;
             res = number;
         }
-        if(c != '0'){
+        if (c != '0') {
             int n = c - '0';
             n = 32 - n * 8;
             System.out.println(res); //double-is saxit cota sxvanairi ricxvi iwereba da iyos ase?
-            res = (int)res << n; //es vikitxo romel mxares aris sachiro gaweva.
+            res = (int) res << n; //es vikitxo romel mxares aris sachiro gaweva.
         }
         return res;
     }
@@ -111,7 +168,7 @@ public class AssemblyEmulator {
             return Integer.parseInt(str) / 4; //zustad ar vici es
         } else if (containsOperator(str)) {
             //an sp + a an a + sp an a + r an r + 1 an r1 + r2
-            if(str.contains("SP")){
+            if (str.contains("SP")) {
                 double res = computeResult(str);
                 return res;
             }
@@ -135,8 +192,8 @@ public class AssemblyEmulator {
             return computeResult(str);
         } else if (str.startsWith("M")) {
             double res = getAddress(str.substring(str.indexOf('[') + 1, str.indexOf(']')));
-            return memory[(int)res];
-        }else {
+            return memory[(int) res];
+        } else {
             if (str.startsWith("R")) {
                 return registers.get(str);
             } else {
