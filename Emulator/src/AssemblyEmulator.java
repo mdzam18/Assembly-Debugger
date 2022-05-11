@@ -13,12 +13,12 @@ public class AssemblyEmulator {
         registers = new HashMap<>();
         memory = new double[0];
         for (int i = 0; i < list.size(); i++) {
+            System.out.println("i " + i);
             int line = processLine(list.get(i), i);
             if(line != -1){
                 i = line - 1;
-                System.out.println("sasuke");
+                System.out.println("sasukeeeee");
             }
-            System.out.println("i " + i);
         }
         printMap();
         printMemory();
@@ -44,9 +44,18 @@ public class AssemblyEmulator {
                 fillMemoryArray(Double.parseDouble(left), line);
             } else if (line.startsWith("B")) {
                 return branches(line, numberOfLine);
+            } else if (line.startsWith("J")) {
+                return jump(line, numberOfLine);
             }
         }
         return -1;
+    }
+
+    private int jump(String str, int numberOfLine){
+        String s = str.substring(3, str.length() - 1);
+        int pc = (int) getValue(s, numberOfLine);
+        System.out.println("pc " + (pc+1));
+        return pc + 1;
     }
 
     private int branches(String str, int numberOfLine) {
@@ -55,6 +64,7 @@ public class AssemblyEmulator {
         double a = getValue(str.substring(3, index), numberOfLine);
         double b = getValue(str.substring(index + 1, str.indexOf(',', index + 1)), numberOfLine);
         int pc = (int) getValue(str.substring(str.indexOf(',', index + 1) + 1, str.indexOf(";")), numberOfLine);
+        System.out.println(str);
         System.out.println("a " + a + " b= " + b + " pc= " + pc );
         return compareValues(type, a, b, pc);
     }
@@ -79,6 +89,7 @@ public class AssemblyEmulator {
     }
 
     private double getValue(String str, int numberOfLine) {
+        //M[sp] ეგეთი ოპერაცია არ მოსულაო, ეწერა.
         if (str.startsWith("R")) {
             return registers.get(str);
         } else if (isNumber(str)) {
@@ -121,14 +132,13 @@ public class AssemblyEmulator {
         }
         double res = getValueOfTheRightSide(str);
         if (toInt) {
-            System.out.println("naruto");
             int number = (int) res;
             res = number;
         }
         if (c != '0') {
             int n = c - '0';
             n = 32 - n * 8;
-            System.out.println(res); //double-is saxit cota sxvanairi ricxvi iwereba da iyos ase?
+         //   System.out.println(res); //double-is saxit cota sxvanairi ricxvi iwereba da iyos ase?
             res = (int) res << n; //es vikitxo romel mxares aris sachiro gaweva.
         }
         return res;
@@ -160,7 +170,7 @@ public class AssemblyEmulator {
         String str = line.substring(index + 1, line.indexOf(";"));
         double rightSide = computeBytes(str);
         registers.put(leftSide, rightSide);
-        System.out.println(leftSide + "       " + rightSide);
+     //   System.out.println(leftSide + "       " + rightSide);
     }
 
     private double getAddress(String str) {
@@ -249,7 +259,7 @@ public class AssemblyEmulator {
     }
 
     private void resizeMemory(int size) {
-        System.out.println("size " + size);
+       // System.out.println("size " + size);
         double[] curr = new double[size];
         for (int i = 0; i < Math.min(size, memory.length); i++) {
             curr[i] = memory[i];

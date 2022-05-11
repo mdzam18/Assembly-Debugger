@@ -1,9 +1,10 @@
-sp = sp - 4;
-M[sp] = 2;
+sp = sp - 8;
 r1 = sp;
-R2 = M[R1];
-BLT R2, 0, PC+12 ;
-R3 = R2 * 2 ; multiply i by 2
-M[R1] = R3 ; store result back in i
-M[R1] = 10;
-
+M[R1] = 0 ;
+R2 = M[R1] ;
+BGE R2, 2, PC+20 ;
+M[R1 + 4] =.1 97 ;
+R2 = R2 + 1 ;
+M[R1] = R2 ;
+JMP PC-20 ;
+M[R1] = 25;
