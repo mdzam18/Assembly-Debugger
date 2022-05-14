@@ -6,37 +6,74 @@ import java.util.*;
 public class AssemblyEmulator {
 
     private Map<String, Double> registers;
+    private Map<String, Integer> functions;
+    private Map<Integer, String> returns;
+    private Map<String, Integer> functionCalls;
+    private ArrayList<String> list;
     private double[] memory;
+    private double rv;
 
     public AssemblyEmulator(FileReader file) throws IOException {
-        ArrayList<String> list = readFile(file);
-        registers = new HashMap<>();
-        memory = new double[0];
-        for (int i = 0; i < list.size(); i++) {
+        init();
+        readFile(file);
+        int start = functions.get("FUNCTIONMAIN");
+        fillReturnsIndex();
+        //list.size() -1 imitom rom boloshi sruldeba ret-it.
+        for (int i = start + 1; i < list.size(); i++) {
             System.out.println("i " + i);
-            int line = processLine(list.get(i), i);
-            if(line != -1){
-                i = line - 1;
-                System.out.println("sasukeeeee");
+            if(i == (list.size() - 1)){
+               deleteSavedPC();
+            } else {
+                int line = processLine(list.get(i), i);
+                if (line != -1) {
+                    i = line - 1;
+                }
             }
-        }
+        };
         printMap();
         printMemory();
+        System.out.println("RV: " + rv);
+    }
+
+    private void fillReturnsIndex(){
+        for(int i = 0 ; i < list.size(); i++){
+            if(list.get(i).startsWith("FUNCTION")){
+                getAllReturns(i+1, list.get(i).substring(0, list.get(i).length() - 1));
+            }
+        }
+    }
+
+    private void getAllReturns(int index, String name){
+        for(int i = index; i < list.size(); i++){
+            if(list.get(i).startsWith("FUNCTION")){
+                break;
+            }
+            if(list.get(i).startsWith("RET")){
+                returns.put(i, name);
+            }
+        }
+    }
+
+    private void init(){
+        returns = new HashMap<>();
+        list = new ArrayList<>();
+        registers = new HashMap<>();
+        functions = new HashMap<>();
+        functionCalls = new HashMap<>();
+        memory = new double[1]; //saved pc
     }
 
     private void printMemory() {
         for (int i = 0; i < memory.length; i++) {
-            System.out.println(i);
-            System.out.println(memory[i]);
+            System.out.println(i + " " + memory[i]);
         }
     }
 
     private int processLine(String line, int numberOfLine) {
-        line = line.replaceAll(" ", ""); //Delete white spaces.
         if (!line.equals("")) {
             line = line.toUpperCase(Locale.ROOT);
             String left = getLeftSide(line);
-            if (left.startsWith("R")) {
+            if (left.startsWith("R") && !left.startsWith("RET") && !left.startsWith("RV")) {
                 fillRegistersMaps(line);
             } else if (left.startsWith("S")) {
                 allocateMemory(line);
@@ -46,6 +83,34 @@ public class AssemblyEmulator {
                 return branches(line, numberOfLine);
             } else if (line.startsWith("J")) {
                 return jump(line, numberOfLine);
+            } else if(line.startsWith("FUNCTION") && numberOfLine != functions.get("FUNCTIONMAIN")){
+                line = line.substring(8, line.length() - 1);
+                functions.put(line, numberOfLine);
+                int index = getReturnIndex(numberOfLine);
+                returns.put(index, line);
+            } else if(line.startsWith("CALL")){
+                //call
+                line = line.substring(line.indexOf('<') + 1 , line.indexOf(('>')));
+                resizeMemory(memory.length + 1); //add saved pc
+                String str = "FUNCTION" + line;
+                functionCalls.put(str, numberOfLine);
+                return functions.get(str) + 1;
+            } else if(line.startsWith("RET")){
+                //RET
+                resizeMemory(memory.length - 1); //delete saved pc
+                return functionCalls.get(returns.get(numberOfLine)) + 1;
+            } else if(line.startsWith("RV")){
+                rv = getValueOfTheRightSide(line.substring(3, line.length() - 1));
+                System.out.println("RV " + rv);
+            }
+        }
+        return -1;
+    }
+
+    private int getReturnIndex(int index){
+        for(int i = index; i < list.size(); i++){
+            if(list.get(i).startsWith("RET")){
+                return i;
             }
         }
         return -1;
@@ -54,7 +119,6 @@ public class AssemblyEmulator {
     private int jump(String str, int numberOfLine){
         String s = str.substring(3, str.length() - 1);
         int pc = (int) getValue(s, numberOfLine);
-        System.out.println("pc " + (pc+1));
         return pc + 1;
     }
 
@@ -64,8 +128,6 @@ public class AssemblyEmulator {
         double a = getValue(str.substring(3, index), numberOfLine);
         double b = getValue(str.substring(index + 1, str.indexOf(',', index + 1)), numberOfLine);
         int pc = (int) getValue(str.substring(str.indexOf(',', index + 1) + 1, str.indexOf(";")), numberOfLine);
-        System.out.println(str);
-        System.out.println("a " + a + " b= " + b + " pc= " + pc );
         return compareValues(type, a, b, pc);
     }
 
@@ -90,7 +152,7 @@ public class AssemblyEmulator {
 
     private double getValue(String str, int numberOfLine) {
         //M[sp] ეგეთი ოპერაცია არ მოსულაო, ეწერა.
-        if (str.startsWith("R")) {
+        if (str.startsWith("R") && !str.startsWith("RET") && !str.startsWith("RV")) {
             return registers.get(str);
         } else if (isNumber(str)) {
             return Double.parseDouble(str);
@@ -140,22 +202,29 @@ public class AssemblyEmulator {
             n = 32 - n * 8;
          //   System.out.println(res); //double-is saxit cota sxvanairi ricxvi iwereba da iyos ase?
             res = (int) res << n; //es vikitxo romel mxares aris sachiro gaweva.
+            res = (int) res >> n;
         }
         return res;
     }
 
-    private ArrayList<String> readFile(FileReader file) throws IOException {
-        ArrayList<String> list = new ArrayList<>();
+    private void readFile(FileReader file) throws IOException {
         BufferedReader rd = new BufferedReader(file);
+        int number = 0;
         while (true) {
             String line = rd.readLine();
             if (line == null) {
                 break;
             }
+            line = line.replaceAll(" ", ""); //Delete white spaces.
+            line = line.toUpperCase(Locale.ROOT);
+            if(line.startsWith("FUNCTION")){
+                String str = line.substring(0, line.length() - 1);
+                functions.put(str, number);
+            }
             list.add(line);
+            number++;
         }
         rd.close();
-        return list;
     }
 
     private void printMap() {
@@ -170,7 +239,7 @@ public class AssemblyEmulator {
         String str = line.substring(index + 1, line.indexOf(";"));
         double rightSide = computeBytes(str);
         registers.put(leftSide, rightSide);
-     //   System.out.println(leftSide + "       " + rightSide);
+        System.out.println(leftSide + " " + rightSide + " registers");
     }
 
     private double getAddress(String str) {
@@ -184,7 +253,7 @@ public class AssemblyEmulator {
             }
             return computeResult(str) / 4;
         } else {
-            if (str.startsWith("R")) {
+            if (str.startsWith("R") && !str.startsWith("RET") && !str.startsWith("RV")) {
                 return registers.get(str) / 4;
             } else {
                 return memory.length - 1;
@@ -203,8 +272,10 @@ public class AssemblyEmulator {
         } else if (str.startsWith("M")) {
             double res = getAddress(str.substring(str.indexOf('[') + 1, str.indexOf(']')));
             return memory[(int) res];
+        } else if(str.startsWith("RV")) {
+            return rv;
         } else {
-            if (str.startsWith("R")) {
+            if (str.startsWith("R") && !str.startsWith("RET")) {
                 return registers.get(str);
             } else {
                 return memory.length - 1;
@@ -217,6 +288,12 @@ public class AssemblyEmulator {
         int index = str.indexOf(operator);
         String first = str.substring(0, index);
         String second = str.substring(index + 1);
+        if(first.startsWith("RV")){
+            first = Double.toString(rv);
+        }
+        if(second.startsWith("RV")){
+            second = Double.toString(rv);
+        }
         if (isNumber(first)) {
             return computeValue(first, second, operator, true);
         } else if (isNumber(second)) {
@@ -237,9 +314,9 @@ public class AssemblyEmulator {
             //starts with R.
             double val = registers.get(second);
             if (isOrdered) {
-                return compute(Integer.parseInt(first), val, operator);
+                return compute(Double.parseDouble(first), val, operator);
             } else {
-                return compute(val, Integer.parseInt(first), operator);
+                return compute(val, Double.parseDouble(first), operator);
             }
         }
     }
@@ -256,6 +333,14 @@ public class AssemblyEmulator {
         int index = line.indexOf("=");
         int size = computeMemorySize(line.substring(index + 1, line.indexOf(";")));
         resizeMemory(size);
+    }
+
+    private void deleteSavedPC(){
+        double[] curr = new double[memory.length - 1];
+        for (int i = 1; i < memory.length; i++) {
+            curr[i - 1] = memory[i];
+        }
+        memory = curr;
     }
 
     private void resizeMemory(int size) {
@@ -278,7 +363,9 @@ public class AssemblyEmulator {
     }
 
     private String getLeftSide(String str) {
-        if (str.startsWith("R")) {
+        if(str.startsWith("RET")){
+            return "RET";
+        }else if (str.startsWith("R")) {
             return str.substring(0, str.indexOf("="));
         } else if (str.startsWith("M")) {
             String address = str.substring(str.indexOf("[") + 1, str.indexOf("]"));
