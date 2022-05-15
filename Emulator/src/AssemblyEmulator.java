@@ -90,14 +90,19 @@ public class AssemblyEmulator {
                 returns.put(index, line);
             } else if(line.startsWith("CALL")){
                 //call
-                line = line.substring(line.indexOf('<') + 1 , line.indexOf(('>')));
-                resizeMemory(memory.length + 1); //add saved pc
-                String str = "FUNCTION" + line;
-                functionCalls.put(str, numberOfLine);
-                return functions.get(str) + 1;
+                if(line.contains("<")) {
+                    line = line.substring(line.indexOf('<') + 1, line.indexOf(('>')));
+                    resizeMemory(memory.length + 1); //add saved pc
+                    String str = "FUNCTION" + line;
+                    functionCalls.put(str, numberOfLine);
+                    callFunction(str);
+                    resizeMemory(memory.length - 1); //delete saved pc
+                } else {
+                    Double result = getAddress(line.substring(4, line.length() - 1));
+                    //memory[(int)result]
+                }
             } else if(line.startsWith("RET")){
                 //RET
-                resizeMemory(memory.length - 1); //delete saved pc
                 return functionCalls.get(returns.get(numberOfLine)) + 1;
             } else if(line.startsWith("RV")){
                 rv = getValueOfTheRightSide(line.substring(3, line.length() - 1));
@@ -105,6 +110,19 @@ public class AssemblyEmulator {
             }
         }
         return -1;
+    }
+
+    private void callFunction(String name){
+        int index = functions.get(name) + 1;
+        for(int i = index; i < list.size(); i++){
+            if(list.get(i).startsWith("RET")){
+                break;
+            }
+            int x = processLine(list.get(i), i);
+            if (x != -1) {
+                i = x - 1;
+            }
+        }
     }
 
     private int getReturnIndex(int index){
@@ -244,7 +262,7 @@ public class AssemblyEmulator {
 
     private double getAddress(String str) {
         if (isNumber(str)) {
-            return Integer.parseInt(str) / 4; //zustad ar vici es
+            return Double.parseDouble(str) / 4; //zustad ar vici es
         } else if (containsOperator(str)) {
             //an sp + a an a + sp an a + r an r + 1 an r1 + r2
             if (str.contains("SP")) {
