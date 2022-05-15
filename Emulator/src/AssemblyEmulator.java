@@ -170,6 +170,9 @@ public class AssemblyEmulator {
 
     private double getValue(String str, int numberOfLine) {
         //M[sp] ეგეთი ოპერაცია არ მოსულაო, ეწერა.
+        if(str.startsWith("RV")){
+            return rv;
+        }
         if (str.startsWith("R") && !str.startsWith("RET") && !str.startsWith("RV")) {
             return registers.get(str);
         } else if (isNumber(str)) {
