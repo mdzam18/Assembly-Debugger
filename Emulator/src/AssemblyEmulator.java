@@ -12,30 +12,51 @@ public class AssemblyEmulator {
     private ArrayList<String> list;
     private int[] memory;
     private int rv;
+    private int currentLine;
 
     public AssemblyEmulator(FileReader file) throws IOException {
         init();
         readFile(file);
-        int start = functions.get("FUNCTIONMAIN");
         fillReturnsIndex();
+        currentLine = functions.get("FUNCTIONMAIN");
+    }
+
+    public boolean next(){
+        System.out.println("currentLine " + currentLine);
         //list.size() -1 imitom rom boloshi sruldeba ret-it.
-        for (int i = start + 1; i < list.size(); i++) {
-            System.out.println("i " + i);
-            if(i == (list.size() - 1)){
-               deleteSavedPC();
-            } else {
-                int line = processLine(list.get(i), i);
-                if (line != -1) {
-                    i = line - 1;
-                }
+        if(currentLine == (list.size() - 1)){
+            deleteSavedPC();
+            currentLine++;
+            return false;
+        } else {
+            int line = processLine(list.get(currentLine), currentLine);
+            if (line != -1) {
+                currentLine = line - 1;
             }
-        };
+            currentLine++;
+            return true;
+        }
+    }
+
+    public boolean next(int line){
+        debug();
+        currentLine = line;
+        return next();
+    }
+
+    public void debug(){
+        currentLine = functions.get("FUNCTIONMAIN");
+        System.out.println("currentLine " + currentLine);
+        while (true){
+            boolean b = next();
+            if(!b){
+                break;
+            }
+        }
         printMap();
         printMemory();
         System.out.println("RV: " + rv);
     }
-
-
 
     private void fillReturnsIndex(){
         for(int i = 0 ; i < list.size(); i++){
@@ -436,5 +457,11 @@ public class AssemblyEmulator {
 
     public static void main(String[] args) throws IOException {
         AssemblyEmulator emulator = new AssemblyEmulator(new FileReader("\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\Emulator\\src\\assembly.txt"));
+        //emulator.debug();
+        emulator.next();
+        emulator.next();
+        emulator.next();
+        emulator.next();
+        emulator.next(6);
     }
 }
