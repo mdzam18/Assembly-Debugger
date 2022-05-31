@@ -10,6 +10,7 @@ public class AssemblyEmulator {
     private Map<Integer, String> returns;
     private Map<String, Integer> functionCalls;
     private ArrayList<String> list;
+    private Map<String, Integer> savedPc;
     private int[] memory;
     private int rv;
     private int currentLine;
@@ -18,6 +19,7 @@ public class AssemblyEmulator {
         init();
         readFile(file);
         fillReturnsIndex();
+        savedPc = new HashMap<>();
         currentLine = functions.get("FUNCTIONMAIN");
     }
 
@@ -456,7 +458,9 @@ public class AssemblyEmulator {
     }
 
     public static void main(String[] args) throws IOException {
-        AssemblyEmulator emulator = new AssemblyEmulator(new FileReader("\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\Emulator\\src\\assembly.txt"));
+        //"\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\Emulator\\src\\assembly.txt"
+        String fileName = args[0];
+        AssemblyEmulator emulator = new AssemblyEmulator(new FileReader(fileName));
         //emulator.debug();
         emulator.next();
         emulator.next();
