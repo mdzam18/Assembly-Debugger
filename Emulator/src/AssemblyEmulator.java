@@ -14,6 +14,7 @@ public class AssemblyEmulator {
     private int[] memory;
     private int rv;
     private int currentLine;
+    private String currentFunction;
 
     public AssemblyEmulator(FileReader file) throws IOException {
         init();
@@ -132,6 +133,9 @@ public class AssemblyEmulator {
             } else if(line.startsWith("RV")){
                 rv = getValueOfTheRightSide(line.substring(3, line.length() - 1));
                 System.out.println("RV " + rv);
+            } else if(line.startsWith("A")) {
+                //ASSERTS
+                asserts(line);
             }
         }
         return -1;
@@ -139,6 +143,10 @@ public class AssemblyEmulator {
 
     private void callFunction(String name){
         int index = functions.get(name) + 1;
+        String curr = name.substring(8);
+        if (curr.startsWith("TEST")) {
+            currentFunction = name;
+        }
         for(int i = index; i < list.size(); i++){
             if(list.get(i).startsWith("RET")){
                 break;
@@ -161,32 +169,54 @@ public class AssemblyEmulator {
 
     private int jump(String str, int numberOfLine){
         String s = str.substring(3, str.length() - 1);
-        int pc = (int) getValue(s, numberOfLine);
+        int pc = getValue(s, numberOfLine);
         return pc + 1;
     }
 
+    private void asserts(String str){
+        String type = str.substring(1, 3);
+        int index = str.indexOf(',');
+        int a = getValue(str.substring(3, index), 0);
+        int b = getValue(str.substring(index + 1, str.length() - 1), 0);
+        int result = compareValues(type, a, b, 0);
+        System.out.println(str + " " + type + " " + a +  " " + b);
+        if(result == 0){
+            //assert
+            int expected = a;
+            int got = b;
+            if(str.substring(3, index).equals("RV")){
+                expected = b;
+                got = a;
+            }
+            System.out.println(currentFunction.substring(8) + " " + "FAILED");
+            System.out.println("Expected " + expected + " Got " + got);
+        } else {
+            System.out.println(currentFunction.substring(8) + " " + "PASSED");
+        }
+    }
+
     private int branches(String str, int numberOfLine) {
-        String type = str.substring(0, 3);
+        String type = str.substring(1, 3);
         int index = str.indexOf(',');
         int a = getValue(str.substring(3, index), numberOfLine);
         int b = getValue(str.substring(index + 1, str.indexOf(',', index + 1)), numberOfLine);
-        int pc = (int) getValue(str.substring(str.indexOf(',', index + 1) + 1, str.indexOf(";")), numberOfLine);
+        int pc = getValue(str.substring(str.indexOf(',', index + 1) + 1, str.indexOf(";")), numberOfLine);
         return compareValues(type, a, b, pc);
     }
 
     private int compareValues(String type, int n, int m, int pc) {
         boolean isTrue = false;
-        if (type.equals("BLT")) {
+        if (type.equals("LT")) {
             if (n < m) isTrue = true;
-        } else if (type.equals("BLE")) {
+        } else if (type.equals("LE")) {
             if (n <= m) isTrue = true;
-        } else if (type.equals("BEQ")) {
+        } else if (type.equals("EQ")) {
             if (n == m) isTrue = true;
-        } else if (type.equals("BNE")) {
+        } else if (type.equals("NE")) {
             if (n != m) isTrue = true;
-        } else if (type.equals("BGT")) {
+        } else if (type.equals("GT")) {
             if (n > m) isTrue = true;
-        } else if (type.equals("BGE")) {
+        } else if (type.equals("GE")) {
             if (n >= m) isTrue = true;
         }
         if (isTrue) return pc;
@@ -247,8 +277,8 @@ public class AssemblyEmulator {
             int n = c - '0';
             n = 32 - n * 8;
          //   System.out.println(res); //double-is saxit cota sxvanairi ricxvi iwereba da iyos ase?
-            res = (int) res << n; //es vikitxo romel mxares aris sachiro gaweva.
-            res = (int) res >> n;
+            res =  res << n;
+            res =  res >> n;
         }
         return res;
     }
@@ -458,14 +488,14 @@ public class AssemblyEmulator {
     }
 
     public static void main(String[] args) throws IOException {
-        //"\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\Emulator\\src\\assembly.txt"
-        String fileName = args[0];
+        String fileName = "\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\Emulator\\src\\assembly.txt";
+       // String fileName = args[0];
         AssemblyEmulator emulator = new AssemblyEmulator(new FileReader(fileName));
-        //emulator.debug();
-        emulator.next();
-        emulator.next();
-        emulator.next();
-        emulator.next();
-        emulator.next(6);
+        emulator.debug();
+//        emulator.next();
+//        emulator.next();
+//        emulator.next();
+//        emulator.next();
+//        emulator.next(6);
     }
 }
