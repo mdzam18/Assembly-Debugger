@@ -30,7 +30,7 @@ public class AssemblyEmulator {
         return registers;
     }
 
-    public boolean next() {
+    public boolean next() throws Exception {
         //list.size() -1 imitom rom boloshi sruldeba ret-it.
         if (currentLine == (list.size() - 1)) {
             deleteSavedPC();
@@ -65,7 +65,7 @@ public class AssemblyEmulator {
         }
     }
 
-    public boolean next(int line) {
+    public boolean next(int line) throws Exception {
         debug();
         currentLine = line; //anu i+1 gamova
         return next();
@@ -87,7 +87,7 @@ public class AssemblyEmulator {
         currentLine = functions.get("FUNCTIONMAIN");
     }
 
-    public void debug() {
+    public void debug() throws Exception {
         initAgain();
         while (true) {
           //  getCallStack();
@@ -151,11 +151,11 @@ public class AssemblyEmulator {
     }
 
     public boolean next2() {
-        //erti xazit rom gadavides metodshic eg minda
+        //erti xazit rom gadavides metodshic, eg minda
         return true;
     }
 
-    private int processLine(String line, int numberOfLine) {
+    private int processLine(String line, int numberOfLine) throws Exception {
         printMemory();
         if (!line.equals("")) {
             line = line.toUpperCase(Locale.ROOT);
@@ -209,7 +209,7 @@ public class AssemblyEmulator {
         return -1;
     }
 
-    private void callFunction(String name) {
+    private void callFunction(String name) throws Exception {
         int index = functions.get(name) + 1;
         String curr = name.substring(8);
         if (curr.startsWith("TEST")) {
@@ -235,13 +235,13 @@ public class AssemblyEmulator {
         return -1;
     }
 
-    private int jump(String str, int numberOfLine) {
+    private int jump(String str, int numberOfLine) throws Exception {
         String s = str.substring(3, str.length() - 1);
         int pc = getValue(s, numberOfLine);
         return pc + 1;
     }
 
-    private void asserts(String str) {
+    private void asserts(String str) throws Exception {
         String type = str.substring(1, 3);
         int index = str.indexOf(',');
         int a = getValue(str.substring(3, index), 0);
@@ -263,7 +263,7 @@ public class AssemblyEmulator {
         }
     }
 
-    private int branches(String str, int numberOfLine) {
+    private int branches(String str, int numberOfLine) throws Exception {
         String type = str.substring(1, 3);
         int index = str.indexOf(',');
         int a = getValue(str.substring(3, index), numberOfLine);
@@ -291,13 +291,17 @@ public class AssemblyEmulator {
         return -1;
     }
 
-    private int getValue(String str, int numberOfLine) {
+    private int getValue(String str, int numberOfLine) throws Exception {
         //M[sp] ეგეთი ოპერაცია არ მოსულაო, ეწერა.
         if (str.startsWith("RV")) {
             return rv;
         }
         if (str.startsWith("R") && !str.startsWith("RET") && !str.startsWith("RV")) {
-            return registers.get(str);
+            if (registers.containsKey(str)){
+                return registers.get(str);
+            } else {
+                throw new Exception("invalid register");
+            }
         } else if (isNumber(str)) {
             return Integer.parseInt(str);
         } else {
@@ -315,10 +319,10 @@ public class AssemblyEmulator {
         }
     }
 
-    private void fillMemoryArray(int location, String line) {
+    private void fillMemoryArray(int location, String line) throws Exception {
         if (location >= memory.length) {
-            System.out.println(location + " " + memory.length);
-            System.out.println("error");
+            System.out.println("location " + location + " " + "memory length " + memory.length);
+            throw new Exception("out of bounds.");
         } else {
             String str = line.substring(line.indexOf("=") + 1, line.indexOf(";"));
             int res = computeBytes(str);
@@ -331,17 +335,6 @@ public class AssemblyEmulator {
                 stack.remove(lastSavedPc + location - 1);
                 stack.add(lastSavedPc + location - 1, res);
             }
-//            System.out.println(memory.length);
-//            System.out.println("location " + location);
-//            System.out.println("res " + res);
-//            for(int i = 0 ; i < stack.size(); i++){
-//                System.out.print(stack.get(i) + " ");
-//            }
-//            System.out.println("");
-//            for(int i = 0 ; i < stack.size(); i++){
-//                System.out.print(stack.get(i) + " ");
-//            }
-//            System.out.println("");
         }
     }
 
@@ -354,7 +347,7 @@ public class AssemblyEmulator {
         return -1;
     }
 
-    private int computeBytes(String str) {
+    private int computeBytes(String str) throws Exception {
         char c = '0';
         boolean toInt = false;
         if (str.startsWith(".")) {
@@ -405,36 +398,34 @@ public class AssemblyEmulator {
         }
     }
 
-    private void fillRegistersMaps(String line) {
+    private void fillRegistersMaps(String line) throws Exception {
         int index = line.indexOf("=");
         String leftSide = line.substring(0, index);
         String str = line.substring(index + 1, line.indexOf(";"));
         int rightSide = computeBytes(str);
         registers.put(leftSide, rightSide);
-  //      System.out.println(leftSide + " " + rightSide + " registers");
     }
 
-    private int getAddress(String str) {
-  //      System.out.println(str);
+    private int getAddress(String str) throws Exception {
         if (isNumber(str)) {
             return Integer.parseInt(str) / 4; //zustad ar vici es
         } else if (containsOperator(str)) {
             //an sp + a an a + sp an a + r an r + 1 an r1 + r2
-//            if (str.contains("SP")) {
-//                int res = computeResult(str);
-//                return res;
-//            }
             return computeResult(str) / 4;
         } else {
             if (str.startsWith("R") && !str.startsWith("RET") && !str.startsWith("RV")) {
-                return registers.get(str) / 4;
+                if(registers.containsKey(str)) {
+                    return registers.get(str) / 4;
+                } else {
+                    throw new Exception("invalid register");
+                }
             } else {
                 return memory.length - 1;
             }
         }
     }
 
-    private int getValueOfTheRightSide(String str) {
+    private int getValueOfTheRightSide(String str) throws Exception {
         if (isNumber(str)) { //loads constants.
             return Integer.parseInt(str);
         } else if (str.charAt(0) == '-' && isNumber(str.substring(1))) { //is negative number.
@@ -444,14 +435,21 @@ public class AssemblyEmulator {
             return computeResult(str);
         } else if (str.startsWith("M")) {
             int res = getAddress(str.substring(str.indexOf('[') + 1, str.indexOf(']')));
+            if(res >= memory.length){
+                throw new Exception("invalid address");
+            }
             return memory[res];
         } else if (str.startsWith("RV")) {
             return rv;
         } else {
             if (str.startsWith("R") && !str.startsWith("RET")) {
+                if(!registers.containsKey(str)){
+                    throw new Exception("invalid register");
+                }
                 return registers.get(str);
             } else {
-                return memory.length - 1;
+                System.out.println("sasuke");
+                return (memory.length - 1) * 4;
             }
         }
     }
@@ -539,7 +537,7 @@ public class AssemblyEmulator {
         }
     }
 
-    private String getLeftSide(String str) {
+    private String getLeftSide(String str) throws Exception {
         if (str.startsWith("RET")) {
             return "RET";
         } else if (str.startsWith("R")) {
@@ -550,9 +548,9 @@ public class AssemblyEmulator {
             return Integer.toString(res);
         } else if (str.startsWith("S")) {
             return str.substring(0, str.indexOf("="));
+        } else {
+            return "";
         }
-        //error
-        return "";
     }
 
     private boolean containsOperator(String address) {
@@ -589,7 +587,7 @@ public class AssemblyEmulator {
         return true;
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         String fileName = "\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\Emulator\\src\\assembly.txt";
         // String fileName = args[0];
         AssemblyEmulator emulator = new AssemblyEmulator(new FileReader(fileName));
