@@ -31,7 +31,6 @@ public class AssemblyEmulator {
     }
 
     public boolean next() {
-        System.out.println("currentLine " + currentLine);
         //list.size() -1 imitom rom boloshi sruldeba ret-it.
         if (currentLine == (list.size() - 1)) {
             deleteSavedPC();
@@ -48,13 +47,14 @@ public class AssemblyEmulator {
     }
 
     public void showStack(String functionName) {
+        functionName = "FUNCTION" + functionName.toUpperCase(Locale.ROOT);
         ArrayList <Integer> loc = new ArrayList<>();
         if (savedPc.containsKey(functionName)) {
             loc = savedPc.get(functionName);
         }
         if (loc.size() == 0){
             loc.add(0);
-            loc.add(stack.size());
+            loc.add(stack.size() - 1);
         }
         for (int i = loc.get(0); i <= loc.get(1); i++) {
             if (stack.get(i) == null) {
@@ -89,9 +89,8 @@ public class AssemblyEmulator {
 
     public void debug() {
         initAgain();
-        System.out.println("currentLine " + currentLine);
         while (true) {
-            getCallStack();
+          //  getCallStack();
             boolean b = next();
             if (!b) {
                 break;
@@ -139,7 +138,7 @@ public class AssemblyEmulator {
 
     private void printMemory() {
         for (int i = 0; i < memory.length; i++) {
-            System.out.println(i + " " + memory[i]);
+            // System.out.println(i + " " + memory[i]);
         }
     }
 
@@ -157,6 +156,7 @@ public class AssemblyEmulator {
     }
 
     private int processLine(String line, int numberOfLine) {
+        printMemory();
         if (!line.equals("")) {
             line = line.toUpperCase(Locale.ROOT);
             String left = getLeftSide(line);
@@ -324,8 +324,24 @@ public class AssemblyEmulator {
             int res = computeBytes(str);
             memory[location] = res;
             int lastSavedPc = getLastSavedPc();
-            stack.add(lastSavedPc + location, res);
-            stack.remove(lastSavedPc + location - 1);
+            if (stack.size() == memory.length){
+                stack.remove(location);
+                stack.add(location, res);
+            } else {
+                stack.remove(lastSavedPc + location - 1);
+                stack.add(lastSavedPc + location - 1, res);
+            }
+//            System.out.println(memory.length);
+//            System.out.println("location " + location);
+//            System.out.println("res " + res);
+//            for(int i = 0 ; i < stack.size(); i++){
+//                System.out.print(stack.get(i) + " ");
+//            }
+//            System.out.println("");
+//            for(int i = 0 ; i < stack.size(); i++){
+//                System.out.print(stack.get(i) + " ");
+//            }
+//            System.out.println("");
         }
     }
 
@@ -395,18 +411,19 @@ public class AssemblyEmulator {
         String str = line.substring(index + 1, line.indexOf(";"));
         int rightSide = computeBytes(str);
         registers.put(leftSide, rightSide);
-        //    System.out.println(leftSide + " " + rightSide + " registers");
+  //      System.out.println(leftSide + " " + rightSide + " registers");
     }
 
     private int getAddress(String str) {
+  //      System.out.println(str);
         if (isNumber(str)) {
             return Integer.parseInt(str) / 4; //zustad ar vici es
         } else if (containsOperator(str)) {
             //an sp + a an a + sp an a + r an r + 1 an r1 + r2
-            if (str.contains("SP")) {
-                int res = computeResult(str);
-                return res;
-            }
+//            if (str.contains("SP")) {
+//                int res = computeResult(str);
+//                return res;
+//            }
             return computeResult(str) / 4;
         } else {
             if (str.startsWith("R") && !str.startsWith("RET") && !str.startsWith("RV")) {
@@ -465,7 +482,7 @@ public class AssemblyEmulator {
 
     private int computeValue(String first, String second, char operator, boolean isOrdered) {
         if (second.startsWith("S")) {
-            return findMemoryArrayIndex(operator, Integer.parseInt(first));
+            return findMemoryArrayIndex(operator, Integer.parseInt(first)) * 4;
         } else {
             //starts with R.
             int val = registers.get(second);
@@ -581,6 +598,6 @@ public class AssemblyEmulator {
         //  emulator.next();
         //  emulator.next();
         emulator.debug();
-        emulator.showStack("FUNCTIONTEST_SUM1");
+        emulator.showStack("main");
     }
 }
