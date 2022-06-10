@@ -593,10 +593,6 @@ public class AssemblyEmulator {
         String fileName = "\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\Emulator\\src\\assembly.txt";
         // String fileName = args[0];
         AssemblyEmulator emulator = new AssemblyEmulator(new FileReader(fileName));
-        //  emulator.next();
-        //   emulator.getCallStack();
-        //  emulator.next();
-        //  emulator.next();
         emulator.debug();
         emulator.showStack("main");
     }
