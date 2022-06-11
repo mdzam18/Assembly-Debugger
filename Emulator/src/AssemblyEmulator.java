@@ -10,19 +10,17 @@ public class AssemblyEmulator {
     private Map<Integer, String> returns;
     private Map<String, Integer> functionCalls;
     private ArrayList<String> list;
-    private Map<String, ArrayList<Integer>> savedPc;
     private int[] memory;
-    private ArrayList<Integer> stack; //masivi mstliani mexsierebistvis washlis gareshe.
     private int rv;
     private int currentLine;
     private String currentFunction;
     private ArrayList<String> callStack;
+    private ArrayList<Integer> savedPc;
 
     public AssemblyEmulator(FileReader file) throws IOException {
         init();
         readFile(file);
         fillReturnsIndex();
-        savedPc = new HashMap<>();
         currentLine = functions.get("FUNCTIONMAIN");
     }
 
@@ -37,6 +35,7 @@ public class AssemblyEmulator {
             currentLine++;
             return false;
         } else {
+            System.out.println(currentLine + 1);
             int line = processLine(list.get(currentLine), currentLine);
             if (line != -1) {
                 currentLine = line - 1;
@@ -47,28 +46,21 @@ public class AssemblyEmulator {
     }
 
     public void showStack(String functionName) {
-        functionName = "FUNCTION" + functionName.toUpperCase(Locale.ROOT);
-        ArrayList <Integer> loc = new ArrayList<>();
-        if (savedPc.containsKey(functionName)) {
-            loc = savedPc.get(functionName);
-        }
-        if (loc.size() == 0){
-            loc.add(0);
-            loc.add(stack.size() - 1);
-        }
-        for (int i = loc.get(0); i <= loc.get(1); i++) {
-            if (stack.get(i) == null) {
-                System.out.println("SAVED PC");
-            } else {
-                System.out.println(stack.get(i));
+        int index = 0;
+        for (int i = callStack.size() - 1; i >= 0; i--) {
+            if (callStack.get(i).equals(functionName.toUpperCase(Locale.ROOT))) {
+                index = i;
+                break;
             }
         }
-    }
-
-    public boolean next(int line) throws Exception {
-        debug();
-        currentLine = line; //anu i+1 gamova
-        return next();
+        int lastIndex = memory.length;
+        if (savedPc.size() > (index + 1)) {
+            lastIndex = savedPc.get(index + 1);
+        }
+        System.out.println("SAVED PC");
+        for (int i = savedPc.get(index) + 1; i < lastIndex; i++) {
+            System.out.println(memory[i]);
+        }
     }
 
     private void initAgain() {
@@ -76,10 +68,10 @@ public class AssemblyEmulator {
         registers = new HashMap<>();
         functionCalls = new HashMap<>();
         memory = new int[1]; //saved pc
-        stack = new ArrayList<>();
-        stack.add(null);//saved pc
         callStack = new ArrayList<>();
         callStack.add("MAIN");
+        savedPc = new ArrayList<>();
+        savedPc.add(0);
         currentFunction = "FUNCTIONMAIN";
         returns.put(list.size() - 1, "FUNCTIONMAIN");
         functionCalls.put(currentFunction, currentLine);
@@ -90,7 +82,7 @@ public class AssemblyEmulator {
     public void debug() throws Exception {
         initAgain();
         while (true) {
-          //  getCallStack();
+            //  getCallStack();
             boolean b = next();
             if (!b) {
                 break;
@@ -106,6 +98,9 @@ public class AssemblyEmulator {
             if (list.get(i).startsWith("FUNCTION")) {
                 getAllReturns(i + 1, list.get(i).substring(0, list.get(i).length() - 1));
             }
+        }
+        for (int ret : returns.keySet()) {
+            System.out.println("key: " + ret + " val: " + returns.get(ret));
         }
     }
 
@@ -127,10 +122,10 @@ public class AssemblyEmulator {
         functions = new HashMap<>();
         functionCalls = new HashMap<>();
         memory = new int[1]; //saved pc
-        stack = new ArrayList<>();
-        stack.add(null);//saved pc
         callStack = new ArrayList<>();
         callStack.add("MAIN");
+        savedPc = new ArrayList<>();
+        savedPc.add(0);
         currentFunction = "FUNCTIONMAIN";
         returns.put(list.size() - 1, "FUNCTIONMAIN");
         functionCalls.put(currentFunction, currentLine);
@@ -138,7 +133,7 @@ public class AssemblyEmulator {
 
     private void printMemory() {
         for (int i = 0; i < memory.length; i++) {
-            // System.out.println(i + " " + memory[i]);
+            System.out.println(i + " " + memory[i]);
         }
     }
 
@@ -150,13 +145,8 @@ public class AssemblyEmulator {
         return callStack;
     }
 
-    public boolean next2() {
-        //erti xazit rom gadavides metodshic, eg minda
-        return true;
-    }
-
     private int processLine(String line, int numberOfLine) throws Exception {
-        printMemory();
+        // printMemory();
         if (!line.equals("")) {
             line = line.toUpperCase(Locale.ROOT);
             String left = getLeftSide(line);
@@ -180,23 +170,30 @@ public class AssemblyEmulator {
                 if (line.contains("<")) {
                     line = line.substring(line.indexOf('<') + 1, line.indexOf(('>')));
                     resizeMemory(memory.length + 1); //add saved pc
-                    stack.add(null); //add saved pc
                     String str = "FUNCTION" + line;
                     callStack.add(line); //add function name
                     functionCalls.put(str, numberOfLine);
-                    ArrayList<Integer> locs = new ArrayList();
-                    locs.add(stack.size() - 1);
+                    savedPc.add(memory.length - 1);
                     callFunction(str);
-                    locs.add(stack.size() - 1);
-                    savedPc.put(str, locs); //remember saved pc start and end location for function
-                    callStack.remove(line);
-                    resizeMemory(memory.length - 1); //delete saved pc
                 } else {
                     int result = getAddress(line.substring(4, line.length() - 1));
                     //memory[(int)result]
                 }
             } else if (line.startsWith("RET")) {
                 //RET
+                resizeMemory(memory.length - 1); //delete saved pc
+                System.out.println("ret " + functionCalls.get(returns.get(numberOfLine)));
+                int index = 0;
+                for (int i = callStack.size() - 1; i >= 0; i++) {
+                    if (callStack.get(i).equals(returns.get(numberOfLine).substring(8))) {
+                        index = i;
+                        break;
+                    }
+                }
+                System.out.println(callStack.size());
+                System.out.println(savedPc.size());
+                callStack.remove(index);
+                savedPc.remove(index);
                 return functionCalls.get(returns.get(numberOfLine)) + 1;
             } else if (line.startsWith("RV")) {
                 rv = getValueOfTheRightSide(line.substring(3, line.length() - 1));
@@ -215,15 +212,16 @@ public class AssemblyEmulator {
         if (curr.startsWith("TEST")) {
             currentFunction = name;
         }
-        for (int i = index; i < list.size(); i++) {
-            if (list.get(i).startsWith("RET")) {
-                break;
-            }
-            int x = processLine(list.get(i), i);
-            if (x != -1) {
-                i = x - 1;
-            }
-        }
+//        for (int i = index; i < list.size(); i++) {
+//            if (list.get(i).startsWith("RET")) {
+//                break;
+//            }
+//            int x = processLine(list.get(i), i, false);
+//            if (x != -1) {
+//                i = x - 1;
+//            }
+//        }
+        currentLine = index - 1;
     }
 
     private int getReturnIndex(int index) {
@@ -297,7 +295,7 @@ public class AssemblyEmulator {
             return rv;
         }
         if (str.startsWith("R") && !str.startsWith("RET") && !str.startsWith("RV")) {
-            if (registers.containsKey(str)){
+            if (registers.containsKey(str)) {
                 return registers.get(str);
             } else {
                 throw new Exception("invalid register");
@@ -327,24 +325,7 @@ public class AssemblyEmulator {
             String str = line.substring(line.indexOf("=") + 1, line.indexOf(";"));
             int res = computeBytes(str);
             memory[location] = res;
-            int lastSavedPc = getLastSavedPc();
-            if (stack.size() == memory.length){
-                stack.remove(location);
-                stack.add(location, res);
-            } else {
-                stack.remove(lastSavedPc + location - 1);
-                stack.add(lastSavedPc + location - 1, res);
-            }
         }
-    }
-
-    private int getLastSavedPc(){
-        for(int i = stack.size() - 1; i >= 0; i--){
-            if (stack.get(i) == null){
-                return i;
-            }
-        }
-        return -1;
     }
 
     private int computeBytes(String str) throws Exception {
@@ -414,7 +395,7 @@ public class AssemblyEmulator {
             return computeResult(str) / 4;
         } else {
             if (str.startsWith("R") && !str.startsWith("RET") && !str.startsWith("RV")) {
-                if(registers.containsKey(str)) {
+                if (registers.containsKey(str)) {
                     return registers.get(str) / 4;
                 } else {
                     throw new Exception("invalid register");
@@ -435,7 +416,7 @@ public class AssemblyEmulator {
             return computeResult(str);
         } else if (str.startsWith("M")) {
             int res = getAddress(str.substring(str.indexOf('[') + 1, str.indexOf(']')));
-            if(res >= memory.length){
+            if (res >= memory.length) {
                 throw new Exception("invalid address");
             }
             return memory[res];
@@ -443,7 +424,7 @@ public class AssemblyEmulator {
             return rv;
         } else {
             if (str.startsWith("R") && !str.startsWith("RET")) {
-                if(!registers.containsKey(str)){
+                if (!registers.containsKey(str)) {
                     throw new Exception("invalid register");
                 }
                 return registers.get(str);
@@ -527,9 +508,6 @@ public class AssemblyEmulator {
         if (str.contains("-")) {
             int index = str.indexOf("-");
             int size = Integer.parseInt(str.substring(index + 1)) / 4;
-            for(int i = 0 ; i < size; i++){
-                stack.add(0);
-            }
             return memory.length + size;
         } else {
             int index = str.indexOf("+");
@@ -588,10 +566,29 @@ public class AssemblyEmulator {
     }
 
     public static void main(String[] args) throws Exception {
-        String fileName = "\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\Emulator\\src\\assembly.txt";
+        String fileName = "\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\Emulator\\src\\add3.txt";
         // String fileName = args[0];
         AssemblyEmulator emulator = new AssemblyEmulator(new FileReader(fileName));
-        emulator.debug();
+        emulator.next();
+        emulator.next();
+        emulator.next();
+        emulator.next();
+        emulator.next();
+        emulator.next();
+        emulator.next();
+        emulator.next();
+        emulator.next();
+        emulator.next();
+        emulator.next();
+        emulator.next();
+        emulator.next();
+        emulator.next();
+        emulator.next();
+        emulator.next();
+        emulator.next();
+        emulator.next();
+        emulator.next();
+        emulator.getCallStack();
         emulator.showStack("main");
     }
 }
