@@ -16,6 +16,7 @@ public class AssemblyEmulator {
     private String currentFunction;
     private ArrayList<String> callStack;
     private ArrayList<Integer> savedPc;
+    private ArrayList<Integer> returnsIndexes;
 
     public AssemblyEmulator(FileReader file) throws IOException {
         init();
@@ -77,6 +78,7 @@ public class AssemblyEmulator {
         functionCalls.put(currentFunction, currentLine);
         fillReturnsIndex();
         currentLine = functions.get("FUNCTIONMAIN");
+        returnsIndexes = new ArrayList<>();
     }
 
     public void debug() throws Exception {
@@ -129,6 +131,7 @@ public class AssemblyEmulator {
         currentFunction = "FUNCTIONMAIN";
         returns.put(list.size() - 1, "FUNCTIONMAIN");
         functionCalls.put(currentFunction, currentLine);
+        returnsIndexes = new ArrayList<>();
     }
 
     private void printMemory() {
@@ -175,26 +178,14 @@ public class AssemblyEmulator {
                     functionCalls.put(str, numberOfLine);
                     savedPc.add(memory.length - 1);
                     callFunction(str);
+                    returnsIndexes.add(numberOfLine);
                 } else {
                     int result = getAddress(line.substring(4, line.length() - 1));
                     //memory[(int)result]
                 }
             } else if (line.startsWith("RET")) {
                 //RET
-                resizeMemory(memory.length - 1); //delete saved pc
-                System.out.println("ret " + functionCalls.get(returns.get(numberOfLine)));
-                int index = 0;
-                for (int i = callStack.size() - 1; i >= 0; i++) {
-                    if (callStack.get(i).equals(returns.get(numberOfLine).substring(8))) {
-                        index = i;
-                        break;
-                    }
-                }
-                System.out.println(callStack.size());
-                System.out.println(savedPc.size());
-                callStack.remove(index);
-                savedPc.remove(index);
-                return functionCalls.get(returns.get(numberOfLine)) + 1;
+                return processReturns(numberOfLine);
             } else if (line.startsWith("RV")) {
                 rv = getValueOfTheRightSide(line.substring(3, line.length() - 1));
                 System.out.println("RV " + rv);
@@ -206,21 +197,28 @@ public class AssemblyEmulator {
         return -1;
     }
 
-    private void callFunction(String name) throws Exception {
+    private int processReturns(int numberOfLine){
+        resizeMemory(memory.length - 1); //delete saved pc
+        int ret = returnsIndexes.get(returnsIndexes.size() - 1);
+        returnsIndexes.remove(returnsIndexes.size() - 1);
+        int index = 0;
+        for (int i = callStack.size() - 1; i >= 0; i++) {
+            if (callStack.get(i).equals(returns.get(numberOfLine).substring(8))) {
+                index = i;
+                break;
+            }
+        }
+        callStack.remove(index);
+        savedPc.remove(index);
+        return ret + 1;
+    }
+
+    private void callFunction(String name) {
         int index = functions.get(name) + 1;
         String curr = name.substring(8);
         if (curr.startsWith("TEST")) {
             currentFunction = name;
         }
-//        for (int i = index; i < list.size(); i++) {
-//            if (list.get(i).startsWith("RET")) {
-//                break;
-//            }
-//            int x = processLine(list.get(i), i, false);
-//            if (x != -1) {
-//                i = x - 1;
-//            }
-//        }
         currentLine = index - 1;
     }
 
@@ -566,29 +564,25 @@ public class AssemblyEmulator {
     }
 
     public static void main(String[] args) throws Exception {
-        String fileName = "\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\Emulator\\src\\add3.txt";
+        String fileName = "\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\Emulator\\src\\calltests.txt";
         // String fileName = args[0];
         AssemblyEmulator emulator = new AssemblyEmulator(new FileReader(fileName));
-        emulator.next();
-        emulator.next();
-        emulator.next();
-        emulator.next();
-        emulator.next();
-        emulator.next();
-        emulator.next();
-        emulator.next();
-        emulator.next();
-        emulator.next();
-        emulator.next();
-        emulator.next();
-        emulator.next();
-        emulator.next();
-        emulator.next();
-        emulator.next();
-        emulator.next();
-        emulator.next();
-        emulator.next();
+        emulator.debug();
+//        emulator.next();
+//        emulator.next();
+//        emulator.next();
+//        emulator.next();
+//        emulator.next();
+//        emulator.next();
+//        emulator.next();
+//        emulator.next();
+//        emulator.next();
+//        emulator.next();
+//        emulator.next();
+//        emulator.next();
+//        emulator.next();
+//        emulator.next();
         emulator.getCallStack();
-        emulator.showStack("main");
+        emulator.showStack("fact");
     }
 }
