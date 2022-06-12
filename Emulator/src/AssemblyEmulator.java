@@ -135,14 +135,14 @@ public class AssemblyEmulator {
 
     public ArrayList<String> getCallStack() {
         System.out.println("CALL STACK");
-        for (int i = 0; i < callStack.size(); i++) {
-            System.out.println(callStack.get(i));
+        for (String s : callStack) {
+            System.out.println(s);
         }
         return callStack;
     }
 
     private int processLine(String line, int numberOfLine) throws Exception {
-        // printMemory();
+        printMemory();
         if (!line.equals("")) {
             line = line.toUpperCase(Locale.ROOT);
             String left = getLeftSide(line);
@@ -157,23 +157,14 @@ public class AssemblyEmulator {
             } else if (line.startsWith("J")) {
                 return jump(line, numberOfLine);
             } else if (line.startsWith("FUNCTION") && numberOfLine != functions.get("FUNCTIONMAIN")) {
-                line = line.substring(8, line.length() - 1);
-                functions.put(line, numberOfLine);
-                int index = getReturnIndex(numberOfLine);
-                returns.put(index, line);
+               processFunction(line, numberOfLine);
             } else if (line.startsWith("CALL")) {
                 //call
                 if (line.contains("<")) {
-                    line = line.substring(line.indexOf('<') + 1, line.indexOf(('>')));
-                    resizeMemory(memory.length + 1); //add saved pc
-                    String str = "FUNCTION" + line;
-                    callStack.add(line); //add function name
-                    savedPc.add(memory.length - 1);
-                    callFunction(str);
-                    returnsIndexes.add(numberOfLine);
+                    processCall(line, numberOfLine);
                 } else {
                     int result = getAddress(line.substring(4, line.length() - 1));
-                    //memory[(int)result]
+                     //aq sad unda gadavaxtuno call-it?
                 }
             } else if (line.startsWith("RET")) {
                 //RET
@@ -189,6 +180,24 @@ public class AssemblyEmulator {
         return -1;
     }
 
+
+    private void processFunction(String line, int numberOfLine){
+        line = line.substring(8, line.length() - 1);
+        functions.put(line, numberOfLine);
+        int index = getReturnIndex(numberOfLine);
+        returns.put(index, line);
+    }
+
+    private void processCall(String line, int numberOfLine){
+        line = line.substring(line.indexOf('<') + 1, line.indexOf(('>')));
+        resizeMemory(memory.length + 1); //add saved pc
+        String str = "FUNCTION" + line;
+        callStack.add(line); //add function name
+        savedPc.add(memory.length - 1);
+        callFunction(str);
+        returnsIndexes.add(numberOfLine);
+    }
+
     private int processReturns(int numberOfLine){
         if(returnsIndexes.size() == 0){
             return list.size() - 1;
@@ -197,7 +206,7 @@ public class AssemblyEmulator {
         int ret = returnsIndexes.get(returnsIndexes.size() - 1);
         returnsIndexes.remove(returnsIndexes.size() - 1);
         int index = 0;
-        for (int i = callStack.size() - 1; i >= 0; i++) {
+        for (int i = callStack.size() - 1; i >= 0; i--) {
             if (callStack.get(i).equals(returns.get(numberOfLine).substring(8))) {
                 index = i;
                 break;
@@ -238,7 +247,6 @@ public class AssemblyEmulator {
         int a = getValue(str.substring(3, index), 0);
         int b = getValue(str.substring(index + 1, str.length() - 1), 0);
         int result = compareValues(type, a, b, 0);
-        //  System.out.println(str + " " + type + " " + a + " " + b);
         if (result == 0) {
             //assert
             int expected = a;
@@ -265,25 +273,34 @@ public class AssemblyEmulator {
 
     private int compareValues(String type, int n, int m, int pc) {
         boolean isTrue = false;
-        if (type.equals("LT")) {
-            if (n < m) isTrue = true;
-        } else if (type.equals("LE")) {
-            if (n <= m) isTrue = true;
-        } else if (type.equals("EQ")) {
-            if (n == m) isTrue = true;
-        } else if (type.equals("NE")) {
-            if (n != m) isTrue = true;
-        } else if (type.equals("GT")) {
-            if (n > m) isTrue = true;
-        } else if (type.equals("GE")) {
-            if (n >= m) isTrue = true;
+        switch (type) {
+            case "LT":
+                if (n < m) isTrue = true;
+                break;
+            case "LE":
+                if (n <= m) isTrue = true;
+                break;
+            case "EQ":
+                if (n == m) isTrue = true;
+                break;
+            case "NE":
+                if (n != m) isTrue = true;
+                break;
+            case "GT":
+                if (n > m) isTrue = true;
+                break;
+            case "GE":
+                if (n >= m) isTrue = true;
+                break;
         }
         if (isTrue) return pc;
         return -1;
     }
 
     private int getValue(String str, int numberOfLine) throws Exception {
-        //M[sp] ეგეთი ოპერაცია არ მოსულაო, ეწერა.
+        if(str.startsWith("M")){
+            throw new Exception("invalid operation");
+        }
         if (str.startsWith("RV")) {
             return rv;
         }
@@ -323,19 +340,15 @@ public class AssemblyEmulator {
 
     private int computeBytes(String str) throws Exception {
         char c = '0';
-        boolean toInt = false;
+      //  boolean toInt = false;
         if (str.startsWith(".")) {
             c = str.charAt(1);
             str = str.substring(2);
         } else if (str.startsWith("FTOI")) {
-            toInt = true;
+         //   toInt = true;
             str = str.substring(4);
         }
         int res = getValueOfTheRightSide(str);
-        if (toInt) {
-            int number = res;
-            res = number;
-        }
         if (c != '0') {
             int n = c - '0';
             n = 32 - n * 8;
@@ -422,7 +435,6 @@ public class AssemblyEmulator {
                 }
                 return registers.get(str);
             } else {
-                System.out.println("sasuke");
                 return (memory.length - 1) * 4;
             }
         }
@@ -482,18 +494,14 @@ public class AssemblyEmulator {
 
     private void deleteSavedPC() {
         int[] curr = new int[memory.length - 1];
-        for (int i = 1; i < memory.length; i++) {
-            curr[i - 1] = memory[i];
-        }
+        System.arraycopy(memory, 1, curr, 0, memory.length - 1);
         memory = curr;
     }
 
     private void resizeMemory(int size) {
         // System.out.println("size " + size);
         int[] curr = new int[size];
-        for (int i = 0; i < Math.min(size, memory.length); i++) {
-            curr[i] = memory[i];
-        }
+        System.arraycopy(memory, 0, curr, 0, Math.min(size, memory.length));
         memory = curr;
     }
 
