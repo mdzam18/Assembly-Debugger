@@ -8,7 +8,6 @@ public class AssemblyEmulator {
     private Map<String, Integer> registers;
     private Map<String, Integer> functions;
     private Map<Integer, String> returns;
-    private Map<String, Integer> functionCalls;
     private ArrayList<String> list;
     private int[] memory;
     private int rv;
@@ -67,14 +66,12 @@ public class AssemblyEmulator {
     private void initAgain() {
         returns = new HashMap<>();
         registers = new HashMap<>();
-        functionCalls = new HashMap<>();
         memory = new int[1]; //saved pc
         callStack = new ArrayList<>();
         callStack.add("MAIN");
         savedPc = new ArrayList<>();
         savedPc.add(0);
         currentFunction = "FUNCTIONMAIN";
-        functionCalls.put(currentFunction, currentLine);
         fillReturnsIndex();
         currentLine = functions.get("FUNCTIONMAIN");
         returnsIndexes = new ArrayList<>();
@@ -121,14 +118,12 @@ public class AssemblyEmulator {
         list = new ArrayList<>();
         registers = new HashMap<>();
         functions = new HashMap<>();
-        functionCalls = new HashMap<>();
         memory = new int[1]; //saved pc
         callStack = new ArrayList<>();
         callStack.add("MAIN");
         savedPc = new ArrayList<>();
         savedPc.add(0);
         currentFunction = "FUNCTIONMAIN";
-        functionCalls.put(currentFunction, currentLine);
         returnsIndexes = new ArrayList<>();
     }
 
@@ -173,7 +168,6 @@ public class AssemblyEmulator {
                     resizeMemory(memory.length + 1); //add saved pc
                     String str = "FUNCTION" + line;
                     callStack.add(line); //add function name
-                    functionCalls.put(str, numberOfLine);
                     savedPc.add(memory.length - 1);
                     callFunction(str);
                     returnsIndexes.add(numberOfLine);
