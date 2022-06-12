@@ -74,7 +74,6 @@ public class AssemblyEmulator {
         savedPc = new ArrayList<>();
         savedPc.add(0);
         currentFunction = "FUNCTIONMAIN";
-        returns.put(list.size() - 1, "FUNCTIONMAIN");
         functionCalls.put(currentFunction, currentLine);
         fillReturnsIndex();
         currentLine = functions.get("FUNCTIONMAIN");
@@ -84,7 +83,6 @@ public class AssemblyEmulator {
     public void debug() throws Exception {
         initAgain();
         while (true) {
-            //  getCallStack();
             boolean b = next();
             if (!b) {
                 break;
@@ -107,6 +105,7 @@ public class AssemblyEmulator {
     }
 
     private void getAllReturns(int index, String name) {
+        System.out.println(index);
         for (int i = index; i < list.size(); i++) {
             if (list.get(i).startsWith("FUNCTION")) {
                 break;
@@ -129,7 +128,6 @@ public class AssemblyEmulator {
         savedPc = new ArrayList<>();
         savedPc.add(0);
         currentFunction = "FUNCTIONMAIN";
-        returns.put(list.size() - 1, "FUNCTIONMAIN");
         functionCalls.put(currentFunction, currentLine);
         returnsIndexes = new ArrayList<>();
     }
@@ -198,6 +196,9 @@ public class AssemblyEmulator {
     }
 
     private int processReturns(int numberOfLine){
+        if(returnsIndexes.size() == 0){
+            return list.size() - 1;
+        }
         resizeMemory(memory.length - 1); //delete saved pc
         int ret = returnsIndexes.get(returnsIndexes.size() - 1);
         returnsIndexes.remove(returnsIndexes.size() - 1);
@@ -563,26 +564,4 @@ public class AssemblyEmulator {
         return true;
     }
 
-    public static void main(String[] args) throws Exception {
-        String fileName = "\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\Emulator\\src\\calltests.txt";
-        // String fileName = args[0];
-        AssemblyEmulator emulator = new AssemblyEmulator(new FileReader(fileName));
-        emulator.debug();
-//        emulator.next();
-//        emulator.next();
-//        emulator.next();
-//        emulator.next();
-//        emulator.next();
-//        emulator.next();
-//        emulator.next();
-//        emulator.next();
-//        emulator.next();
-//        emulator.next();
-//        emulator.next();
-//        emulator.next();
-//        emulator.next();
-//        emulator.next();
-        emulator.getCallStack();
-        emulator.showStack("fact");
-    }
 }
