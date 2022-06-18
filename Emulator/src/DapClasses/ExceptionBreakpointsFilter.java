@@ -1,5 +1,4 @@
 package DapClasses;
-
 public class ExceptionBreakpointsFilter {
     private String filter;
     private String label;

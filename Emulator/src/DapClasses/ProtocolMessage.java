@@ -1,5 +1,4 @@
 package DapClasses;
-
 public class ProtocolMessage {
 
     private int req;

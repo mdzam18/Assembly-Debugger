@@ -1,5 +1,4 @@
 package DapClasses;
-
 public class InitializeRequestArguments {
     private String clientID;
     private String clientName;

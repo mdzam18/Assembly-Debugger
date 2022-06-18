@@ -1,17 +1,11 @@
 package DapClasses;
-
-public class Event {
-    private String type = "event";
+public class Event extends ProtocolMessage{
+    public Event(){
+        super.setType("event");
+    }
     private String event;
     private Object body;
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public String getEvent() {
         return event;

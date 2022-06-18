@@ -1,19 +1,14 @@
 package DapClasses;
-
-public class Response {
-private String type = "response";
+public class Response extends ProtocolMessage{
+    public Response(){
+        super.setType("response");
+    }
 private int request_seq ;
 private Boolean success ;
 private String command ;
 private String message ;
 
-    public String getType() {
-        return type;
-    }
 
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public int getRequest_seq() {
         return request_seq;

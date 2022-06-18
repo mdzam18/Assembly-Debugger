@@ -1,5 +1,4 @@
 package DapClasses;
-
 public class InitializeResponse {
     private Capabilities body;
 

@@ -1,5 +1,4 @@
 package DapClasses;
-
 public class ColumnDescriptor {
     private String attributeName;
     private String label;

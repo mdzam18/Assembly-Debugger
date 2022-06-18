@@ -1,5 +1,4 @@
 package DapClasses;
-
 public class NextArguments {
     private int threadId;
     private Boolean singleThread;

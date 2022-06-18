@@ -1,8 +1,10 @@
 package DapClasses;
-
 public class Request extends ProtocolMessage{
+    public Request(){
+        super.setType("request");
+    }
     private String command;
-    private Object arguments;
+    //private Object arguments;
 
     public String getCommand() {
         return command;
@@ -12,11 +14,5 @@ public class Request extends ProtocolMessage{
         this.command = command;
     }
 
-    public Object getArguments() {
-        return arguments;
-    }
 
-    public void setArguments(Object arguments) {
-        this.arguments = arguments;
-    }
 }

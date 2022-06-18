@@ -1,5 +1,4 @@
 package DapClasses;
-
 public class Capabilities {
     private Boolean supportsConfigurationDoneRequest;
     private Boolean supportsFunctionBreakpoints;
