@@ -1,6 +1,7 @@
 package DapClasses;
 import com.google.gson.Gson;
 
+
 public class Receiver {
     private Gson gson;
 
@@ -13,12 +14,15 @@ public class Receiver {
         ProtocolMessage protocolMessage = gson.fromJson(json, ProtocolMessage.class);
         String type = protocolMessage.getType();
         System.out.println(type);
-        if (type.equals("request")) {
-            return processRequest(json);
-        } else if (type.equals("response")) {
+        switch (type) {
+            case "request":
+                return processRequest(json);
+            case "response":
 
-        } else if (type.equals("event")) {
+                break;
+            case "event":
 
+                break;
         }
         return null;
     }
@@ -26,7 +30,7 @@ public class Receiver {
     public String processEvent(String json) {
         Event event = gson.fromJson(json, Event.class);
         String command = event.getEvent();
-        if (command == "initialized") {
+        if (command.equals("initialized")) {
             return processInitializedEvent();
         } else {
 
@@ -43,11 +47,28 @@ public class Receiver {
 
         Request request = gson.fromJson(json, Request.class);
         String command = request.getCommand();
-        if (command == "initialize") {
-            return processInitializeRequest();
-        } else if (command == "setBreakpoints") {
-            return processSetBreakpointsRequest();
+        switch (command) {
+            case "initialize": return processInitializeRequest();
+            case "setBreakpoints": return processSetBreakpointsRequest();
+            case "setExceptionBreakpoints": return processSetExceptionBreakpointsRequest();
+            case "configurationDone": return processConfigurationDoneRequest();
+            case "launch": return processLaunchRequest();
+            default: return null;
         }
+    }
+
+    private String processLaunchRequest() {
+        LaunchResponse response = new LaunchResponse();
+        return null;
+    }
+
+    private String processConfigurationDoneRequest() {
+        ConfigurationDoneResponse response = new ConfigurationDoneResponse();
+        return null;
+    }
+
+    private String processSetExceptionBreakpointsRequest() {
+        SetExceptionBreakpointsResponse  response = new SetExceptionBreakpointsResponse();
         return null;
     }
 
