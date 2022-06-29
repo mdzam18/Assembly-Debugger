@@ -18,8 +18,9 @@ public class Main {
     //    fileName = createNewFile(arr);
         // String fileName = args[0];
         AssemblyEmulator emulator = new AssemblyEmulator(new FileReader(fileName));
-        emulator.debug();
+       // emulator.debug();
+        emulator.next();
         emulator.getCallStack();
-        emulator.showStack("test_sum1");
+        emulator.showStack("test_sum2");
     }
 }

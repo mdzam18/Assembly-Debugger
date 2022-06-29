@@ -35,7 +35,7 @@ public class AssemblyEmulator {
             currentLine++;
             return false;
         } else {
-            System.out.println(currentLine + 1);
+        //    System.out.println(currentLine + 1);
             int line = processLine(list.get(currentLine), currentLine);
             if (line != -1) {
                 currentLine = line - 1;
@@ -59,7 +59,7 @@ public class AssemblyEmulator {
         }
         System.out.println("SAVED PC");
         for (int i = savedPc.get(index) + 1; i < lastIndex; i++) {
-            System.out.println(memory[i]);
+          //  System.out.println(memory[i]);
         }
     }
 
@@ -96,13 +96,13 @@ public class AssemblyEmulator {
                 getAllReturns(i + 1, list.get(i).substring(0, list.get(i).length() - 1));
             }
         }
-        for (int ret : returns.keySet()) {
+       /* for (int ret : returns.keySet()) {
             System.out.println("key: " + ret + " val: " + returns.get(ret));
-        }
+        } */
     }
 
     private void getAllReturns(int index, String name) {
-        System.out.println(index);
+       // System.out.println(index);
         for (int i = index; i < list.size(); i++) {
             if (list.get(i).startsWith("FUNCTION")) {
                 break;
@@ -129,7 +129,7 @@ public class AssemblyEmulator {
 
     private void printMemory() {
         for (int i = 0; i < memory.length; i++) {
-            System.out.println(i + " " + memory[i]);
+          //  System.out.println(i + " " + memory[i]);
         }
     }
 
@@ -381,7 +381,7 @@ public class AssemblyEmulator {
 
     private void printMap() {
         for (String key : registers.keySet()) {
-            System.out.println(key + " " + registers.get(key));
+         //   System.out.println(key + " " + registers.get(key));
         }
     }
 
