@@ -1,6 +1,6 @@
 package src.DapClasses;
 
-public class ContinueRequest extends Request{
+public class ContinueRequest extends Request {
     public ContinueRequest() {
         super.setCommand("continue");
     }

@@ -1,6 +1,6 @@
 package src.DapClasses;
 
-public class DisconnectRequest extends Request{
+public class DisconnectRequest extends Request {
     public DisconnectRequest() {
         super.setCommand("disconnect");
     }

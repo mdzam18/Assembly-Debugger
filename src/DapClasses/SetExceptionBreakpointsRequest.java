@@ -1,5 +1,6 @@
 package src.DapClasses;
-public class SetExceptionBreakpointsRequest extends Request{
+
+public class SetExceptionBreakpointsRequest extends Request {
     public SetExceptionBreakpointsRequest(){
         super.setCommand("setExceptionBreakpoints");
     }

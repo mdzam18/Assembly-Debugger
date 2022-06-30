@@ -1,6 +1,6 @@
 package src.DapClasses;
 
-public class StepInRequest extends Request{
+public class StepInRequest extends Request {
     public StepInRequest() {
         super.setCommand("stepIn");
     }

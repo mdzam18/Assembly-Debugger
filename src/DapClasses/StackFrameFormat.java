@@ -1,6 +1,6 @@
 package src.DapClasses;
 
-public class StackFrameFormat extends ValueFormat{
+public class StackFrameFormat extends ValueFormat {
     private boolean parameters;
     private boolean parameterTypes;
     private boolean parameterNames;

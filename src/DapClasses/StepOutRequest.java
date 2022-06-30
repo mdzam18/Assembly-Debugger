@@ -1,6 +1,6 @@
 package src.DapClasses;
 
-public class StepOutRequest extends Request{
+public class StepOutRequest extends Request {
     public StepOutRequest() {
         super.setCommand("stepOut");
     }

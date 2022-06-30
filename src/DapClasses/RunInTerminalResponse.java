@@ -1,6 +1,6 @@
 package src.DapClasses;
 
-public class RunInTerminalResponse extends Response{
+public class RunInTerminalResponse extends Response {
     private int processId;
     private int shellProcessId;
 

@@ -1,4 +1,4 @@
 package src.DapClasses;
 
-public class NextResponse extends Response{
+public class NextResponse extends Response {
 }

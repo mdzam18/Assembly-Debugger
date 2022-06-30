@@ -1,6 +1,6 @@
 package src.DapClasses;
 
-public class ExitedEvent extends Event{
+public class ExitedEvent extends Event {
     public ExitedEvent() {
         super.setEvent("exited");
     }

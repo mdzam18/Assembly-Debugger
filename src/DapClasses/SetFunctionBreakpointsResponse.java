@@ -1,6 +1,6 @@
 package src.DapClasses;
 
-public class SetFunctionBreakpointsResponse extends Response{
+public class SetFunctionBreakpointsResponse extends Response {
     private Breakpoint[] breakpoints;
     private Object body;
 

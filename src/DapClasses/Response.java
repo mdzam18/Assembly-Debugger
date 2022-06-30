@@ -1,5 +1,6 @@
 package src.DapClasses;
-public class Response extends ProtocolMessage{
+
+public class Response extends ProtocolMessage {
     public Response(){
         super.setType("response");
     }

@@ -1,6 +1,6 @@
 package src.DapClasses;
 
-public class SetVariableResponse extends Response{
+public class SetVariableResponse extends Response {
     private String value;
     private String type;
     private int variablesReference;

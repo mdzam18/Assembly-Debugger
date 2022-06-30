@@ -1,4 +1,5 @@
 package src.DapClasses;
+
 public class ExceptionOptions {
     private ExceptionPathSegment[] path;
 

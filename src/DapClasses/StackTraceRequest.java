@@ -1,6 +1,6 @@
 package src.DapClasses;
 
-public class StackTraceRequest extends Request{
+public class StackTraceRequest extends Request {
     public StackTraceRequest() {
         super.setCommand("stackTrace");
     }

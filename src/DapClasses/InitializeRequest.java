@@ -1,5 +1,6 @@
 package src.DapClasses;
-public class InitializeRequest extends Request{
+
+public class InitializeRequest extends Request {
     public InitializeRequest() {
         super.setCommand("initialize");
     }

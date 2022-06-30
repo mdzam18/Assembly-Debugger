@@ -1,6 +1,6 @@
 package src.DapClasses;
 
-public class ThreadEvent extends Event{
+public class ThreadEvent extends Event {
     public ThreadEvent() {
         super.setEvent("thread");
     }

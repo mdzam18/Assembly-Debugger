@@ -1,5 +1,6 @@
 package src.DapClasses;
-public class Request extends ProtocolMessage{
+
+public class Request extends ProtocolMessage {
     public Request(){
         super.setType("request");
     }

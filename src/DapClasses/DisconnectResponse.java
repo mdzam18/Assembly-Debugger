@@ -1,5 +1,5 @@
 package src.DapClasses;
 
-public class DisconnectResponse extends Response{
+public class DisconnectResponse extends Response {
 
 }

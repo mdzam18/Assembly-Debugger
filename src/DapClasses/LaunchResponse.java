@@ -1,3 +1,4 @@
 package src.DapClasses;
-public class LaunchResponse extends Response{
+
+public class LaunchResponse extends Response {
 }

@@ -1,4 +1,4 @@
 package src.DapClasses;
 
-public class TerminateResponse extends Response{
+public class TerminateResponse extends Response {
 }

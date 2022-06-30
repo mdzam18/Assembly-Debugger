@@ -1,6 +1,6 @@
 package src.DapClasses;
 
-public class SetFunctionBreakpointsRequest extends Request{
+public class SetFunctionBreakpointsRequest extends Request {
     public SetFunctionBreakpointsRequest() {
         super.setCommand("setFunctionBreakpoints");
     }

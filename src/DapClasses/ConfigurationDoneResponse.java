@@ -1,3 +1,4 @@
 package src.DapClasses;
-public class ConfigurationDoneResponse extends Response{
+
+public class ConfigurationDoneResponse extends Response {
 }

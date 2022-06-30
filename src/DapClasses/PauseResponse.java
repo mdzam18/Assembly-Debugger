@@ -1,4 +1,4 @@
 package src.DapClasses;
 
-public class PauseResponse extends Response{
+public class PauseResponse extends Response {
 }

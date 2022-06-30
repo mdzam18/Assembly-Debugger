@@ -1,6 +1,6 @@
 package src.DapClasses;
 
-public class TerminateRequest extends Request{
+public class TerminateRequest extends Request {
     public TerminateRequest(){
         super.setCommand("terminate");
     }

@@ -1,4 +1,4 @@
 package src.DapClasses;
 
-public class StepOutResponse extends Response{
+public class StepOutResponse extends Response {
 }

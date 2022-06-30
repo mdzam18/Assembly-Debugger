@@ -1,9 +1,10 @@
 package src.DapClasses;
-public class ConfigurationDoneRequest extends Request{
+
+public class ConfigurationDoneRequest extends Request {
     public ConfigurationDoneRequest() {
         super.setCommand("configurationDone");
     }
-    private  ConfigurationDoneArguments arguments;
+    private ConfigurationDoneArguments arguments;
 
     public ConfigurationDoneArguments getArguments() {
         return arguments;

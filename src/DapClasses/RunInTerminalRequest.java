@@ -1,10 +1,10 @@
 package src.DapClasses;
 
-public class RunInTerminalRequest extends Request{
+public class RunInTerminalRequest extends Request {
     public RunInTerminalRequest() {
         super.setCommand("runInTerminal");
     }
-    private  RunInTerminalRequestArguments arguments;
+    private RunInTerminalRequestArguments arguments;
 
     public RunInTerminalRequestArguments getArguments() {
         return arguments;

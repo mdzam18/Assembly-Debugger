@@ -1,5 +1,6 @@
 package src.DapClasses;
-public class Event extends ProtocolMessage{
+
+public class Event extends ProtocolMessage {
     public Event(){
         super.setType("event");
     }

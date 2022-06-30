@@ -1,6 +1,6 @@
 package src.DapClasses;
 
-public class AttachRequest extends Request{
+public class AttachRequest extends Request {
     public AttachRequest() {
         super.setCommand("attach");
     }

@@ -1,6 +1,6 @@
 package src.DapClasses;
 
-public class SetVariableRequest extends Request{
+public class SetVariableRequest extends Request {
     public SetVariableRequest(){
         super.setCommand("setVariable");
     }

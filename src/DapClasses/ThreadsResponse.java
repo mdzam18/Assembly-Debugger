@@ -1,6 +1,6 @@
 package src.DapClasses;
 
-public class ThreadsResponse extends Response{
+public class ThreadsResponse extends Response {
     private java.lang.Thread[] threads;
     private Object body;
 

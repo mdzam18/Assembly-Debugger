@@ -1,4 +1,5 @@
 package src.DapClasses;
+
 public class NextRequest extends Request {
     private String command = "next";
 

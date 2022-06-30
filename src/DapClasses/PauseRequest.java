@@ -1,6 +1,6 @@
 package src.DapClasses;
 
-public class PauseRequest extends Request{
+public class PauseRequest extends Request {
     public PauseRequest() {
         super.setCommand("pause");
     }

@@ -1,9 +1,10 @@
 package src.DapClasses;
-public class LaunchRequest extends Request{
+
+public class LaunchRequest extends Request {
     public LaunchRequest() {
         super.setCommand("launch");
     }
-    private  LaunchRequestArguments arguments;
+    private LaunchRequestArguments arguments;
 
     public LaunchRequestArguments getArguments() {
         return arguments;

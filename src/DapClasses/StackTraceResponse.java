@@ -1,6 +1,6 @@
 package src.DapClasses;
 
-public class StackTraceResponse extends Response{
+public class StackTraceResponse extends Response {
     private StackFrame[] stackFrames;
     private int totalFrames;
     private Object body;

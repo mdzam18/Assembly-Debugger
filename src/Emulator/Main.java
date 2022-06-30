@@ -12,7 +12,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-          String fileName = "\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\Emulator\\src\\tests\\calltests.txt";
+          String fileName = "C:\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\src\\Tests\\calltests.txt";
 //        String[] arr = new String[2];
 //        arr[0] = fileName;
 //        fileName = "\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\Emulator\\src\\tests\\sum.txt";
@@ -21,8 +21,8 @@ public class Main {
         // String fileName = args[0];
         AssemblyEmulator emulator = new AssemblyEmulator(new FileReader(fileName));
        // emulator.debug();
-        emulator.next();
+        emulator.debug();
         emulator.getCallStack();
-        emulator.showStack("test_sum2");
+      //  emulator.showStack("test_sum2");
     }
 }

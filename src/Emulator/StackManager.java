@@ -10,7 +10,7 @@ public class StackManager {
     private ArrayList<String> callStack;
     private ArrayList<Integer> savedPc;
 
-    public StackManager(){
+    public StackManager() {
         memory = new int[1]; //saved pc
         callStack = new ArrayList<>();
         callStack.add("MAIN");
@@ -38,36 +38,39 @@ public class StackManager {
     }
 
     //Returns callStack ArrayList.
-    public ArrayList<String> getCallStack(){
+    public ArrayList<String> getCallStack() {
         return callStack;
     }
 
     //Adds functionName to callStack list.
-    public void addFunctionName(String functionName){
+    public void addFunctionName(String functionName) {
         callStack.add(functionName);
     }
 
     //Removes functionName from CallStack list.
-    public void removeFunctionName(int index){
+    public void removeFunctionName(int index) {
         callStack.remove(index);
     }
 
     //Add saved pc index.
-    public void addSavedPc(){
-        savedPc.add(memory.length - 1);
+    public void addSavedPc(int size) {
+        savedPc.add(size);
     }
 
     //Removes saved pc index.
-    public void removeSavedPc(int index){
+    public void removeSavedPc(int index) {
         savedPc.remove(index);
     }
 
     //Deletes saved pc register from memory array.
-    public void deleteSavedPcFromMemory(){
+    public void deleteSavedPcFromMemory() {
         int[] curr = new int[memory.length - 1];
         System.arraycopy(memory, 1, curr, 0, memory.length - 1);
         memory = curr;
     }
 
+    public ArrayList<Integer> getSavedPc() {
+        return savedPc;
+    }
 
 }
