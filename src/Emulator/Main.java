@@ -1,6 +1,7 @@
 package src.Emulator;
 
 import java.io.FileReader;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -21,8 +22,13 @@ public class Main {
         // String fileName = args[0];
         AssemblyEmulator emulator = new AssemblyEmulator(new FileReader(fileName));
        // emulator.debug();
-        emulator.debug();
-        emulator.getCallStack();
+        emulator.next();
+        emulator.next();
+        ArrayList<String> list = emulator.getCallStack();
+        for(int i = 0 ; i < list.size(); i++){
+            System.out.println(list.get(i));
+        }
+        emulator.showStack("TEST_SUM1");
       //  emulator.showStack("test_sum2");
     }
 }
