@@ -13,7 +13,8 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-          String fileName = "C:\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\src\\Tests\\calltests.txt";
+          //String fileName = "C:\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\src\\Tests\\calltests.txt";
+          String fileName = "src/Tests/calltests.txt";
 //        String[] arr = new String[2];
 //        arr[0] = fileName;
 //        fileName = "\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\Emulator\\src\\tests\\sum.txt";
