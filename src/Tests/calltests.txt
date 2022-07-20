@@ -19,9 +19,5 @@ sp = sp + 8;
 ANE rv, 12;
 AGT rv, 10;
 ret;
-Function sum;
-r1 = m[sp+4];
-r2 = m[sp+8];
-rv = r1 + r2;
-RET;
+
 
