@@ -6,12 +6,12 @@ import java.util.Locale;
 public class StackManager {
 
     //instance variables
-    private int[] memory;
+    private MemoryManager memoryManager;
     private ArrayList<String> callStack;
     private ArrayList<Integer> savedPc;
 
-    public StackManager() {
-        memory = new int[1]; //saved pc
+    public StackManager(MemoryManager memoryManager) {
+       this.memoryManager = memoryManager;
         callStack = new ArrayList<>();
         callStack.add("MAIN");
         savedPc = new ArrayList<>();
@@ -20,6 +20,22 @@ public class StackManager {
 
     //Gets function name and returns stack of the function.
     public void showStack(String functionName) {
+        int [] memory = memoryManager.getMemory();
+        System.out.println(memory.length);
+        for(int i = 0; i < savedPc.size(); i++){
+            System.out.println(savedPc.get(i) + " pc");
+        }
+        System.out.println("saved pc is done");
+        if(functionName.startsWith("MAIN")){
+            for(int i = 0; i  < memory.length; i++){
+                if(savedPc.contains(i)){
+                    System.out.println("SAVED PC");
+                } else {
+                    System.out.println(memory[i]);
+                }
+            }
+            return;
+        }
         int index = 0;
         for (int i = callStack.size() - 1; i >= 0; i--) {
             if (callStack.get(i).equals(functionName.toUpperCase(Locale.ROOT))) {
@@ -64,6 +80,7 @@ public class StackManager {
 
     //Deletes saved pc register from memory array.
     public void deleteSavedPcFromMemory() {
+        int [] memory = memoryManager.getMemory();
         int[] curr = new int[memory.length - 1];
         System.arraycopy(memory, 1, curr, 0, memory.length - 1);
         memory = curr;

@@ -16,7 +16,7 @@ public class FunctionsManager {
     private String currentFunction;
     private int currentLine;
 
-    public FunctionsManager(ArrayList<String> list, RegistersManager registersManager, MemoryManager memoryManager, StackManager stackManager){
+    public FunctionsManager(ArrayList<String> list, RegistersManager registersManager, MemoryManager memoryManager, StackManager stackManager) {
         functions = new HashMap<>();
         returns = new HashMap<>();
         returnsIndexes = new ArrayList<>();
@@ -55,7 +55,7 @@ public class FunctionsManager {
         memoryManager.resizeMemory(length + 1); //add saved pc
         String str = "FUNCTION" + line;
         stackManager.addFunctionName(line); //add function name
-        stackManager.addSavedPc(length - 1);
+        stackManager.addSavedPc(length);
         callFunction(str);
         returnsIndexes.add(numberOfLine);
     }
@@ -63,27 +63,29 @@ public class FunctionsManager {
     public int processReturns(int numberOfLine) {
         int length = memoryManager.getMemory().length;
         if (returnsIndexes.size() == 0) {
-            return list.size() - 1;
+            return list.size();
         }
         memoryManager.resizeMemory(length - 1); //delete saved pc
         int ret = returnsIndexes.get(returnsIndexes.size() - 1);
         returnsIndexes.remove(returnsIndexes.size() - 1);
         int index = 0;
         ArrayList<String> callStack = stackManager.getCallStack();
-        ArrayList<Integer> savedPc = stackManager.getSavedPc();
         for (int i = callStack.size() - 1; i >= 0; i--) {
             if (callStack.get(i).equals(returns.get(numberOfLine).substring(8))) {
                 index = i;
                 break;
             }
         }
-        callStack.remove(index);
-        savedPc.remove(index);
+        stackManager.removeFunctionName(index);
+        stackManager.removeSavedPc(index);
+        if(returns.get(numberOfLine).startsWith("MAIN")){
+            return -1;
+        }
         return ret + 1;
     }
 
-    private void fillFunctionArray(){
-        for(int i = 0; i < list.size(); i++){
+    private void fillFunctionArray() {
+        for (int i = 0; i < list.size(); i++) {
             String line = list.get(i);
             if (line.startsWith("FUNCTION")) {
                 String str = line.substring(0, line.length() - 1);
@@ -92,7 +94,7 @@ public class FunctionsManager {
         }
     }
 
-    public String getCurrentFunction(){
+    public String getCurrentFunction() {
         return currentFunction;
     }
 
@@ -105,7 +107,7 @@ public class FunctionsManager {
         currentLine = index - 1;
     }
 
-    public int getCurrentLine(){
+    public int getCurrentLine() {
         return currentLine;
     }
 
@@ -113,6 +115,7 @@ public class FunctionsManager {
         line = line.substring(8, line.length() - 1);
         functions.put(line, numberOfLine);
         int index = getReturnIndex(numberOfLine);
+        System.out.println("index: " + index + " line: " + line);
         returns.put(index, line);
     }
 

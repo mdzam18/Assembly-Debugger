@@ -1,7 +1,5 @@
 package src.Emulator;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -19,20 +17,20 @@ public class AssemblyEmulator {
     private ArrayList<String> list;
     private int currentLine;
 
-    public AssemblyEmulator(FileReader file) throws IOException {
-        list = new ArrayList<>();
-        readFile(file);
+    public AssemblyEmulator(String[] arr) throws IOException {
+        FilesManager files = new FilesManager();
+        list = files.createList(arr);
         init();
         currentLine = functionsManager.getCurrentLine();
     }
 
-    public Map<String, Integer> getRegisters(){
+    public Map<String, Integer> getRegisters() {
         return registersManager.getRegisters();
     }
 
     public boolean next() throws Exception {
         //list.size() -1 imitom rom boloshi sruldeba ret-it.
-        if (currentLine == (list.size() - 1)) {
+        if (currentLine == (list.size())) {
             memoryManager.deleteSavedPC();
             currentLine++;
             return false;
@@ -79,7 +77,7 @@ public class AssemblyEmulator {
         registersManager = new RegistersManager();
         memoryManager = new MemoryManager();
         addressManager = new AddressManager(registersManager, memoryManager);
-        stackManager = new StackManager();
+        stackManager = new StackManager(memoryManager);
         branchesManager = new BranchesManager(registersManager, memoryManager);
         functionsManager = new FunctionsManager(list, registersManager, memoryManager, stackManager);
     }
@@ -101,6 +99,7 @@ public class AssemblyEmulator {
     }
 
     private int processLine(String line, int numberOfLine) throws Exception {
+        System.out.println(numberOfLine + 1);
         if (!line.equals("")) {
             line = line.toUpperCase(Locale.ROOT);
             String left = addressManager.getLeftSide(line);
@@ -114,7 +113,7 @@ public class AssemblyEmulator {
                 return branchesManager.branches(line, numberOfLine);
             } else if (line.startsWith("J")) {
                 return branchesManager.jump(line, numberOfLine);
-            } else if (line.startsWith("FUNCTION") && !line.startsWith("FUNCTIONMAIN")) {
+            } else if (line.startsWith("FUNCTION")) {
                 functionsManager.processFunction(line, numberOfLine);
             } else if (line.startsWith("CALL")) {
                 //call
@@ -140,19 +139,4 @@ public class AssemblyEmulator {
         }
         return -1;
     }
-
-    private void readFile(FileReader file) throws IOException {
-        BufferedReader rd = new BufferedReader(file);
-        while (true) {
-            String line = rd.readLine();
-            if (line == null) {
-                break;
-            }
-            line = line.replaceAll(" ", ""); //Delete white spaces.
-            line = line.toUpperCase(Locale.ROOT);
-            list.add(line);
-        }
-        rd.close();
-    }
-
 }
