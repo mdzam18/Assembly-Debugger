@@ -7,35 +7,38 @@ import java.util.Map;
 
 public class AssemblyEmulator {
 
+    //instance variables
     private RegistersManager registersManager;
     private MemoryManager memoryManager;
     private StackManager stackManager;
     private AddressManager addressManager;
     private BranchesManager branchesManager;
     private FunctionsManager functionsManager;
-
     private ArrayList<String> list;
     private int currentLine;
 
-    public AssemblyEmulator(String[] arr) throws IOException {
+    public AssemblyEmulator(String[] arr) throws Exception {
         FilesManager files = new FilesManager();
         list = files.createList(arr);
         init();
         currentLine = functionsManager.getCurrentLine();
     }
 
+    //Returns registers values
     public Map<String, Integer> getRegisters() {
         return registersManager.getRegisters();
     }
 
+    //executes next line
     public boolean next() throws Exception {
-        //list.size() -1 imitom rom boloshi sruldeba ret-it.
         if (currentLine == (list.size())) {
+            if (!list.get(currentLine - 1).startsWith("RET")){
+                throw new Exception("missing RET");
+            }
             memoryManager.deleteSavedPC();
             currentLine++;
             return false;
         } else {
-            //    System.out.println(currentLine + 1);
             int line = processLine(list.get(currentLine), currentLine);
             if (line != -1) {
                 currentLine = line - 1;
@@ -45,6 +48,7 @@ public class AssemblyEmulator {
         }
     }
 
+    //debugs whole code
     public void debug() throws Exception {
         init();
         while (true) {
@@ -73,7 +77,7 @@ public class AssemblyEmulator {
     }
 
 
-    private void init() {
+    private void init() throws Exception {
         registersManager = new RegistersManager();
         memoryManager = new MemoryManager();
         addressManager = new AddressManager(registersManager, memoryManager);
@@ -82,10 +86,13 @@ public class AssemblyEmulator {
         functionsManager = new FunctionsManager(list, registersManager, memoryManager, stackManager);
     }
 
+
+    //shows stack values
     public void showStack(String functionName) {
         stackManager.showStack(functionName);
     }
 
+    //returns list of methods in call stack
     public ArrayList<String> getCallStack() {
         return stackManager.getCallStack();
     }
@@ -99,7 +106,6 @@ public class AssemblyEmulator {
     }
 
     private int processLine(String line, int numberOfLine) throws Exception {
-        System.out.println(numberOfLine + 1);
         if (!line.equals("")) {
             line = line.toUpperCase(Locale.ROOT);
             String left = addressManager.getLeftSide(line);
@@ -130,7 +136,6 @@ public class AssemblyEmulator {
             } else if (line.startsWith("RV")) {
                 int rv = addressManager.getValueOfTheRightSide(line.substring(3, line.length() - 1));
                 registersManager.setRv(rv);
-                System.out.println("RV " + rv);
             } else if (line.startsWith("A")) {
                 //ASSERTS
                 String currentFunction = functionsManager.getCurrentFunction();

@@ -2,6 +2,7 @@ package src.Emulator;
 
 public class NumbersManager {
 
+    //returns arithmetic operator char
     public char getOperator(String str) {
         for (int i = 0; i < str.length(); i++) {
             if (str.charAt(i) == '+' || str.charAt(i) == '-' || str.charAt(i) == '*' || str.charAt(i) == '/') {
@@ -11,6 +12,7 @@ public class NumbersManager {
         return 0;
     }
 
+    //checks if there is arithmetic operator
     public boolean containsOperator(String address) {
         return address.indexOf('+') != -1 || address.indexOf('-') != -1 || address.indexOf('*') != -1 || address.indexOf('/') != -1;
     }

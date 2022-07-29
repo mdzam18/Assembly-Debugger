@@ -28,14 +28,16 @@ public class MemoryManager {
         memory[location] = value;
     }
 
-    public void allocateMemory(String line) {
+    public void allocateMemory(String line) throws Exception {
         int index = line.indexOf("=");
         int size = computeMemorySize(line.substring(index + 1, line.indexOf(";")));
+        if(size < 0){
+            throw new Exception("invalid size: " + size);
+        }
         resizeMemory(size);
     }
 
     public void resizeMemory(int size) {
-        // System.out.println("size " + size);
         int[] curr = new int[size];
         System.arraycopy(memory, 0, curr, 0, Math.min(size, memory.length));
         memory = curr;
@@ -47,6 +49,7 @@ public class MemoryManager {
         memory = curr;
     }
 
+    //computes size of the memory to allocate.
     private int computeMemorySize(String str) {
         if (str.contains("-")) {
             int index = str.indexOf("-");

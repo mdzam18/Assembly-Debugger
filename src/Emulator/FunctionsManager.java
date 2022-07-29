@@ -6,6 +6,7 @@ import java.util.Map;
 
 public class FunctionsManager {
 
+    //instance variables
     private Map<String, Integer> functions;
     private Map<Integer, String> returns;
     private ArrayList<Integer> returnsIndexes;
@@ -16,7 +17,7 @@ public class FunctionsManager {
     private String currentFunction;
     private int currentLine;
 
-    public FunctionsManager(ArrayList<String> list, RegistersManager registersManager, MemoryManager memoryManager, StackManager stackManager) {
+    public FunctionsManager(ArrayList<String> list, RegistersManager registersManager, MemoryManager memoryManager, StackManager stackManager) throws Exception {
         functions = new HashMap<>();
         returns = new HashMap<>();
         returnsIndexes = new ArrayList<>();
@@ -26,11 +27,12 @@ public class FunctionsManager {
         this.stackManager = stackManager;
         fillFunctionArray();
         fillReturnsIndex();
+        //starting function
         currentFunction = "FUNCTIONMAIN";
         currentLine = functions.get("FUNCTIONMAIN");
     }
 
-    private void fillReturnsIndex() {
+    private void fillReturnsIndex() throws Exception {
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).startsWith("FUNCTION")) {
                 getAllReturns(i + 1, list.get(i).substring(0, list.get(i).length() - 1));
@@ -38,14 +40,19 @@ public class FunctionsManager {
         }
     }
 
-    private void getAllReturns(int index, String name) {
+    private void getAllReturns(int index, String name) throws Exception {
+        boolean been = false;
         for (int i = index; i < list.size(); i++) {
             if (list.get(i).startsWith("FUNCTION")) {
                 break;
             }
             if (list.get(i).startsWith("RET")) {
                 returns.put(i, name);
+                been = true;
             }
+        }
+        if(!been){
+            throw new Exception("missing RET of: " + name);
         }
     }
 
@@ -111,20 +118,24 @@ public class FunctionsManager {
         return currentLine;
     }
 
-    public void processFunction(String line, int numberOfLine) {
+    //fills functions map
+    public void processFunction(String line, int numberOfLine) throws Exception {
         line = line.substring(8, line.length() - 1);
         functions.put(line, numberOfLine);
         int index = getReturnIndex(numberOfLine);
-        System.out.println("index: " + index + " line: " + line);
         returns.put(index, line);
     }
 
-    private int getReturnIndex(int index) {
-        for (int i = index; i < list.size(); i++) {
+    //returns the index of the first ret found after this index
+    private int getReturnIndex(int index) throws Exception {
+        for (int i = index + 1; i < list.size(); i++) {
             if (list.get(i).startsWith("RET")) {
                 return i;
             }
+            if(list.get(i).startsWith("FUNCTION")){
+                break;
+            }
         }
-        return -1;
+        throw new Exception("missing RET of : " + list.get(index));
     }
 }

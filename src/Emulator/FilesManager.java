@@ -8,7 +8,8 @@ import java.util.Locale;
 
 public class FilesManager {
 
-    public ArrayList<String> createList(String[] arr) throws IOException {
+    //reads all files and creates list of commands to execute
+    public ArrayList<String> createList(String[] arr) throws Exception {
         ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < arr.length; i++) {
             FileReader curr = new FileReader(arr[i]);
@@ -21,7 +22,7 @@ public class FilesManager {
         return list;
     }
 
-    private ArrayList<String> readFile(FileReader file) throws IOException {
+    private ArrayList<String> readFile(FileReader file) throws Exception {
         BufferedReader rd = new BufferedReader(file);
         ArrayList<String> list = new ArrayList<>();
         while (true) {
@@ -29,9 +30,25 @@ public class FilesManager {
             if (line == null) {
                 break;
             }
-            line = line.replaceAll(" ", ""); //Delete white spaces.
-            line = line.toUpperCase(Locale.ROOT);
-            list.add(line);
+            if (!line.equals("")) {
+                line = line.replaceAll(" ", ""); //Delete white spaces.
+                line = line.toUpperCase(Locale.ROOT);
+                if (!line.endsWith(";")) {
+                    System.out.println(line);
+                    throw new Exception(line + " should end with ;");
+                }
+                int index = line.indexOf(";");
+                int start = 0;
+                int end = index;
+                //can have multiple commands on one line;
+                while (index != -1) {
+                    String curr = line.substring(start, end + 1);
+                    list.add(curr);
+                    start = end + 1;
+                    index = line.indexOf(";", start);
+                    end = index;
+                }
+            }
         }
         rd.close();
         return list;

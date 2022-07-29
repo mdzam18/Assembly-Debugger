@@ -9,7 +9,8 @@
 
 import * as vscode from 'vscode';
 import { WorkspaceFolder, DebugConfiguration, ProviderResult, CancellationToken } from 'vscode';
-
+import { MockDebugSession } from './mockDebug';
+import { FileAccessor } from './mockRuntime';
 
 export function activateMockDebug(context: vscode.ExtensionContext, factory?: vscode.DebugAdapterDescriptorFactory) {
 
@@ -90,12 +91,13 @@ export function activateMockDebug(context: vscode.ExtensionContext, factory?: vs
 		}
 	}, vscode.DebugConfigurationProviderTriggerKind.Dynamic));
 
-	if (factory) {
+	if (!factory) {
+		factory = new InlineDebugAdapterFactory();
+	}
 	context.subscriptions.push(vscode.debug.registerDebugAdapterDescriptorFactory('mock', factory));
 	if ('dispose' in factory) {
 		context.subscriptions.push(factory);
 	}
-}
 
 	// override VS Code's default implementation of the debug hover
 	// here we match only Mock "variables", that are words starting with an '$'
@@ -180,6 +182,33 @@ class MockConfigurationProvider implements vscode.DebugConfigurationProvider {
 	}
 }
 
+export const workspaceFileAccessor: FileAccessor = {
+	async readFile(path: string): Promise<Uint8Array> {
+		let uri: vscode.Uri;
+		try {
+			uri = pathToUri(path);
+		} catch (e) {
+			return new TextEncoder().encode(`cannot read '${path}'`);
+		}
 
+		return await vscode.workspace.fs.readFile(uri);
+	},
+	async writeFile(path: string, contents: Uint8Array) {
+		await vscode.workspace.fs.writeFile(pathToUri(path), contents);
+	}
+};
 
+function pathToUri(path: string) {
+	try {
+		return vscode.Uri.file(path);
+	} catch (e) {
+		return vscode.Uri.parse(path);
+	}
+}
 
+class InlineDebugAdapterFactory implements vscode.DebugAdapterDescriptorFactory {
+
+	createDebugAdapterDescriptor(_session: vscode.DebugSession): ProviderResult<vscode.DebugAdapterDescriptor> {
+		return new vscode.DebugAdapterInlineImplementation(new MockDebugSession(workspaceFileAccessor));
+	}
+}
