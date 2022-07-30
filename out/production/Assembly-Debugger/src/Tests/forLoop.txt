@@ -5,7 +5,7 @@ M[SP+4] = 0;
 r9 = m[sp];
 BGE r9 , 4, PC + 52;
 R1 = M[SP+4];
-BNE R1, PC+16;
+BNE R1, 3, PC+16;
 M[SP] = 4;
 r9=m[sp];
 JMP PC - 24;

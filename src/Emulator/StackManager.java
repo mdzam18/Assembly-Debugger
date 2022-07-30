@@ -1,6 +1,7 @@
 package src.Emulator;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class StackManager {
@@ -11,7 +12,7 @@ public class StackManager {
     private ArrayList<Integer> savedPc;
 
     public StackManager(MemoryManager memoryManager) {
-       this.memoryManager = memoryManager;
+        this.memoryManager = memoryManager;
         callStack = new ArrayList<>();
         callStack.add("MAIN");
         savedPc = new ArrayList<>();
@@ -19,22 +20,25 @@ public class StackManager {
     }
 
     //Gets function name and returns stack of the function.
-    public void showStack(String functionName) {
-        int [] memory = memoryManager.getMemory();
+    public List<String> showStack(String functionName) {
+        List<String> list = new ArrayList<>();
+        int[] memory = memoryManager.getMemory();
         System.out.println(memory.length);
-        for(int i = 0; i < savedPc.size(); i++){
-            System.out.println(savedPc.get(i) + " pc");
+        for (Integer integer : savedPc) {
+            System.out.println(integer + " pc");
         }
         System.out.println("saved pc is done");
-        if(functionName.startsWith("MAIN")){
-            for(int i = 0; i  < memory.length; i++){
-                if(savedPc.contains(i)){
+        if (functionName.startsWith("MAIN")) {
+            for (int i = 0; i < memory.length; i++) {
+                if (savedPc.contains(i)) {
+                    list.add("SAVED PC");
                     System.out.println("SAVED PC");
                 } else {
+                    list.add(String.valueOf(memory[i]));
                     System.out.println(memory[i]);
                 }
             }
-            return;
+            return list;
         }
         int index = 0;
         for (int i = callStack.size() - 1; i >= 0; i--) {
@@ -48,9 +52,12 @@ public class StackManager {
             lastIndex = savedPc.get(index + 1);
         }
         System.out.println("SAVED PC");
+        list.add("SAVED PC");
         for (int i = savedPc.get(index) + 1; i < lastIndex; i++) {
             System.out.println(memory[i]);
+            list.add(String.valueOf(memory[i]));
         }
+        return list;
     }
 
     //Returns callStack ArrayList.
@@ -60,6 +67,7 @@ public class StackManager {
 
     //Adds functionName to callStack list.
     public void addFunctionName(String functionName) {
+        functionName = functionName.toUpperCase(Locale.ROOT);
         callStack.add(functionName);
     }
 
@@ -78,16 +86,16 @@ public class StackManager {
         savedPc.remove(index);
     }
 
-    //Deletes saved pc register from memory array.
-    public void deleteSavedPcFromMemory() {
-        int [] memory = memoryManager.getMemory();
-        int[] curr = new int[memory.length - 1];
-        System.arraycopy(memory, 1, curr, 0, memory.length - 1);
-        memory = curr;
-    }
-
-    public ArrayList<Integer> getSavedPc() {
-        return savedPc;
-    }
+//    //Deletes saved pc register from memory array.
+//    public void deleteSavedPcFromMemory() {
+//        int[] memory = memoryManager.getMemory();
+//        int[] curr = new int[memory.length - 1];
+//        System.arraycopy(memory, 1, curr, 0, memory.length - 1);
+//        memory = curr;
+//    }
+//
+//    public ArrayList<Integer> getSavedPc() {
+//        return savedPc;
+//    }
 
 }

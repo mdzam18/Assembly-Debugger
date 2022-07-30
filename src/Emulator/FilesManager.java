@@ -2,14 +2,16 @@ package src.Emulator;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 
 public class FilesManager {
 
+    private boolean containsMain;
+
     //reads all files and creates list of commands to execute
     public ArrayList<String> createList(String[] arr) throws Exception {
+        containsMain = false;
         ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < arr.length; i++) {
             FileReader curr = new FileReader(arr[i]);
@@ -18,6 +20,9 @@ public class FilesManager {
                 list.add(list2.get(j));
             }
             curr.close();
+        }
+        if(!containsMain){
+            throw new Exception("missing main");
         }
         return list;
     }
@@ -34,8 +39,7 @@ public class FilesManager {
                 line = line.replaceAll(" ", ""); //Delete white spaces.
                 line = line.toUpperCase(Locale.ROOT);
                 if (!line.endsWith(";")) {
-                    System.out.println(line);
-                    throw new Exception(line + " should end with ;");
+                    throw new Exception(line + " missing semicolon");
                 }
                 int index = line.indexOf(";");
                 int start = 0;
@@ -43,6 +47,9 @@ public class FilesManager {
                 //can have multiple commands on one line;
                 while (index != -1) {
                     String curr = line.substring(start, end + 1);
+                    if(curr.contains("MAIN")){
+                        containsMain = true;
+                    }
                     list.add(curr);
                     start = end + 1;
                     index = line.indexOf(";", start);

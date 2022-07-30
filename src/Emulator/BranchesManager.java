@@ -41,7 +41,7 @@ public class BranchesManager {
         int a = getValue(str.substring(3, index), 0);
         int b = getValue(str.substring(index + 1, str.length() - 1), 0);
         int result = compareValues(type, a, b, 0);
-        if (result == 0) {
+        if (result == -1) {
             //assert
             int expected = a;
             int got = b;
@@ -59,22 +59,22 @@ public class BranchesManager {
 
     private String printExpectedMessage(int expected, int got, String str) {
         if (str.startsWith("LT")) {
-            return "Expected greater or equal than: " + expected + " Got: " + got;
+            return "Expected less than: " + expected + " Got: " + got;
         }
         if (str.startsWith("LE")) {
-            return "Expected greater than: " + expected + " Got: " + got;
-        }
-        if (str.startsWith("EQ")) {
-            return "Expected not equal: " + expected + " Got: " + got;
-        }
-        if (str.startsWith("NE")) {
-            return "Expected: " + expected + " Got: " + got;
-        }
-        if (str.startsWith("GT")) {
             return "Expected less or equal than: " + expected + " Got: " + got;
         }
+        if (str.startsWith("EQ")) {
+            return "Expected: " + expected + " Got: " + got;
+        }
+        if (str.startsWith("NE")) {
+            return "Expected not equal: " + expected + " Got: " + got;
+        }
+        if (str.startsWith("GT")) {
+            return "Expected greater than: " + expected + " Got: " + got;
+        }
         if (str.startsWith("GE")) {
-            return "Expected less than: " + expected + " Got: " + got;
+            return "Expected greater or equal than: " + expected + " Got: " + got;
         }
         return "";
     }
