@@ -5,11 +5,11 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        String fileName = "src/Tests/sum.txt";
-        String fileName2 = "src/Tests/calltests.txt";
-        String arr[] = new String[2];
+        String fileName = "src/Tests/forLoop.txt";
+      //  String fileName2 = "src/Tests/calltests.txt";
+        String arr[] = new String[1];
         arr[0] = fileName;
-        arr[1] = fileName2;
+    //    arr[1] = fileName2;
         AssemblyEmulator emulator = new AssemblyEmulator(arr);
         emulator.debug();
 //        for(int i = 0; i < 17; i++){

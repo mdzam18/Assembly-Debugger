@@ -14,11 +14,15 @@ public class BranchesManager {
         String type = str.substring(1, 3);
         int index = str.indexOf(',');
         if (index == -1) {
-            throw new Exception("should contain 3 values");
+            throw new Exception("missing values to compare");
         }
         int a = getValue(str.substring(3, index), numberOfLine);
         if (str.indexOf(',', index + 1) == -1) {
-            throw new Exception("should contain pc");
+            if(str.contains("PC")){
+                throw new Exception("missing second value");
+            } else {
+                throw new Exception("missing pc");
+            }
         }
         int b = getValue(str.substring(index + 1, str.indexOf(',', index + 1)), numberOfLine);
         int pc = getValue(str.substring(str.indexOf(',', index + 1) + 1, str.indexOf(";")), numberOfLine);
