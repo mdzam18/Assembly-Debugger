@@ -23,6 +23,9 @@ public class AddressManager {
             //sp + const or const + sp or const + r or r + const or r1 + r2
             return computeResult(str) / 4;
         } else {
+            if(str.startsWith("RV")){
+                return registersManager.getRv() / 4;
+            }
             if (str.startsWith("R") && !str.startsWith("RET") && !str.startsWith("RV")) {
                 if (registersManager.containsRegister(str)) {
                     return registersManager.getRegister(str) / 4;
@@ -104,6 +107,9 @@ public class AddressManager {
             if(str.charAt(1) != 'V' && !numbers.isNumber("" + str.charAt(1))){
                 throw new Exception("invalid register. do you mean RV?");
             } else {
+                if(!str.contains("=")){
+                    throw new Exception("should contain =");
+                }
                 return str.substring(0, str.indexOf("="));
             }
         } else if (str.startsWith("M")) {
@@ -112,6 +118,9 @@ public class AddressManager {
             }
             if (!str.contains("]")){
                 throw new Exception("should contain ]");
+            }
+            if(!str.contains("=")){
+                throw new Exception("should contain =");
             }
             String address = str.substring(str.indexOf("[") + 1, str.indexOf("]"));
             int res = getAddress(address);
@@ -133,9 +142,6 @@ public class AddressManager {
         if (str.contains("M")){
             throw new Exception("should not contain M in computation");
         }
-        if(operator == 0){
-            throw new Exception("should contain operator");
-        }
         int index = str.indexOf(operator);
         String first = str.substring(0, index);
         String second = str.substring(index + 1);
@@ -145,12 +151,17 @@ public class AddressManager {
         if (second.startsWith("RV")) {
             second = Integer.toString(registersManager.getRv());
         }
+        if(numbers.isNumber(first) && numbers.isNumber(second)){
+            if(operator == '+'){
+                return (Integer.parseInt(first) + Integer.parseInt(second));
+            } else if(operator == '-'){
+                return (Integer.parseInt(first) - Integer.parseInt(second));
+            }
+        }
         if (numbers.isNumber(first)) {
             return computeValue(first, second, operator, true);
         } else if (numbers.isNumber(second)) {
             return computeValue(second, first, operator, false);
-        } else if (numbers.isNumber(first) && numbers.isNumber(second)) {
-            return Integer.parseInt(first) + Integer.parseInt(second);
         } else {
             if(!registersManager.containsRegister(first)){
                 throw new Exception("does not contain register: " + first);
@@ -177,6 +188,7 @@ public class AddressManager {
             return findMemoryArrayIndex(operator, Integer.parseInt(first)) * 4;
         } else {
             //starts with R.
+            System.out.println(second);
             if(!registersManager.containsRegister(second)){
                 throw new Exception("does not contain register: " + second);
             }
@@ -191,9 +203,8 @@ public class AddressManager {
 
     //adds value to the memory array
     public void fillMemoryArray(int location, String line) throws Exception {
-        if (location >= memoryManager.getMemoryArraySize()) {
-            System.out.println("location " + location + " " + "memory length " + memoryManager.getMemoryArraySize());
-            throw new Exception("out of bounds.");
+        if (location >= memoryManager.getMemoryArraySize() || location < 0) {
+            throw new Exception(location + " out of bounds");
         } else {
             String str = line.substring(line.indexOf("=") + 1, line.indexOf(";"));
             int res = computeBytes(str);
