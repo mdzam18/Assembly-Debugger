@@ -89,7 +89,7 @@ public class AssemblyEmulator {
         memoryManager = new MemoryManager();
         addressManager = new AddressManager(registersManager, memoryManager);
         stackManager = new StackManager(memoryManager);
-        branchesManager = new BranchesManager(registersManager, memoryManager);
+        branchesManager = new BranchesManager(registersManager);
         functionsManager = new FunctionsManager(list, registersManager, memoryManager, stackManager);
     }
 

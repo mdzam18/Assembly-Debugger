@@ -11,11 +11,8 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        String text
-                = "usowushwbgsola ";
-        for (String arg: args
-             ) {
-
+        String text = "usowushwbgsola ";
+        for (String arg : args) {
             text += arg + " bla ";
         }
 
@@ -25,7 +22,7 @@ public class Main {
             // Create a FileWriter object
             // to write in the file
             FileWriter fWriter = new FileWriter(
-                    "D:\\FINAL\\Assembly-Debugger\\src\\Emulator\\Main\\testInputFile");
+                    "src/Emulator/Main/testInputFile");
 
             // Writing into file
             // Note: The content taken above inside the
@@ -40,13 +37,11 @@ public class Main {
 
             // Display message for successful execution of
             // program on the console
-            System.out.println(
-                    "File is created successfully with the content.");
+            System.out.println("File is created successfully with the content.");
         }
 
         // Catch block to handle if exception occurs
         catch (IOException e) {
-
             // Print the exception
             System.out.print(e.getMessage());
         }

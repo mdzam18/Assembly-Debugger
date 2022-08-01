@@ -49,11 +49,41 @@ class AddressManagerTest {
     }
 
     @Test
-    void computeBytes() {
+    public void computeBytes() throws Exception {
+        RegistersManager registersManager = new RegistersManager();
+        registersManager.addRegister("R1", 2);
+        registersManager.addRegister("R2", 3);
+        MemoryManager memoryManager = new MemoryManager();
+        memoryManager.addValue(0, 5);
+        AddressManager addressManager = new AddressManager(registersManager, memoryManager);
+        Assertions.assertEquals(2, addressManager.computeBytes(".2R1"));
+        Assertions.assertEquals(2, addressManager.computeBytes("FTOI2.3"));
     }
 
     @Test
-    void getValueOfTheRightSide() {
+    public void getValueOfTheRightSide() throws Exception {
+        RegistersManager registersManager = new RegistersManager();
+        registersManager.addRegister("R1", 2);
+        registersManager.addRegister("R2", 3);
+        registersManager.setRv(3);
+        MemoryManager memoryManager = new MemoryManager();
+        memoryManager.addValue(0, 5);
+        AddressManager addressManager = new AddressManager(registersManager, memoryManager);
+
+        Assertions.assertEquals(5, addressManager.getValueOfTheRightSide("5"));
+        Assertions.assertEquals(-5, addressManager.getValueOfTheRightSide("-5"));
+        Assertions.assertEquals(1, addressManager.getValueOfTheRightSide("R2-R1"));
+
+        Throwable exception = assertThrows(Exception.class, () -> addressManager.getValueOfTheRightSide("M[5]"));
+        Assertions.assertEquals("invalid address", exception.getMessage());
+
+        Assertions.assertEquals(5, addressManager.getValueOfTheRightSide("M[SP]"));
+        Assertions.assertEquals(3, addressManager.getValueOfTheRightSide("RV"));
+
+        exception = assertThrows(Exception.class, () -> addressManager.getValueOfTheRightSide("R3"));
+        Assertions.assertEquals("invalid register", exception.getMessage());
+        Assertions.assertEquals(2, addressManager.getValueOfTheRightSide("R1"));
+        Assertions.assertEquals(0, addressManager.getValueOfTheRightSide("SP"));
     }
 
     @Test
@@ -86,6 +116,9 @@ class AddressManagerTest {
 
         exception = assertThrows(Exception.class, () -> addressManager.getLeftSide("SP"));
         Assertions.assertEquals("should contain =", exception.getMessage());
+
+        exception = assertThrows(Exception.class, () -> addressManager.getLeftSide("k=2;"));
+        Assertions.assertEquals("invalid expression", exception.getMessage());
     }
 
     @Test

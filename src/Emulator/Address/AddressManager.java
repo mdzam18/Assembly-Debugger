@@ -61,6 +61,9 @@ public class AddressManager {
     public int getValueOfTheRightSide(String str) throws Exception {
         NumbersManager numbers = new NumbersManager();
         if (numbers.isNumber(str)) { //loads constants.
+            if(str.contains(".")){
+                return (int)Double.parseDouble(str);
+            }
             return Integer.parseInt(str);
         } else if (str.charAt(0) == '-' && numbers.isNumber(str.substring(1))) { //is negative number.
             return -1 * Integer.parseInt(str.substring(1));
@@ -82,6 +85,7 @@ public class AddressManager {
                 }
                 return registersManager.getRegister(str);
             } else {
+                //SP
                 return (memoryManager.getMemoryArraySize() - 1) * 4;
             }
         }
@@ -131,7 +135,7 @@ public class AddressManager {
             }
             return str.substring(0, str.indexOf("="));
         } else {
-            return "";
+            throw new Exception("invalid expression");
         }
     }
 

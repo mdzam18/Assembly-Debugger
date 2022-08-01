@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class FunctionsManagerTest {
 
     @Test
-    void processCall() {
+    public void processCall() {
     }
 
     @Test
