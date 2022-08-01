@@ -135,7 +135,7 @@ public class AddressManager {
             }
             return str.substring(0, str.indexOf("="));
         } else {
-            throw new Exception("invalid expression");
+            return "";
         }
     }
 

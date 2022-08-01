@@ -116,9 +116,6 @@ class AddressManagerTest {
 
         exception = assertThrows(Exception.class, () -> addressManager.getLeftSide("SP"));
         Assertions.assertEquals("should contain =", exception.getMessage());
-
-        exception = assertThrows(Exception.class, () -> addressManager.getLeftSide("k=2;"));
-        Assertions.assertEquals("invalid expression", exception.getMessage());
     }
 
     @Test
