@@ -21,8 +21,10 @@ public class Main {
 
             // Create a FileWriter object
             // to write in the file
+           // FileWriter fWriter = new FileWriter(
+             //       "D:\\FINAL\\Assembly-Debugger\\src\\Emulator\\Main\\testInputFile");
             FileWriter fWriter = new FileWriter(
-                    "src/Emulator/Main/testInputFile");
+                    "/tmp/foobar");
 
             // Writing into file
             // Note: The content taken above inside the
