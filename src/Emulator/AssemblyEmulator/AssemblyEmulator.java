@@ -9,6 +9,7 @@ import src.Emulator.Registers.RegistersManager;
 import src.Emulator.Stack.StackManager;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -90,13 +91,17 @@ public class AssemblyEmulator {
         addressManager = new AddressManager(registersManager, memoryManager);
         stackManager = new StackManager(memoryManager);
         branchesManager = new BranchesManager(registersManager);
-        functionsManager = new FunctionsManager(list, registersManager, memoryManager, stackManager);
+        functionsManager = new FunctionsManager(list, memoryManager, stackManager);
     }
 
 
     //shows stack values
-    public void showStack(String functionName) {
-        stackManager.showStack(functionName);
+    public List<String> showStack(String functionName) throws Exception {
+        return stackManager.showStack(functionName);
+    }
+
+    public int getRv(){
+        return registersManager.getRv();
     }
 
     //returns list of methods in call stack
@@ -109,6 +114,7 @@ public class AssemblyEmulator {
         String leftSide = line.substring(0, index);
         String str = line.substring(index + 1, line.indexOf(";"));
         int rightSide = addressManager.computeBytes(str);
+        System.out.println(leftSide + " " + rightSide + " current");
         registersManager.addRegister(leftSide, rightSide);
     }
 

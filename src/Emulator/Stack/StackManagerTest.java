@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class StackManagerTest {
 
     @Test
-    void showStack() {
+    void showStack() throws Exception {
         MemoryManager memoryManager = new MemoryManager();
         memoryManager.resizeMemory(4);
         memoryManager.addValue(0, 0);
@@ -23,8 +23,6 @@ class StackManagerTest {
         List<String> list = stackManager.showStack("MAIN");
         assertEquals("SAVED PC", list.get(0));
         assertEquals("1", list.get(1));
-        assertEquals("SAVED PC", list.get(2));
-        assertEquals("3", list.get(3));
 
         list = stackManager.showStack("a");
         assertEquals("SAVED PC", list.get(0));
@@ -57,19 +55,4 @@ class StackManagerTest {
         assertEquals(0, callStack.size());
     }
 
-    @Test
-    void addSavedPc() {
-    }
-
-    @Test
-    void removeSavedPc() {
-    }
-
-    @Test
-    void deleteSavedPcFromMemory() {
-    }
-
-    @Test
-    void getSavedPc() {
-    }
 }

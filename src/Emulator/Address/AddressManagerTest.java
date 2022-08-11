@@ -84,6 +84,9 @@ class AddressManagerTest {
         Assertions.assertEquals("invalid register", exception.getMessage());
         Assertions.assertEquals(2, addressManager.getValueOfTheRightSide("R1"));
         Assertions.assertEquals(0, addressManager.getValueOfTheRightSide("SP"));
+
+        Assertions.assertEquals(2, addressManager.getValueOfTheRightSide("SP+R1"));
+        Assertions.assertEquals(2, addressManager.getValueOfTheRightSide("R1+SP"));
     }
 
     @Test

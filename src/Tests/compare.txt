@@ -1,15 +1,3 @@
-int main(){
-    int n = 2;
-    int m = 3;
-    if(n > m){
-      m++;
-    } 
-    n++;
-    return 0;
-}
-
-
-
 Function main;
 SP = SP - 8;
 M[SP] = 3;

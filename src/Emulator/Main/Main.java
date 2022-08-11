@@ -21,10 +21,8 @@ public class Main {
 
             // Create a FileWriter object
             // to write in the file
-           // FileWriter fWriter = new FileWriter(
-             //       "D:\\FINAL\\Assembly-Debugger\\src\\Emulator\\Main\\testInputFile");
             FileWriter fWriter = new FileWriter(
-                    "/tmp/foobar");
+                    "src/Emulator/Main/testInputFile");
 
             // Writing into file
             // Note: The content taken above inside the
@@ -48,16 +46,16 @@ public class Main {
             System.out.print(e.getMessage());
         }
 
-        String fileName = "src/Tests/sum.txt";
-        String fileName2 = "src/Tests/calltests.txt";
-        String arr[] = new String[2];
+        String fileName = "C:\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\src\\Tests\\testStack";
+        //String fileName2 = "src/Tests/calltests.txt";
+        String arr[] = new String[1];
         arr[0] = fileName;
-        arr[1] = fileName2;
+        //arr[1] = fileName2;
         AssemblyEmulator emulator = new AssemblyEmulator(arr);
-        emulator.debug();
-//        for(int i = 0; i < 17; i++){
-//            emulator.next();
-//        }
+       // emulator.debug();
+        for(int i = 0; i < 8; i++){
+            emulator.next();
+        }
         ArrayList<String> list = emulator.getCallStack();
         System.out.println("call stack: ");
         for (String s : list) {
@@ -65,7 +63,7 @@ public class Main {
         }
         System.out.println("done");
         System.out.println("show stack: ");
-        emulator.showStack("MAIN");
+        emulator.showStack("A");
         System.out.println("done");
         //  emulator.showStack("test_sum2");
     }

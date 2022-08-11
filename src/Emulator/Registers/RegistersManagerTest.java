@@ -1,13 +1,14 @@
 package src.Emulator.Registers;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
 class RegistersManagerTest {
 
-    @org.junit.jupiter.api.Test
-    void testAddAndGet() {
+    @Test
+    public void testAddAndGet() {
         RegistersManager registersManager = new RegistersManager();
         for (int i = 0; i < 100; i++) {
             registersManager.addRegister("R" + i, i);
@@ -18,8 +19,8 @@ class RegistersManagerTest {
         }
     }
 
-    @org.junit.jupiter.api.Test
-    void testSetAndGetRv() {
+    @Test
+    public void testSetAndGetRv() {
         RegistersManager registersManager = new RegistersManager();
         for (int i = 0; i < 100; i++) {
             registersManager.setRv(i);
@@ -27,8 +28,8 @@ class RegistersManagerTest {
         }
     }
 
-    @org.junit.jupiter.api.Test
-    void getRegisters() {
+    @Test
+    public void getRegisters() {
         RegistersManager registersManager = new RegistersManager();
         for (int i = 0; i < 100; i++) {
             registersManager.addRegister("R" + i, i);

@@ -22,32 +22,30 @@ public class StackManager {
     }
 
     //Gets function name and returns stack of the function.
-    public List<String> showStack(String functionName) {
+    public List<String> showStack(String functionName) throws Exception {
         List<String> list = new ArrayList<>();
         int[] memory = memoryManager.getMemory();
-        System.out.println(memory.length);
-        for (Integer integer : savedPc) {
-            System.out.println(integer + " pc");
-        }
-        System.out.println("saved pc is done");
-        if (functionName.startsWith("MAIN")) {
-            for (int i = 0; i < memory.length; i++) {
-                if (savedPc.contains(i)) {
-                    list.add("SAVED PC");
-                    System.out.println("SAVED PC");
-                } else {
-                    list.add(String.valueOf(memory[i]));
-                    System.out.println(memory[i]);
-                }
-            }
-            return list;
-        }
-        int index = 0;
+//        if (functionName.startsWith("MAIN")) {
+//            for (int i = 0; i < memory.length; i++) {
+//                if (savedPc.contains(i)) {
+//                    list.add("SAVED PC");
+//                    System.out.println("SAVED PC");
+//                } else {
+//                    list.add(String.valueOf(memory[i]));
+//                    System.out.println(memory[i]);
+//                }
+//            }
+//            return list;
+//        }
+        int index = -1;
         for (int i = callStack.size() - 1; i >= 0; i--) {
             if (callStack.get(i).equals(functionName.toUpperCase(Locale.ROOT))) {
                 index = i;
                 break;
             }
+        }
+        if(index == -1){
+            throw new Exception("can't show stack of this function");
         }
         int lastIndex = memory.length;
         if (savedPc.size() > (index + 1)) {

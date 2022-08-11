@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class NumbersManagerTest {
 
     @Test
-    void testGetAndContainsOperator() {
+    public void testGetAndContainsOperator() {
         NumbersManager numbersManager = new NumbersManager();
         char operator = numbersManager.getOperator("a + b");
         assertTrue(numbersManager.containsOperator("a+b"));
@@ -30,7 +30,7 @@ class NumbersManagerTest {
     }
 
     @Test
-    void isNumber() {
+    public void isNumber() {
         NumbersManager numbersManager = new NumbersManager();
         for(int i = 0 ; i < 100; i++){
             assertTrue(numbersManager.isNumber(String.valueOf(i)));

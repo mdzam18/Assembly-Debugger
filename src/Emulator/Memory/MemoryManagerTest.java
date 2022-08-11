@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 class MemoryManagerTest {
 
     @Test
-    void getMemory() {
+    public void getMemory() {
         MemoryManager memoryManager = new MemoryManager();
         memoryManager.resizeMemory(10);
         for (int i = 0; i < 10; i++) {
@@ -22,7 +22,7 @@ class MemoryManagerTest {
     }
 
     @Test
-    void addAndGetValue() {
+    public void addAndGetValue() {
         MemoryManager memoryManager = new MemoryManager();
         memoryManager.resizeMemory(10);
         for (int i = 0; i < 10; i++) {
@@ -35,7 +35,7 @@ class MemoryManagerTest {
     }
 
     @Test
-    void allocateMemory() throws Exception {
+    public void allocateMemory() throws Exception {
         MemoryManager memoryManager = new MemoryManager();
         memoryManager.allocateMemory("SP=SP-8;");
         Assertions.assertEquals(3, memoryManager.getMemoryArraySize());
@@ -48,7 +48,7 @@ class MemoryManagerTest {
     }
 
     @Test
-    void resizeMemory() {
+    public void resizeMemory() {
         MemoryManager memoryManager = new MemoryManager();
         Assertions.assertEquals(1, memoryManager.getMemoryArraySize());
         for (int i = 1; i < 10; i++) {
@@ -58,7 +58,7 @@ class MemoryManagerTest {
     }
 
     @Test
-    void deleteSavedPC() {
+    public void deleteSavedPC() {
         MemoryManager memoryManager = new MemoryManager();
         memoryManager.deleteSavedPC();
         Assertions.assertEquals(0, memoryManager.getMemoryArraySize());

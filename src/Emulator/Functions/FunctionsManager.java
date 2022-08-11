@@ -1,7 +1,6 @@
 package src.Emulator.Functions;
 
 import src.Emulator.Memory.MemoryManager;
-import src.Emulator.Registers.RegistersManager;
 import src.Emulator.Stack.StackManager;
 
 import java.util.ArrayList;
@@ -15,18 +14,16 @@ public class FunctionsManager {
     private Map<Integer, String> returns;
     private ArrayList<Integer> returnsIndexes;
     private ArrayList<String> list;
-    private RegistersManager registersManager;
     private MemoryManager memoryManager;
     private StackManager stackManager;
     private String currentFunction;
     private int currentLine;
 
-    public FunctionsManager(ArrayList<String> list, RegistersManager registersManager, MemoryManager memoryManager, StackManager stackManager) throws Exception {
+    public FunctionsManager(ArrayList<String> list, MemoryManager memoryManager, StackManager stackManager) throws Exception {
         functions = new HashMap<>();
         returns = new HashMap<>();
         returnsIndexes = new ArrayList<>();
         this.list = list;
-        this.registersManager = registersManager;
         this.memoryManager = memoryManager;
         this.stackManager = stackManager;
         fillFunctionArray();
@@ -55,8 +52,8 @@ public class FunctionsManager {
                 been = true;
             }
         }
-        if(!been){
-            throw new Exception("missing RET of: " + name);
+        if (!been) {
+            throw new Exception("missing RET of: " + name.substring(8));
         }
     }
 
@@ -71,6 +68,7 @@ public class FunctionsManager {
         returnsIndexes.add(numberOfLine);
     }
 
+    //Finds line where to go after ret
     public int processReturns(int numberOfLine) {
         int length = memoryManager.getMemory().length;
         if (returnsIndexes.size() == 0) {
@@ -81,6 +79,9 @@ public class FunctionsManager {
         returnsIndexes.remove(returnsIndexes.size() - 1);
         int index = 0;
         ArrayList<String> callStack = stackManager.getCallStack();
+        if (returns.get(numberOfLine).equals("FUNCTIONMAIN")) {
+            return -1;
+        }
         for (int i = callStack.size() - 1; i >= 0; i--) {
             if (callStack.get(i).equals(returns.get(numberOfLine).substring(8))) {
                 index = i;
@@ -89,9 +90,9 @@ public class FunctionsManager {
         }
         stackManager.removeFunctionName(index);
         stackManager.removeSavedPc(index);
-        if(returns.get(numberOfLine).startsWith("MAIN")){
-            return -1;
-        }
+//        if (returns.get(numberOfLine).startsWith("MAIN")) {
+//            return -1;
+//        }
         return ret + 1;
     }
 
@@ -123,11 +124,12 @@ public class FunctionsManager {
     }
 
     //fills functions map
-    public void processFunction(String line, int numberOfLine) throws Exception {
-        line = line.substring(8, line.length() - 1);
+    public Map<String, Integer> processFunction(String line, int numberOfLine) throws Exception {
+        line = line.substring(0, line.length() - 1);
         functions.put(line, numberOfLine);
         int index = getReturnIndex(numberOfLine);
         returns.put(index, line);
+        return functions;
     }
 
     //returns the index of the first ret found after this index
@@ -136,7 +138,7 @@ public class FunctionsManager {
             if (list.get(i).startsWith("RET")) {
                 return i;
             }
-            if(list.get(i).startsWith("FUNCTION")){
+            if (list.get(i).startsWith("FUNCTION")) {
                 break;
             }
         }

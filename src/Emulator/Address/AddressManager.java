@@ -167,6 +167,12 @@ public class AddressManager {
         } else if (numbers.isNumber(second)) {
             return computeValue(second, first, operator, false);
         } else {
+            if(first.startsWith("SP")){
+                return compute((memoryManager.getMemoryArraySize() - 1) * 4, registersManager.getRegister(second), operator);
+            }
+            if(second.startsWith("SP")){
+                return compute(registersManager.getRegister(first),(memoryManager.getMemoryArraySize() - 1) * 4, operator);
+            }
             if(!registersManager.containsRegister(first)){
                 throw new Exception("does not contain register: " + first);
             }
@@ -192,7 +198,6 @@ public class AddressManager {
             return findMemoryArrayIndex(operator, Integer.parseInt(first)) * 4;
         } else {
             //starts with R.
-            System.out.println(second);
             if(!registersManager.containsRegister(second)){
                 throw new Exception("does not contain register: " + second);
             }
