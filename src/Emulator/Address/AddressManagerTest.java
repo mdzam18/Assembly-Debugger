@@ -5,7 +5,9 @@ import org.junit.jupiter.api.Test;
 import src.Emulator.Memory.MemoryManager;
 import src.Emulator.Registers.RegistersManager;
 
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+//import static org.junit.Assert.assertThrows;
 
 class AddressManagerTest {
 
