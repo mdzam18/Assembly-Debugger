@@ -71,11 +71,10 @@ class DebugAdapterExecutableFactory implements vscode.DebugAdapterDescriptorFact
 
 		// use the executable specified in the package.json if it exists or determine it based on some other information (e.g. the session)
 		//if (!executable) {
-			const command = "powershell.exe";
+			const command = "java";
 			const args = [
-				"-Command",
-				"& {del D:\bla.txt}",
-				//"D:\FINAL\Assembly-Debugger\out\artifacts\debugger_jar\Assembly-Debugger.jar"
+				"-jar",
+				"/home/nroga/Final/Assembly-Debugger/out/artifacts/debugger_jar/Assembly-Debugger.jar"
 			];
 			const options = {
 				//cwd: "working directory for executable",

@@ -2,6 +2,9 @@ package src.DapClasses;
 
 import com.google.gson.Gson;
 
+import java.io.FileWriter;
+import java.util.Scanner;
+
 
 public class Receiver {
     private Gson gson;
@@ -9,7 +12,27 @@ public class Receiver {
     public Receiver() {
         gson = new Gson();
     }
+    public void receive() throws Exception{
+        FileWriter fWriter = new FileWriter(
+                "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile");
+        try(Scanner scanner = new Scanner(System.in);){
+            String s;
+            int counter = 0;
+            while (counter <20){
+                counter++;
+                s = scanner.nextLine();
+                fWriter.write(s);
+                fWriter.flush();
+                if(counter %3 == 0){
+                    String response  = receiveProtocolMessage(s);
+                    System.out.println(response);
+                }
+                //fWriter.write("nanuka");
 
+                //fWriter.flush();
+            }
+        }
+    }
     public String receiveProtocolMessage(String json) {
 
         ProtocolMessage protocolMessage = gson.fromJson(json, ProtocolMessage.class);
