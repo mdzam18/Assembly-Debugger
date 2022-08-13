@@ -6,18 +6,26 @@ import java.io.FileWriter;
 import java.util.Scanner;
 
 
-public class Receiver {
+public  class Receiver {
     private Gson gson;
 
     public Receiver() {
         gson = new Gson();
     }
-    public void receive() throws Exception{
+    public  void receive() throws Exception{
         FileWriter fWriter = new FileWriter(
                 "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile");
+//        fWriter.write("bla");
+//        fWriter.flush();
+        //fWriter.close();
+        //Gson gson = new Gson();
+//        fWriter.write("bla");
+//        fWriter.flush();
         try(Scanner scanner = new Scanner(System.in);){
             String s;
             int counter = 0;
+//            fWriter.write("zugdidi");
+//            fWriter.flush();
             while (counter <20){
                 counter++;
                 s = scanner.nextLine();
@@ -27,9 +35,9 @@ public class Receiver {
                     String response  = receiveProtocolMessage(s);
                     System.out.println(response);
                 }
-                //fWriter.write("nanuka");
-
-                //fWriter.flush();
+//                fWriter.write("nanuka");
+//
+//                fWriter.flush();
             }
         }
     }
@@ -97,17 +105,17 @@ public class Receiver {
         String command = request.getCommand();
         switch (command) {
             case "initialize":
-                return processInitializeRequest();
+                return processInitializeRequest(json);
             case "setBreakpoints":
-                return processSetBreakpointsRequest();
+                return processSetBreakpointsRequest(json);
             case "setExceptionBreakpoints":
-                return processSetExceptionBreakpointsRequest();
+                return processSetExceptionBreakpointsRequest(json);
             case "setFunctionBreakpoints":
                 return processSetFunctionBreakpointsRequest();
             case "configurationDone":
-                return processConfigurationDoneRequest();
+                return processConfigurationDoneRequest(json);
             case "launch":
-                return processLaunchRequest();
+                return processLaunchRequest(json);
             case "runInTerminal":
                 return processRunInTerminalRequest();
             case "attach":
@@ -202,27 +210,33 @@ public class Receiver {
         return null;
     }
 
-    private String processLaunchRequest() {
+    private String processLaunchRequest(String json) {
+        LaunchRequest request = gson.fromJson(json, LaunchRequest.class);
         LaunchResponse response = new LaunchResponse();
         return null;
     }
 
-    private String processConfigurationDoneRequest() {
+    private String processConfigurationDoneRequest(String json) {
+        ConfigurationDoneRequest request = gson.fromJson(json, ConfigurationDoneRequest.class);
         ConfigurationDoneResponse response = new ConfigurationDoneResponse();
         return null;
     }
 
-    private String processSetExceptionBreakpointsRequest() {
+    private String processSetExceptionBreakpointsRequest(String json) {
+        SetExceptionBreakpointsRequest request = gson.fromJson(json, SetExceptionBreakpointsRequest.class);
         SetExceptionBreakpointsResponse response = new SetExceptionBreakpointsResponse();
         return null;
     }
 
-    public String processSetBreakpointsRequest() {
+    public String processSetBreakpointsRequest(String json) {
+        SetBreakpointsRequest request = gson.fromJson(json, SetBreakpointsRequest.class);
         SetBreakpointsResponse response = new SetBreakpointsResponse();
-        return null;
+        String jsonResponse = gson.toJson(response);
+        return jsonResponse;
     }
 
-    public String processInitializeRequest() {
+    public String processInitializeRequest(String json) {
+        InitializeRequest request = gson.fromJson(json, InitializeRequest.class);
         InitializeResponse response = new InitializeResponse();
         Capabilities capabilities = new Capabilities();
         capabilities.setSupportsConfigurationDoneRequest(true);

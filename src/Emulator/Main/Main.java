@@ -11,14 +11,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-
+//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
     public static void main(String[] args) throws Exception {
         Receiver receiver = new Receiver();
-        String w = "{\"command\":\"initialize\",\"arguments\":{\"clientID\":\"vscode\",\"clientName\":\"Visual Studio Code\",\"adapterID\":\"mock\",\"pathFormat\":\"path\",\"linesStartAt1\":true,\"columnsStartAt1\":true,\"supportsVariableType\":true,\"supportsVariablePaging\":true,\"supportsRunInTerminalRequest\":true,\"locale\":\"en-us\",\"supportsProgressReporting\":true,\"supportsInvalidatedEvent\":true,\"supportsMemoryReferences\":true,\"supportsArgsCanBeInterpretedByShell\":true},\"type\":\"request\",\"seq\":1}";
-        //String resonse= receiver.receiveProtocolMessage(w);
-        //System.out.println(resonse);
         receiver.receive();
-
+        //String w = "{\"command\":\"initialize\",\"arguments\":{\"clientID\":\"vscode\",\"clientName\":\"Visual Studio Code\",\"adapterID\":\"mock\",\"pathFormat\":\"path\",\"linesStartAt1\":true,\"columnsStartAt1\":true,\"supportsVariableType\":true,\"supportsVariablePaging\":true,\"supportsRunInTerminalRequest\":true,\"locale\":\"en-us\",\"supportsProgressReporting\":true,\"supportsInvalidatedEvent\":true,\"supportsMemoryReferences\":true,\"supportsArgsCanBeInterpretedByShell\":true},\"type\":\"request\",\"seq\":1}";
 
         String fileName = "C:\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\src\\Tests\\testStack";
         //String fileName2 = "src/Tests/calltests.txt";
@@ -40,5 +37,7 @@ public class Main {
         emulator.showStack("A");
         System.out.println("done");
         //  emulator.showStack("test_sum2");
+
+
     }
 }

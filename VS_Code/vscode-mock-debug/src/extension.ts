@@ -74,7 +74,8 @@ class DebugAdapterExecutableFactory implements vscode.DebugAdapterDescriptorFact
 			const command = "java";
 			const args = [
 				"-jar",
-				"/home/nroga/Final/Assembly-Debugger/out/artifacts/debugger_jar/Assembly-Debugger.jar"
+				"/home/nroga/Final/Assembly-Debugger/out/artifacts/test1_jar/Assembly-Debugger.jar"
+				//"/home/nroga/Final/Assembly-Debugger/out/artifacts/debugger_jar/Assembly-Debugger.jar"
 			];
 			const options = {
 				//cwd: "working directory for executable",
