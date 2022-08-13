@@ -66,11 +66,11 @@ public  class Receiver {
             case "initialized":
                 return processInitializedEvent();
             case "stopped":
-                return processStoppedEvent();
+                return processStoppedEvent(json);
             case "thread":
                 return processThreadEvent();
             case "terminated":
-                return processTerminatedEvent();
+                return processTerminatedEvent(json);
             case "exited":
                 return processExitedEvent();
             default:
@@ -78,21 +78,7 @@ public  class Receiver {
         }
     }
 
-    private String processExitedEvent() {
-        return null;
-    }
 
-    private String processTerminatedEvent() {
-        return null;
-    }
-
-    private String processThreadEvent() {
-        return null;
-    }
-
-    private String processStoppedEvent() {
-        return null;
-    }
 
     public String processInitializedEvent() {
         return null;
@@ -123,13 +109,17 @@ public  class Receiver {
             case "setVariable":
                 return processAttachRequest();
             case "threads":
-                return processThreadsRequest();
+                return processThreadsRequest(json);
             case "stackTrace":
-                return processStackTraceRequest();
+                return processStackTraceRequest(json);
+            case "scopes":
+                return processScopesRequest(json);
+            case "variables":
+                return processVariablesRequest(json);
             case "pause":
                 return processPauseRequest();
             case "continue":
-                return processContinueRequest();
+                return processContinueRequest(json);
             case "next":
                 return processNextRequest();
             case "stepIn":
@@ -144,7 +134,34 @@ public  class Receiver {
                 return null;
         }
     }
+    private String processExitedEvent() {
+        return null;
+    }
 
+    private String processTerminatedEvent(String json) {
+        return null;
+    }
+
+    private String processThreadEvent() {
+        return null;
+    }
+
+    private String processStoppedEvent(String json) {
+        StoppedEvent request = gson.fromJson(json, StoppedEvent.class);
+        return null;
+    }
+    private String processVariablesRequest(String json) {
+        VariablesRequest request = gson.fromJson(json, VariablesRequest.class);
+        VariablesResponse response = new VariablesResponse();
+        String jsonResponse = gson.toJson(response);
+        return jsonResponse;
+    }
+    private String processScopesRequest(String json) {
+        ScopesRequest request = gson.fromJson(json, ScopesRequest.class);
+        ScopesResponse response = new ScopesResponse();
+        String jsonResponse = gson.toJson(response);
+        return jsonResponse;
+    }
     private String processDisconnectRequest() {
         DisconnectResponse response = new DisconnectResponse();
         return null;
@@ -170,7 +187,8 @@ public  class Receiver {
         return null;
     }
 
-    private String processContinueRequest() {
+    private String processContinueRequest(String json) {
+        ContinueRequest request = gson.fromJson(json, ContinueRequest.class);
         ContinueResponse response = new ContinueResponse();
         return null;
     }
@@ -180,14 +198,18 @@ public  class Receiver {
         return null;
     }
 
-    private String processStackTraceRequest() {
+    private String processStackTraceRequest(String json) {
+        StackTraceRequest request = gson.fromJson(json, StackTraceRequest.class);
         StackTraceResponse response = new StackTraceResponse();
-        return null;
+        String jsonResponse = gson.toJson(response);
+        return jsonResponse;
     }
 
-    private String processThreadsRequest() {
+    private String processThreadsRequest(String json) {
+        ThreadsRequest request = gson.fromJson(json, ThreadsRequest.class);
         ThreadsResponse response = new ThreadsResponse();
-        return null;
+        String jsonResponse = gson.toJson(response);
+        return jsonResponse;
     }
 
     private String processSetVariableRequest() {
@@ -213,19 +235,22 @@ public  class Receiver {
     private String processLaunchRequest(String json) {
         LaunchRequest request = gson.fromJson(json, LaunchRequest.class);
         LaunchResponse response = new LaunchResponse();
-        return null;
+        String jsonResponse = gson.toJson(response);
+        return jsonResponse;
     }
 
     private String processConfigurationDoneRequest(String json) {
         ConfigurationDoneRequest request = gson.fromJson(json, ConfigurationDoneRequest.class);
         ConfigurationDoneResponse response = new ConfigurationDoneResponse();
-        return null;
+        String jsonResponse = gson.toJson(response);
+        return jsonResponse;
     }
 
     private String processSetExceptionBreakpointsRequest(String json) {
         SetExceptionBreakpointsRequest request = gson.fromJson(json, SetExceptionBreakpointsRequest.class);
         SetExceptionBreakpointsResponse response = new SetExceptionBreakpointsResponse();
-        return null;
+        String jsonResponse = gson.toJson(response);
+        return jsonResponse;
     }
 
     public String processSetBreakpointsRequest(String json) {
