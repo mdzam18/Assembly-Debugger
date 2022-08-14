@@ -3,6 +3,9 @@ package src.DapClasses;
 import com.google.gson.Gson;
 
 import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -15,34 +18,66 @@ public  class Receiver {
     public  void receive() throws Exception{
         FileWriter fWriter = new FileWriter(
                 "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile");
-//        fWriter.write("bla");
-//        fWriter.flush();
-        //fWriter.close();
-        //Gson gson = new Gson();
-//        fWriter.write("bla");
-//        fWriter.flush();
+
         try(Scanner scanner = new Scanner(System.in);){
             String s;
             int counter = 0;
-//            fWriter.write("zugdidi");
-//            fWriter.flush();
+            int numBytes = 0;
+            List<String> lines = new ArrayList<String>() ;
             while (counter <20){
                 counter++;
                 s = scanner.nextLine();
+                lines.add(s);
+                if(s.contains("Content-Length: ")){
+                    numBytes = Integer.parseInt(s.split(" ")[1]);
+                }
+                if(lines.size() > 2 && lines.get(lines.size()-2).equals("\\r\\n")){
+
+                    String response  = receiveProtocolMessage(s.substring(numBytes));
+                    int length = response.getBytes().length;
+                    String header = String.format("Content-Length: %d\\r\\n\n" +
+                            "\\r\\n", length);
+                    System.out.println(header + response);
+                    System.out.flush();
+                }
                 fWriter.write(s);
                 fWriter.flush();
                 if(counter %3 == 0){
+
                     String response  = receiveProtocolMessage(s);
-                    System.out.println(response);
+                    int length = response.getBytes().length;
+                    String header = String.format("Content-Length: %d\\r\\n\n" +
+                            "\\r\\n", length);
+                    System.out.println(header + response);
+                    System.out.flush();
                 }
-//                fWriter.write("nanuka");
-//
-//                fWriter.flush();
             }
         }
     }
     public String receiveProtocolMessage(String json) {
-
+        String q = "Content-Length: 451\n" +
+                "{\n" +
+                "\"command\":\"initialize\",\n" +
+                "\"arguments\":{\n" +
+                "\"clientID\":\"vscode\",\n" +
+                "\"clientName\":\"Visual Studio Code\",\n" +
+                "\"adapterID\":\"mock\",\n" +
+                "\"pathFormat\":\"path\",\n" +
+                "\"linesStartAt1\":true,\n" +
+                "\"columnsStartAt1\":true,\n" +
+                "\"supportsVariableType\":true,\n" +
+                "\"supportsVariablePaging\":true,\n" +
+                "\"supportsRunInTerminalRequest\":true,\n" +
+                "\"locale\":\"en-us\",\n" +
+                "\"supportsProgressReporting\":true,\n" +
+                "\"supportsInvalidatedEvent\":true,\n" +
+                "\"supportsMemoryReferences\":true,\n" +
+                "\"supportsArgsCanBeInterpretedByShell\":true\n" +
+                "},\n" +
+                "\"type\":\"request\",\n" +
+                "\"seq\":1\n" +
+                "}\n" +
+                "Content-Length: 79";
         ProtocolMessage protocolMessage = gson.fromJson(json, ProtocolMessage.class);
         String type = protocolMessage.getType();
         System.out.println(type);
@@ -264,7 +299,8 @@ public  class Receiver {
         InitializeRequest request = gson.fromJson(json, InitializeRequest.class);
         InitializeResponse response = new InitializeResponse();
         Capabilities capabilities = new Capabilities();
-        capabilities.setSupportsConfigurationDoneRequest(true);
+        //capabilities.setSupportsConfigurationDoneRequest(true);
+        capabilities.setSupportsBreakpointLocationsRequest(true);
         response.setBody(capabilities);
         String jsonResponse = gson.toJson(response);
         return jsonResponse;
