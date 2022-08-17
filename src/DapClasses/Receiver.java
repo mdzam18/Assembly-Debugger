@@ -9,75 +9,55 @@ import java.util.List;
 import java.util.Scanner;
 
 
-public  class Receiver {
+public class Receiver {
     private Gson gson;
 
     public Receiver() {
         gson = new Gson();
     }
-    public  void receive() throws Exception{
+
+    public void receive() throws Exception {
         FileWriter fWriter = new FileWriter(
-                "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile");
+                "D:\\FINAL\\Assembly-Debugger\\src\\Emulator\\Main\\testInputFile");
+        String test = "Content-Length: 451\r\n" +
+                "\r\n" +
+                "{\"command\":\"initialize\",\"arguments\":{\"clientID\":\"vscode\",\"clientName\":\"Visual Studio Code\",\"adapterID\":\"mock\",\"pathFormat\":\"path\",\"linesStartAt1\":true,\"columnsStartAt1\":true,\"supportsVariableType\":true,\"supportsVariablePaging\":true,\"supportsRunInTerminalRequest\":true,\"locale\":\"en-us\",\"supportsProgressReporting\":true,\"supportsInvalidatedEvent\":true,\"supportsMemoryReferences\":true,\"supportsArgsCanBeInterpretedByShell\":true},\"type\":\"request\",\"seq\":1}Content-Length: 79";
+//        List<String> linesArr = new ArrayList<String>();
+//        linesArr.add("Content-Length: 451\r\n");
+//        linesArr.add("\r\n");
+//        linesArr.add("{\"command\":\"initialize\",\"arguments\":{\"clientID\":\"vscode\",\"clientName\":\"Visual Studio Code\",\"adapterID\":\"mock\",\"pathFormat\":\"path\",\"linesStartAt1\":true,\"columnsStartAt1\":true,\"supportsVariableType\":true,\"supportsVariablePaging\":true,\"supportsRunInTerminalRequest\":true,\"locale\":\"en-us\",\"supportsProgressReporting\":true,\"supportsInvalidatedEvent\":true,\"supportsMemoryReferences\":true,\"supportsArgsCanBeInterpretedByShell\":true},\"type\":\"request\",\"seq\":1}Content-Length: 79");
+        Scanner scanner = new Scanner(System.in);
+        List<String> lines = new ArrayList<>();
+        while (true) {
+        int numBytes = 0;
+        //for (int i = 0; i <linesArr.size(); i++) {
 
-        try(Scanner scanner = new Scanner(System.in);){
-            String s;
-            int counter = 0;
-            int numBytes = 0;
-            List<String> lines = new ArrayList<String>() ;
-            while (counter <20){
-                counter++;
-                s = scanner.nextLine();
-                lines.add(s);
-                if(s.contains("Content-Length: ")){
-                    numBytes = Integer.parseInt(s.split(" ")[1]);
+            while (true) {
+                String line = scanner.nextLine();
+                //String line = linesArr.get(i);
+                lines.add(line);
+
+                if (line.startsWith("Content-Length")) {
+                    String clean = line.replaceAll("\\D+","");
+                    numBytes = Integer.parseInt(clean);
                 }
-                if(lines.size() > 2 && lines.get(lines.size()-2).equals("\\r\\n")){
-
-                    String response  = receiveProtocolMessage(s.substring(numBytes));
-                    int length = response.getBytes().length;
-                    String header = String.format("Content-Length: %d\\r\\n\n" +
-                            "\\r\\n", length);
-                    System.out.println(header + response);
-                    System.out.flush();
-                }
-                fWriter.write(s);
-                fWriter.flush();
-                if(counter %3 == 0){
-
-                    String response  = receiveProtocolMessage(s);
-                    int length = response.getBytes().length;
-                    String header = String.format("Content-Length: %d\\r\\n\n" +
-                            "\\r\\n", length);
-                    System.out.println(header + response);
-                    System.out.flush();
+                if (lines.size()>2 && lines.get(lines.size() - 2).equals("\r\n")) {
+                        String content = line.substring(0,numBytes);
+                        String response = receiveProtocolMessage(content);
+                        int length = response.getBytes().length;
+                        String header = String.format("Content-Length: %d\\r\\n\n" +
+                                "\\r\\n", length);
+                        System.out.println(header + response);
+                        System.out.flush();
                 }
             }
+
         }
+
     }
+
     public String receiveProtocolMessage(String json) {
-        String q = "Content-Length: 451\n" +
-                "{\n" +
-                "\"command\":\"initialize\",\n" +
-                "\"arguments\":{\n" +
-                "\"clientID\":\"vscode\",\n" +
-                "\"clientName\":\"Visual Studio Code\",\n" +
-                "\"adapterID\":\"mock\",\n" +
-                "\"pathFormat\":\"path\",\n" +
-                "\"linesStartAt1\":true,\n" +
-                "\"columnsStartAt1\":true,\n" +
-                "\"supportsVariableType\":true,\n" +
-                "\"supportsVariablePaging\":true,\n" +
-                "\"supportsRunInTerminalRequest\":true,\n" +
-                "\"locale\":\"en-us\",\n" +
-                "\"supportsProgressReporting\":true,\n" +
-                "\"supportsInvalidatedEvent\":true,\n" +
-                "\"supportsMemoryReferences\":true,\n" +
-                "\"supportsArgsCanBeInterpretedByShell\":true\n" +
-                "},\n" +
-                "\"type\":\"request\",\n" +
-                "\"seq\":1\n" +
-                "}\n" +
-                "Content-Length: 79";
+
         ProtocolMessage protocolMessage = gson.fromJson(json, ProtocolMessage.class);
         String type = protocolMessage.getType();
         System.out.println(type);
@@ -112,7 +92,6 @@ public  class Receiver {
                 return null;
         }
     }
-
 
 
     public String processInitializedEvent() {
@@ -169,6 +148,7 @@ public  class Receiver {
                 return null;
         }
     }
+
     private String processExitedEvent() {
         return null;
     }
@@ -185,18 +165,21 @@ public  class Receiver {
         StoppedEvent request = gson.fromJson(json, StoppedEvent.class);
         return null;
     }
+
     private String processVariablesRequest(String json) {
         VariablesRequest request = gson.fromJson(json, VariablesRequest.class);
         VariablesResponse response = new VariablesResponse();
         String jsonResponse = gson.toJson(response);
         return jsonResponse;
     }
+
     private String processScopesRequest(String json) {
         ScopesRequest request = gson.fromJson(json, ScopesRequest.class);
         ScopesResponse response = new ScopesResponse();
         String jsonResponse = gson.toJson(response);
         return jsonResponse;
     }
+
     private String processDisconnectRequest() {
         DisconnectResponse response = new DisconnectResponse();
         return null;

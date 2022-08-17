@@ -13,6 +13,7 @@ import java.util.Scanner;
 public class Main {
 //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
     public static void main(String[] args) throws Exception {
+
         Receiver receiver = new Receiver();
         receiver.receive();
         //String w = "{\"command\":\"initialize\",\"arguments\":{\"clientID\":\"vscode\",\"clientName\":\"Visual Studio Code\",\"adapterID\":\"mock\",\"pathFormat\":\"path\",\"linesStartAt1\":true,\"columnsStartAt1\":true,\"supportsVariableType\":true,\"supportsVariablePaging\":true,\"supportsRunInTerminalRequest\":true,\"locale\":\"en-us\",\"supportsProgressReporting\":true,\"supportsInvalidatedEvent\":true,\"supportsMemoryReferences\":true,\"supportsArgsCanBeInterpretedByShell\":true},\"type\":\"request\",\"seq\":1}";

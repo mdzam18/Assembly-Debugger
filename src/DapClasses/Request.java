@@ -5,7 +5,7 @@ public class Request extends ProtocolMessage {
         super.setType("request");
     }
     private String command;
-    private InitializeRequestArguments arguments;
+    //private InitializeRequestArguments arguments;
 
     public String getCommand() {
         return command;
