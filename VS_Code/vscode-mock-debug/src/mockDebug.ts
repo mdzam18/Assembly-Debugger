@@ -134,7 +134,22 @@ export class MockDebugSession extends LoggingDebugSession {
 		});
 	}
 
-	/**
+
+	sendResponse(response: DebugProtocol.Response): void {
+		console.log(response);
+		super.sendResponse(response);
+	}
+
+	sendEvent(event: DebugProtocol.Event): void {
+		 console.log(event);
+		super.sendEvent(event);
+	}
+
+	handleMessage(msg: DebugProtocol.ProtocolMessage): void {
+		console.log(msg);
+		super.handleMessage(msg);
+	}
+	/**.
 	 * The 'initialize' request is the first request called by the frontend
 	 * to interrogate the features the debug adapter provides.
 	 */
