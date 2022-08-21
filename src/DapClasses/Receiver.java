@@ -8,6 +8,42 @@ import java.util.*;
 
 
 public class Receiver {
+    String test0 = "Content-Length: 119\r\n" +
+            "\r\n" +
+            "{\r\n" +
+            "    \"seq\": 153,\r\n" +
+            "    \"type\": \"request\",\r\n" +
+            "    \"command\": \"next\",\r\n" +
+            "    \"arguments\": {\r\n" +
+            "        \"threadId\": 3\r\n" +
+            "    }\r\n" +
+            "}";
+
+
+    String test2 = "Content-Length: 451\r\n" +
+            "\r\n" +
+            "{" +
+            "\"command\":\"initialize\",\r\n" +
+            "\"arguments\":{\r\n" +
+            "\"clientID\":\"vscode\",\r\n" +
+            "\"clientName\":\"Visual Studio Code\",\r\n" +
+            "\"adapterID\":\"mock\",\r\n" +
+            "\"pathFormat\":\"path\",\r\n" +
+            "\"linesStartAt1\":true,\r\n" +
+            "\"columnsStartAt1\":true,\r\n" +
+            "\"supportsVariableType\":true,\r\n" +
+            "\"supportsVariablePaging\":true,\r\n" +
+            "\"supportsRunInTerminalRequest\":true,\r\n" +
+            "\"locale\":\"en-us\",\r\n" +
+            "\"supportsProgressReporting\":true,\r\n" +
+            "\"supportsInvalidatedEvent\":true,\r\n" +
+            "\"supportsMemoryReferences\":true,\r\n" +
+            "\"supportsArgsCanBeInterpretedByShell\":true\r\n" +
+            "},\r\n" +
+            "\"type\":\"request\",\r\n" +
+            "\"seq\":1\r\n" +
+            "}" +
+            "Content-Length: 79\r\n";
     private Gson gson;
 
     public Receiver() {
@@ -56,83 +92,32 @@ public class Receiver {
         return rem.toString();
     }
     public void receive() throws Exception {
-        String test0 = "Content-Length: 119\r\n" +
-                "\r\n" +
-                "{\r\n" +
-                "    \"seq\": 153,\r\n" +
-                "    \"type\": \"request\",\r\n" +
-                "    \"command\": \"next\",\r\n" +
-                "    \"arguments\": {\r\n" +
-                "        \"threadId\": 3\r\n" +
-                "    }\r\n" +
-                "}";
         FileWriter fWriter = new FileWriter(
                 "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile");
 
-        String test2 = "Content-Length: 451\r\n" +
-                "\r\n" +
-                "{" +
-                "\"command\":\"initialize\",\r\n" +
-                "\"arguments\":{\r\n" +
-                "\"clientID\":\"vscode\",\r\n" +
-                "\"clientName\":\"Visual Studio Code\",\r\n" +
-                "\"adapterID\":\"mock\",\r\n" +
-                "\"pathFormat\":\"path\",\r\n" +
-                "\"linesStartAt1\":true,\r\n" +
-                "\"columnsStartAt1\":true,\r\n" +
-                "\"supportsVariableType\":true,\r\n" +
-                "\"supportsVariablePaging\":true,\r\n" +
-                "\"supportsRunInTerminalRequest\":true,\r\n" +
-                "\"locale\":\"en-us\",\r\n" +
-                "\"supportsProgressReporting\":true,\r\n" +
-                "\"supportsInvalidatedEvent\":true,\r\n" +
-                "\"supportsMemoryReferences\":true,\r\n" +
-                "\"supportsArgsCanBeInterpretedByShell\":true\r\n" +
-                "},\r\n" +
-                "\"type\":\"request\",\r\n" +
-                "\"seq\":1\r\n" +
-                "}" +
-                "Content-Length: 79\r\n";
-        String test = "Content-Length: 451\r\n" +
-                "\r\n" +
-                "{\"command\":\"initialize\",\"arguments\":{\"clientID\":\"vscode\",\"clientName\":\"Visual Studio Code\",\"adapterID\":\"mock\",\"pathFormat\":\"path\",\"linesStartAt1\":true,\"columnsStartAt1\":true,\"supportsVariableType\":true,\"supportsVariablePaging\":true,\"supportsRunInTerminalRequest\":true,\"locale\":\"en-us\",\"supportsProgressReporting\":true,\"supportsInvalidatedEvent\":true,\"supportsMemoryReferences\":true,\"supportsArgsCanBeInterpretedByShell\":true},\"type\":\"request\",\"seq\":1}Content-Length: 79";
-//        List<String> linesArr = new ArrayList<String>();
-//        linesArr.add("Content-Length: 451\r\n");
-//        linesArr.add("\r\n");
-//        linesArr.add("{\"command\":\"initialize\",\"arguments\":{\"clientID\":\"vscode\",\"clientName\":\"Visual Studio Code\",\"adapterID\":\"mock\",\"pathFormat\":\"path\",\"linesStartAt1\":true,\"columnsStartAt1\":true,\"supportsVariableType\":true,\"supportsVariablePaging\":true,\"supportsRunInTerminalRequest\":true,\"locale\":\"en-us\",\"supportsProgressReporting\":true,\"supportsInvalidatedEvent\":true,\"supportsMemoryReferences\":true,\"supportsArgsCanBeInterpretedByShell\":true},\"type\":\"request\",\"seq\":1}Content-Length: 79");
-        String hard1 = "{ \"type\": \"response\", \"request_seq\": 1, \"command\": \"initialize\", \"success\": true, \"body\": { \"supportsBreakpointLocationsRequest\": true } }";
-        String hard2 = "{ \"type\": \"event\", \"event\": \"initialized\" }";
-        Scanner scanner = new Scanner(System.in);
-        scanner.useDelimiter("");
-        String message = readRequest(scanner);
-        fWriter.write(message);
-        fWriter.flush();
-        //String response = receiveProtocolMessage(message);
-        //int length = response.getBytes().length;
-//        String header = String.format("Content-Length: %d\r\n" +
-//                "\r\n", length);
-//        System.out.println(header + response);
-//        System.out.flush();
-        String q1 = String.format("Content-Length: %d\r\n\r\n%s", hard1.length(), hard1);
-        String q2 = String.format("Content-Length: %d\r\n\r\n%s", hard2.length(), hard2);
-        System.out.print(q1);
-        System.out.flush();
-        System.out.print(q2);
-        System.out.flush();
-        while(true){
-            String message1 = readRequest(scanner);
-            fWriter.write(message1);
+        try {
+            String hard1 = "{ \"type\": \"response\", \"request_seq\": 1, \"command\": \"initialize\", \"success\": true, \"body\": { \"supportsBreakpointLocationsRequest\": true } }";
+            String hard2 = "{ \"type\": \"event\", \"event\": \"initialized\" }";
+            Scanner scanner = new Scanner(System.in);
+            scanner.useDelimiter("");
+            String message = readRequest(scanner);
+            fWriter.write(message);
             fWriter.flush();
+
+            String q1 = String.format("Content-Length: %d\r\n\r\n%s", hard1.length(), hard1);
+            String q2 = String.format("Content-Length: %d\r\n\r\n%s", hard2.length(), hard2);
+            System.out.print(q1);
+            System.out.flush();
+            System.out.print(q2);
+            System.out.flush();
+            while (true) {
+                String message1 = readRequest(scanner);
+                fWriter.write(message1);
+                fWriter.flush();
+            }
+        }finally {
+            fWriter.close();
         }
-//        Gson h = new Gson();
-//        Request r = h.fromJson(request, Request.class);
-        //System.out.printf(request);
-
-
-
-
-
-
 
 //        Scanner scanner = new Scanner(test2);
 //        List<String> lines = new ArrayList<>();
