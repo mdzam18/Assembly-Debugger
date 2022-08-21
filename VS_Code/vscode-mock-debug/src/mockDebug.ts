@@ -68,21 +68,6 @@ export class MockDebugSession extends LoggingDebugSession {
 	private _useInvalidatedEvent = false;
 
 	private _addressesInHex = true;
-	
-	sendResponse(response: DebugProtocol.Response): void {
-		console.log(response);
-		super.sendResponse(response);
-	}
-
-	sendEvent(event: DebugProtocol.Event): void {
-		console.log(event);
-		super.sendEvent(event);
-	}
-
-	handleMessage(msg: DebugProtocol.ProtocolMessage): void {
-		console.log(msg);
-		super.handleMessage(msg);
-	}
 
 	/**
 	 * Creates a new debug adapter that is used for one debug session.
