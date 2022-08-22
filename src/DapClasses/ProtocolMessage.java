@@ -1,15 +1,15 @@
 package src.DapClasses;
 public class ProtocolMessage {
 
-    private int req;
+    private Integer seq;
     private String type;
 
-    public int getReq() {
-        return req;
+    public Integer getSeq() {
+        return seq;
     }
 
-    public void setReq(int req) {
-        this.req = req;
+    public void setSeq(Integer seq) {
+        this.seq = seq;
     }
 
     public String getType() {
