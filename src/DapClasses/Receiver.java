@@ -233,10 +233,10 @@ public class Receiver {
         String command = request.getCommand();
         switch (command) {
             case "initialize":
-                Response initResponse = gson.fromJson(processInitializeRequest(json), Response.class);
+                InitializeResponse initResponse = gson.fromJson(processInitializeRequest(json), InitializeResponse.class);
                 initResponse.setRequest_seq(request.getSeq());
                 initResponse.setSuccess(true);
-                initResponse.setCommand("initialize");
+                //initResponse.setCommand("initialize");
                 InitializedEvent initEvent = new InitializedEvent();
                 sendProtocolMessage(gson.toJson(initResponse));
                 sendProtocolMessage(gson.toJson(initEvent));
@@ -250,6 +250,7 @@ public class Receiver {
             case "configurationDone":
                 return processConfigurationDoneRequest(json);
             case "launch":
+                sendProtocolMessage(processLaunchRequest(json));
                 return processLaunchRequest(json);
             case "runInTerminal":
                 return processRunInTerminalRequest();
@@ -388,6 +389,8 @@ public class Receiver {
     private String processLaunchRequest(String json) {
         LaunchRequest request = gson.fromJson(json, LaunchRequest.class);
         LaunchResponse response = new LaunchResponse();
+        response.setRequest_seq(request.getSeq());
+        response.setSuccess(true);
         String jsonResponse = gson.toJson(response);
         return jsonResponse;
     }
