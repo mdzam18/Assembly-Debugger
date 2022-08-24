@@ -1,9 +1,9 @@
 package src.DapClasses;
 
-public class InitializeResponse extends Response {
-    public InitializeResponse() {
-        super.setCommand("initialize");
-    }
+public class InitializeResponse  {
+    //public InitializeResponse() {
+        //super.setCommand("initialize");
+    //}
     private Capabilities body;
 
     public Capabilities getBody() {

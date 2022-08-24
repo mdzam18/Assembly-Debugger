@@ -9,7 +9,9 @@ import java.util.*;
 
 public class Receiver {
     FileWriter fWriter = new FileWriter(
-            "D:\\FINAL\\Assembly-Debugger\\src\\Emulator\\Main\\testInputFile");
+            "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile");
+    //D:\FINAL\Assembly-Debugger\src\Emulator\Main\testInputFile
+    ///home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile
     String test0 = "Content-Length: 119\r\n" +
             "\r\n" +
             "{\r\n" +
@@ -121,11 +123,13 @@ public class Receiver {
         String message = String.format("Content-Length: %d\r\n\r\n%s", json.length(), json);
         System.out.print(message);
         System.out.flush();
+        fWriter.write("\n Sent \n\n");
         fWriter.write(message);
         fWriter.flush();
     }
 
     public void receive() throws Exception {
+        String t = "{\"command\":\"setBreakpoints\",\"arguments\":{\"source\":{\"name\":\"readme.md\",\"path\":\"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md\"},\"lines\":[3,4],\"breakpoints\":[{\"line\":3},{\"line\":4}],\"sourceModified\":false},\"type\":\"request\",\"seq\":3}";
         //            String message = readRequest(scanner);
 //            String res = receiveProtocolMessage(message);
 
@@ -140,16 +144,21 @@ public class Receiver {
         try {
             String hard1 = "{ \"type\": \"response\", \"request_seq\": 1, \"command\": \"initialize\", \"success\": true, \"body\": { \"supportsBreakpointLocationsRequest\": true } }";
             String hard2 = "{ \"type\": \"event\", \"event\": \"initialized\" }";
+            //String res1 = receiveProtocolMessage(t);
             Scanner scanner = new Scanner(System.in);
             scanner.useDelimiter("");
             while (true) {
                 String message = readRequest(scanner);
+                fWriter.write("\n Received \n\n");
                 fWriter.write(message);
                 fWriter.flush();
                 String res = receiveProtocolMessage(message);
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            fWriter.write("\n exception \n\n");
+            fWriter.write(e.getMessage());
+            fWriter.flush();
+            //System.out.println(e.getMessage());
         } finally {
             fWriter.close();
         }
@@ -233,16 +242,18 @@ public class Receiver {
         String command = request.getCommand();
         switch (command) {
             case "initialize":
-                InitializeResponse initResponse = gson.fromJson(processInitializeRequest(json), InitializeResponse.class);
+                Response initResponse = gson.fromJson(processInitializeRequest(json), Response.class);
                 initResponse.setRequest_seq(request.getSeq());
                 initResponse.setSuccess(true);
-                //initResponse.setCommand("initialize");
+                initResponse.setCommand("initialize");
                 InitializedEvent initEvent = new InitializedEvent();
                 sendProtocolMessage(gson.toJson(initResponse));
                 sendProtocolMessage(gson.toJson(initEvent));
                 return gson.toJson(initResponse) + gson.toJson(initEvent);
             case "setBreakpoints":
-                return processSetBreakpointsRequest(json);
+                String SetBreakpointsRes = processSetBreakpointsRequest(json);
+                sendProtocolMessage(SetBreakpointsRes);
+                return SetBreakpointsRes;
             case "setExceptionBreakpoints":
                 return processSetExceptionBreakpointsRequest(json);
             case "setFunctionBreakpoints":
@@ -250,8 +261,9 @@ public class Receiver {
             case "configurationDone":
                 return processConfigurationDoneRequest(json);
             case "launch":
-                sendProtocolMessage(processLaunchRequest(json));
-                return processLaunchRequest(json);
+                String LaunchRes = processLaunchRequest(json);
+                sendProtocolMessage(LaunchRes);
+                return LaunchRes;
             case "runInTerminal":
                 return processRunInTerminalRequest();
             case "attach":
@@ -412,7 +424,17 @@ public class Receiver {
     public String processSetBreakpointsRequest(String json) {
         SetBreakpointsRequest request = gson.fromJson(json, SetBreakpointsRequest.class);
         SetBreakpointsResponse response = new SetBreakpointsResponse();
-
+        response.setRequest_seq(request.getSeq());
+        response.setSuccess(true);
+        SourceBreakpoint[] requestBreakpoints = request.getArguments().getBreakpoints();
+        //int[] requestLines = request.getArguments().getLines();
+        Breakpoint[] breakpoints = new Breakpoint[requestBreakpoints.length];
+        for (int i = 0; i < requestBreakpoints.length; i++) {
+            breakpoints[i] = new Breakpoint();
+            breakpoints[i].setLine(requestBreakpoints[i].getLine());
+            breakpoints[i].setVerified(true);
+        }
+        response.setBody(breakpoints);
         String jsonResponse = gson.toJson(response);
         return jsonResponse;
     }
