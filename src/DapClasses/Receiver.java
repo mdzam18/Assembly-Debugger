@@ -9,7 +9,7 @@ import java.util.*;
 
 public class Receiver {
     FileWriter fWriter = new FileWriter(
-            "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile");
+            "home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile");
     //D:\FINAL\Assembly-Debugger\src\Emulator\Main\testInputFile
     ///home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile
     String test0 = "Content-Length: 119\r\n" +
@@ -129,7 +129,7 @@ public class Receiver {
     }
 
     public void receive() throws Exception {
-        String t = "{\"command\":\"setBreakpoints\",\"arguments\":{\"source\":{\"name\":\"readme.md\",\"path\":\"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md\"},\"lines\":[3,4],\"breakpoints\":[{\"line\":3},{\"line\":4}],\"sourceModified\":false},\"type\":\"request\",\"seq\":3}";
+        String t = "{\"command\":\"breakpointLocations\",\"arguments\":{\"source\":{\"name\":\"readme.md\",\"path\":\"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md\"},\"line\":4},\"type\":\"request\",\"seq\":5}";
         //            String message = readRequest(scanner);
 //            String res = receiveProtocolMessage(message);
 
@@ -257,13 +257,21 @@ public class Receiver {
             case "setExceptionBreakpoints":
                 return processSetExceptionBreakpointsRequest(json);
             case "setFunctionBreakpoints":
-                return processSetFunctionBreakpointsRequest();
+                String SetFunctionBreakpointsRes = processSetFunctionBreakpointsRequest(json);
+                sendProtocolMessage(SetFunctionBreakpointsRes);
+                return SetFunctionBreakpointsRes;
             case "configurationDone":
-                return processConfigurationDoneRequest(json);
+                String ConfigurationDoneRes = processConfigurationDoneRequest(json);
+                sendProtocolMessage(ConfigurationDoneRes);
+                return ConfigurationDoneRes;
             case "launch":
                 String LaunchRes = processLaunchRequest(json);
                 sendProtocolMessage(LaunchRes);
                 return LaunchRes;
+            case "breakpointLocations":
+                String BreakpointLocationsRes = processBreakpointLocationsRequest(json);
+                sendProtocolMessage(BreakpointLocationsRes);
+                return BreakpointLocationsRes;
             case "runInTerminal":
                 return processRunInTerminalRequest();
             case "attach":
@@ -383,9 +391,13 @@ public class Receiver {
         return null;
     }
 
-    private String processSetFunctionBreakpointsRequest() {
+    private String processSetFunctionBreakpointsRequest(String json) {
+        SetFunctionBreakpointsRequest request = gson.fromJson(json, SetFunctionBreakpointsRequest.class);
         SetFunctionBreakpointsResponse response = new SetFunctionBreakpointsResponse();
-        return null;
+        response.setRequest_seq(request.getSeq());
+        response.setSuccess(true);
+        String jsonResponse = gson.toJson(response);
+        return jsonResponse;
     }
 
     private String processAttachRequest() {
@@ -396,6 +408,16 @@ public class Receiver {
     private String processRunInTerminalRequest() {
         RunInTerminalResponse response = new RunInTerminalResponse();
         return null;
+    }
+    private String processBreakpointLocationsRequest(String json){
+        BreakpointLocationsRequest request = gson.fromJson(json, BreakpointLocationsRequest.class);
+        BreakpointLocationsResponse response = new BreakpointLocationsResponse();
+        response.setRequest_seq(request.getSeq());
+        response.setSuccess(true);
+        BreakpointLocation[] breakpointLocations = new BreakpointLocation[0];
+        response.setBody(breakpointLocations);
+        String jsonResponse = gson.toJson(response);
+        return jsonResponse;
     }
 
     private String processLaunchRequest(String json) {
@@ -410,6 +432,8 @@ public class Receiver {
     private String processConfigurationDoneRequest(String json) {
         ConfigurationDoneRequest request = gson.fromJson(json, ConfigurationDoneRequest.class);
         ConfigurationDoneResponse response = new ConfigurationDoneResponse();
+        response.setRequest_seq(request.getSeq());
+        response.setSuccess(true);
         String jsonResponse = gson.toJson(response);
         return jsonResponse;
     }

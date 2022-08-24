@@ -2,7 +2,13 @@ package src.DapClasses;
 
 public class SetFunctionBreakpointsResponse extends Response {
     private Breakpoint[] breakpoints;
+    public SetFunctionBreakpointsResponse(){
+        super.setCommand("setFunctionBreakpoints");
+    }
     private Object body;
+    //public InitializeResponse() {
+    //super.setCommand("initialize");
+    //}
 
     public Breakpoint[] getBreakpoints() {
         return breakpoints;
