@@ -9,7 +9,7 @@ import java.util.*;
 
 public class Receiver {
     FileWriter fWriter = new FileWriter(
-            "home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile");
+            "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile");
     //D:\FINAL\Assembly-Debugger\src\Emulator\Main\testInputFile
     ///home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile
     String test0 = "Content-Length: 119\r\n" +
@@ -271,6 +271,13 @@ public class Receiver {
             case "breakpointLocations":
                 String BreakpointLocationsRes = processBreakpointLocationsRequest(json);
                 sendProtocolMessage(BreakpointLocationsRes);
+                StoppedEvent stoppedEvent = new StoppedEvent();
+                stoppedEvent.setReason("entry");
+                stoppedEvent.setThreadId(1);
+                Event e = new Event();
+                e.setBody(stoppedEvent);
+                e.setEvent("stopped");
+                sendProtocolMessage(gson.toJson(e));
                 return BreakpointLocationsRes;
             case "runInTerminal":
                 return processRunInTerminalRequest();
@@ -279,9 +286,13 @@ public class Receiver {
             case "setVariable":
                 return processAttachRequest();
             case "threads":
-                return processThreadsRequest(json);
+                String ThreadsRes = processThreadsRequest(json);
+                sendProtocolMessage(ThreadsRes);
+                return ThreadsRes;
             case "stackTrace":
-                return processStackTraceRequest(json);
+                String StackTraceRes = processStackTraceRequest(json);
+                sendProtocolMessage(StackTraceRes);
+                return StackTraceRes;
             case "scopes":
                 return processScopesRequest(json);
             case "variables":
@@ -374,15 +385,33 @@ public class Receiver {
 
     private String processStackTraceRequest(String json) {
         StackTraceRequest request = gson.fromJson(json, StackTraceRequest.class);
+        Response r = new Response();
+        r.setSuccess(true);
+        r.setRequest_seq(request.getSeq());
+        r.setCommand("stackTrace");
         StackTraceResponse response = new StackTraceResponse();
-        String jsonResponse = gson.toJson(response);
+        StackFrame[] stackFrames = new StackFrame[0];
+        response.setStackFrames(stackFrames);
+        response.setTotalFrames(response.getStackFrames().length);
+        r.setBody(response);
+        String jsonResponse = gson.toJson(r);
         return jsonResponse;
     }
 
     private String processThreadsRequest(String json) {
         ThreadsRequest request = gson.fromJson(json, ThreadsRequest.class);
         ThreadsResponse response = new ThreadsResponse();
-        String jsonResponse = gson.toJson(response);
+        Thread[] threads = new Thread[1];
+        threads[0] = new Thread();
+        threads[0].setId(1);
+        threads[0].setName("thread 1");
+        response.setThreads(threads);
+        Response r = new Response();
+        r.setBody(response);
+        r.setCommand("threads");
+        r.setRequest_seq(request.getSeq());
+        r.setSuccess(true);
+        String jsonResponse = gson.toJson(r);
         return jsonResponse;
     }
 

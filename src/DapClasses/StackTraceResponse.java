@@ -1,9 +1,12 @@
 package src.DapClasses;
 
-public class StackTraceResponse extends Response {
+public class StackTraceResponse {
+//    public StackTraceResponse(){
+//        super.setCommand("stackTrace");
+//    }
     private StackFrame[] stackFrames;
     private int totalFrames;
-    private Object body;
+    //private Object body;
 
     public StackFrame[] getStackFrames() {
         return stackFrames;
@@ -21,13 +24,13 @@ public class StackTraceResponse extends Response {
         this.totalFrames = totalFrames;
     }
 
-    @Override
-    public Object getBody() {
-        return body;
-    }
-
-    @Override
-    public void setBody(Object body) {
-        this.body = body;
-    }
+//    @Override
+//    public Object getBody() {
+//        return body;
+//    }
+//
+//    @Override
+//    public void setBody(Object body) {
+//        this.body = body;
+//    }
 }

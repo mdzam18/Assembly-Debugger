@@ -1,9 +1,9 @@
 package src.DapClasses;
 
-public class StoppedEvent extends Event {
-    public StoppedEvent(){
-        super.setEvent("event");
-    }
+public class StoppedEvent{
+    //public StoppedEvent(){
+      //  super.setEvent("stopped");
+    //}
     private String reason;
     private String description;
     private int threadId;
@@ -70,3 +70,4 @@ public class StoppedEvent extends Event {
     private int[] hitBreakpointIds;
 
 }
+

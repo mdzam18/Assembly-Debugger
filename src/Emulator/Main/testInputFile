@@ -1,6 +1,57 @@
 
+ Received 
+
+{"command":"initialize","arguments":{"clientID":"vscode","clientName":"Visual Studio Code","adapterID":"mock","pathFormat":"path","linesStartAt1":true,"columnsStartAt1":true,"supportsVariableType":true,"supportsVariablePaging":true,"supportsRunInTerminalRequest":true,"locale":"en-us","supportsProgressReporting":true,"supportsInvalidatedEvent":true,"supportsMemoryReferences":true,"supportsArgsCanBeInterpretedByShell":true},"type":"request","seq":1}
+ Sent 
+
+Content-Length: 124
+
+{"request_seq":1,"success":true,"command":"initialize","body":{"supportsBreakpointLocationsRequest":true},"type":"response"}
+ Sent 
+
+Content-Length: 38
+
+{"event":"initialized","type":"event"}
+ Received 
+
+{"command":"launch","arguments":{"type":"mock","request":"launch","name":"Debug readme.md","program":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","stopOnEntry":true,"trace":false,"__configurationTarget":6,"__sessionId":"af0904ff-f58a-4956-983f-adc6ade798e5"},"type":"request","seq":2}
+ Sent 
+
+Content-Length: 69
+
+{"request_seq":2,"success":true,"command":"launch","type":"response"}
+ Received 
+
+{"command":"setBreakpoints","arguments":{"source":{"name":"readme.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md"},"lines":[8],"breakpoints":[{"line":8}],"sourceModified":false},"type":"request","seq":3}
+ Sent 
+
+Content-Length: 168
+
+{"request_seq":3,"success":true,"command":"setBreakpoints","body":[{"id":0,"verified":true,"line":8,"column":0,"endLine":0,"endColumn":0,"offset":0}],"type":"response"}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"readme.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md"},"line":8},"type":"request","seq":4}
  Sent 
 
 Content-Length: 92
 
-{"request_seq":5,"success":true,"command":"breakpointLocations","body":[],"type":"response"}
+{"request_seq":4,"success":true,"command":"breakpointLocations","body":[],"type":"response"}
+ Sent 
+
+Content-Length: 125
+
+{"event":"stopped","body":{"reason":"entry","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
+ Received 
+
+{"command":"threads","type":"request","seq":5}
+ Sent 
+
+Content-Length: 118
+
+{"request_seq":5,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":6}
+ exception 
+
+class src.DapClasses.StackTraceResponse declares multiple JSON fields named body
