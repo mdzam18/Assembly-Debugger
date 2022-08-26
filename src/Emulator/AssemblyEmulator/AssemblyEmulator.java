@@ -32,6 +32,10 @@ public class AssemblyEmulator {
         currentLine = functionsManager.getCurrentLine();
     }
 
+    public void setCurrentLine(int line){
+        currentLine = line;
+    }
+
     //Returns registers values
     public Map<String, Integer> getRegisters() {
         return registersManager.getRegisters();
