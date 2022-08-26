@@ -1,14 +1,14 @@
 package src.DapClasses;
 
 public class Response extends ProtocolMessage {
-    public Response(){
+    public Response() {
         super.setType("response");
     }
-private int request_seq ;
-private Boolean success ;
-private String command ;
-private String message ;
 
+    private int request_seq;
+    private Boolean success;
+    private String command;
+    private String message;
 
 
     public int getRequest_seq() {
@@ -51,6 +51,6 @@ private String message ;
         this.body = body;
     }
 
-    private Object body ;
+    private Object body;
 
 }

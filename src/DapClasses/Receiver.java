@@ -302,7 +302,9 @@ public class Receiver {
             case "continue":
                 return processContinueRequest(json);
             case "next":
-                return processNextRequest();
+                String NextRequestRes = processNextRequest(json);
+                sendProtocolMessage(NextRequestRes);
+                return NextRequestRes;
             case "stepIn":
                 return processStepInRequest();
             case "stepOut":
@@ -367,9 +369,13 @@ public class Receiver {
         return null;
     }
 
-    private String processNextRequest() {
+    private String processNextRequest(String json) {
+        NextRequest request = gson.fromJson(json, NextRequest.class);
         NextResponse response = new NextResponse();
-        return null;
+        response.setRequest_seq(request.getSeq());
+        response.setSuccess(true);
+        String jsonResponse = gson.toJson(response);
+        return jsonResponse;
     }
 
     private String processContinueRequest(String json) {

@@ -14,7 +14,7 @@ Content-Length: 38
 {"event":"initialized","type":"event"}
  Received 
 
-{"command":"launch","arguments":{"type":"mock","request":"launch","name":"Debug readme.md","program":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","stopOnEntry":true,"trace":false,"__configurationTarget":6,"__sessionId":"39aff8ce-01ed-4149-acb8-919437b6a116"},"type":"request","seq":2}
+{"command":"launch","arguments":{"type":"mock","request":"launch","name":"Debug readme.md","program":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","stopOnEntry":true,"trace":false,"__configurationTarget":6,"__sessionId":"fd00416b-3ebb-44b2-a367-979c5e83edbf"},"type":"request","seq":2}
  Sent 
 
 Content-Length: 69
@@ -56,7 +56,7 @@ Content-Length: 118
 
 Content-Length: 384
 
-{"request_seq":6,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"VS(0)","source":{"name":"readme.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":1,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
+{"request_seq":6,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"VS(0)","source":{"name":"readme.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
  Received 
 
 {"command":"breakpointLocations","arguments":{"source":{"name":"readme.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":8},"type":"request","seq":7}
@@ -85,13 +85,13 @@ Content-Length: 118
 
 Content-Length: 384
 
-{"request_seq":9,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"VS(0)","source":{"name":"readme.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":1,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
+{"request_seq":9,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"VS(0)","source":{"name":"readme.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
  Received 
 
 {"command":"scopes","arguments":{"frameId":0},"type":"request","seq":10}
  Received 
 
 {"command":"next","arguments":{"threadId":1},"type":"request","seq":11}
- Received 
+ exception 
 
-{"command":"stepIn","arguments":{"threadId":1},"type":"request","seq":12}
+class src.DapClasses.NextRequest declares multiple JSON fields named command
