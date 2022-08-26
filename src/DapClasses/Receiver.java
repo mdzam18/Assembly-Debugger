@@ -253,6 +253,13 @@ public class Receiver {
             case "setBreakpoints":
                 String SetBreakpointsRes = processSetBreakpointsRequest(json);
                 sendProtocolMessage(SetBreakpointsRes);
+                StoppedEvent stoppedEvent = new StoppedEvent();
+                stoppedEvent.setReason("breakpoint");
+                stoppedEvent.setThreadId(1);
+                Event e = new Event();
+                e.setBody(stoppedEvent);
+                e.setEvent("stopped");
+                sendProtocolMessage(gson.toJson(e));
                 return SetBreakpointsRes;
             case "setExceptionBreakpoints":
                 return processSetExceptionBreakpointsRequest(json);
@@ -271,13 +278,13 @@ public class Receiver {
             case "breakpointLocations":
                 String BreakpointLocationsRes = processBreakpointLocationsRequest(json);
                 sendProtocolMessage(BreakpointLocationsRes);
-                StoppedEvent stoppedEvent = new StoppedEvent();
-                stoppedEvent.setReason("entry");
-                stoppedEvent.setThreadId(1);
-                Event e = new Event();
-                e.setBody(stoppedEvent);
-                e.setEvent("stopped");
-                sendProtocolMessage(gson.toJson(e));
+//                StoppedEvent stoppedEvent = new StoppedEvent();
+//                stoppedEvent.setReason("entry");
+//                stoppedEvent.setThreadId(1);
+//                Event e = new Event();
+//                e.setBody(stoppedEvent);
+//                e.setEvent("stopped");
+//                sendProtocolMessage(gson.toJson(e));
                 return BreakpointLocationsRes;
             case "runInTerminal":
                 return processRunInTerminalRequest();
@@ -294,9 +301,13 @@ public class Receiver {
                 sendProtocolMessage(StackTraceRes);
                 return StackTraceRes;
             case "scopes":
-                return processScopesRequest(json);
+                String ScopesRequestRes = processScopesRequest(json);
+                sendProtocolMessage(ScopesRequestRes);
+                return ScopesRequestRes;
             case "variables":
-                return processVariablesRequest(json);
+                String VariablesRequestRes = processVariablesRequest(json);
+                sendProtocolMessage(VariablesRequestRes);
+                return VariablesRequestRes;
             case "pause":
                 return processPauseRequest();
             case "continue":
@@ -304,6 +315,13 @@ public class Receiver {
             case "next":
                 String NextRequestRes = processNextRequest(json);
                 sendProtocolMessage(NextRequestRes);
+                StoppedEvent stoppedEvent1 = new StoppedEvent();
+                stoppedEvent1.setReason("step");
+                stoppedEvent1.setThreadId(1);
+                Event e1 = new Event();
+                e1.setBody(stoppedEvent1);
+                e1.setEvent("stopped");
+                sendProtocolMessage(gson.toJson(e1));
                 return NextRequestRes;
             case "stepIn":
                 return processStepInRequest();
@@ -338,14 +356,36 @@ public class Receiver {
     private String processVariablesRequest(String json) {
         VariablesRequest request = gson.fromJson(json, VariablesRequest.class);
         VariablesResponse response = new VariablesResponse();
-        String jsonResponse = gson.toJson(response);
+        Variable[] variables = new Variable[0];
+        response.setVariables(variables);
+        Response r = new Response();
+        r.setCommand("variables");
+        r.setRequest_seq(request.getSeq());
+        r.setSuccess(true);
+        r.setBody(response);
+        String jsonResponse = gson.toJson(r);
         return jsonResponse;
     }
 
     private String processScopesRequest(String json) {
         ScopesRequest request = gson.fromJson(json, ScopesRequest.class);
         ScopesResponse response = new ScopesResponse();
-        String jsonResponse = gson.toJson(response);
+        Scope[] scopes = new Scope[2];
+        scopes[0] = new Scope();
+        scopes[0].setExpensive(false);
+        scopes[0].setName("Locals");
+        scopes[0].setVariablesReference(1000);
+        scopes[1] = new Scope();
+        scopes[1].setExpensive(true);
+        scopes[1].setName("Globals");
+        scopes[1].setVariablesReference(1001);
+        response.setScopes(scopes);
+        Response r = new Response();
+        r.setCommand("scopes");
+        r.setRequest_seq(request.getSeq());
+        r.setSuccess(true);
+        r.setBody(response);
+        String jsonResponse = gson.toJson(r);
         return jsonResponse;
     }
 
