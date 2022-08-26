@@ -29,7 +29,7 @@ import { activateMockDebug, workspaceFileAccessor } from './activateMockDebug';
  * The compile time flag 'runMode' controls how the debug adapter is run.
  * Please note: the test suite only supports 'external' mode.
  */
-const runMode: 'external' | 'server' | 'namedPipeServer' | 'inline' = 'external';
+const runMode: 'external' | 'server' | 'namedPipeServer' | 'inline' = 'inline';
 
 export function activate(context: vscode.ExtensionContext) {
 
