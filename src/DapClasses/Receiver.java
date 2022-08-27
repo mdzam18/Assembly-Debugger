@@ -155,6 +155,16 @@ public class Receiver {
                 String res = receiveProtocolMessage(message);
             }
         } catch (Exception e) {
+
+            StoppedEvent stoppedEvent = new StoppedEvent();
+            stoppedEvent.setReason("exception");
+            stoppedEvent.setThreadId(1);
+            stoppedEvent.setText(e.getMessage());
+            Event exc = new Event();
+            exc.setBody(stoppedEvent);
+            exc.setEvent("stopped");
+            sendProtocolMessage(gson.toJson(exc));
+
             fWriter.write("\n exception \n\n");
             fWriter.write(e.getMessage());
             fWriter.flush();
@@ -330,7 +340,9 @@ public class Receiver {
             case "terminate":
                 return processTerminateRequest();
             case "disconnect":
-                return processDisconnectRequest();
+                String DisconnectRequestRes = processDisconnectRequest(json);
+                sendProtocolMessage(DisconnectRequestRes);
+                return DisconnectRequestRes;
             default:
                 return null;
         }
@@ -389,9 +401,12 @@ public class Receiver {
         return jsonResponse;
     }
 
-    private String processDisconnectRequest() {
+    private String processDisconnectRequest(String json) {
+        DisconnectRequest request = gson.fromJson(json, DisconnectRequest.class);
         DisconnectResponse response = new DisconnectResponse();
-        return null;
+        response.setRequest_seq(request.getSeq());
+        response.setSuccess(true);
+        return  gson.toJson(response);
     }
 
     private String processTerminateRequest() {
@@ -500,7 +515,12 @@ public class Receiver {
         BreakpointLocationsResponse response = new BreakpointLocationsResponse();
         response.setRequest_seq(request.getSeq());
         response.setSuccess(true);
-        BreakpointLocation[] breakpointLocations = new BreakpointLocation[0];
+        BreakpointLocation[] breakpointLocations = new BreakpointLocation[1];
+        breakpointLocations[0] = new BreakpointLocation();
+        breakpointLocations[0].setLine(request.getArguments().getLine());
+        breakpointLocations[0].setEndLine(request.getArguments().getEndLine());
+        breakpointLocations[0].setColumn(request.getArguments().getColumn());
+        breakpointLocations[0].setEndColumn(request.getArguments().getEndColumn());
         response.setBody(breakpointLocations);
         String jsonResponse = gson.toJson(response);
         return jsonResponse;
