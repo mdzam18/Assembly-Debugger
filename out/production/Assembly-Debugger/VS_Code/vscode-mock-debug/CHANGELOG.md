@@ -51,7 +51,7 @@
 * Improved overall stepping behavior: mock debug now behaves like a real debugger: it breaks on a line before executing the line. Previously it was breaking while executing the line.
 
 ## 0.46.0
-* Rewrite Variables; see Readme.md in sampleWorkspace
+* Rewrite Variables; see readme.md in sampleWorkspace
 * Add support for Disassembly View, Instruction Stepping, and Instruction Breakpoints. Instruction breakpoints can be set in the Disassembly view.
 
 ## 0.45.8
