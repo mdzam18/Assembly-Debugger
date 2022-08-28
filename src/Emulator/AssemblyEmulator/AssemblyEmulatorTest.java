@@ -207,11 +207,14 @@ class AssemblyEmulatorTest {
             Assertions.assertEquals("MAIN", callStack.get(0));
             Assertions.assertEquals("ADD", callStack.get(1));
         }
-        for(int i = 0; i < 4; i++){
+        for(int i = 0; i < 3; i++){
             assemblyEmulator.next();
             List<String> callStack = assemblyEmulator.getCallStack();
             Assertions.assertEquals(1, callStack.size());
             Assertions.assertEquals("MAIN", callStack.get(0));
         }
+        assemblyEmulator.next();
+        List<String> callStack = assemblyEmulator.getCallStack();
+        Assertions.assertEquals(0, callStack.size());
     }
 }

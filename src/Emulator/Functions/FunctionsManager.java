@@ -72,6 +72,7 @@ public class FunctionsManager {
     public int processReturns(int numberOfLine) {
         int length = memoryManager.getMemory().length;
         if (returnsIndexes.size() == 0) {
+            stackManager.removeFunctionName(0); //remove MAIN
             return list.size();
         }
         memoryManager.resizeMemory(length - 1); //delete saved pc

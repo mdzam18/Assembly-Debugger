@@ -10,9 +10,9 @@ import java.util.*;
 
 public class Receiver {
     FileWriter fWriter = new FileWriter(
-            "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile");
+            "/Users/mariami/Desktop/Assembly-Debugger/src/Emulator/Main/testInputFile");
     FileWriter fWriterEmulator = new FileWriter(
-            "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testEmulator.txt");
+            "/Users/mariami/Desktop/Assembly-Debugger/src/Emulator/Main/testEmulator.txt");
     //D:\FINAL\Assembly-Debugger\src\Emulator\Main\testInputFile
     ///home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile
     String test0 = "Content-Length: 119\r\n" +
@@ -138,7 +138,7 @@ public class Receiver {
     }
 
     public void receive() throws Exception {
-        String t = "{\"command\":\"breakpointLocations\",\"arguments\":{\"source\":{\"name\":\"readme.md\",\"path\":\"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md\"},\"line\":4},\"type\":\"request\",\"seq\":5}";
+        //String t = "{\"command\":\"breakpointLocations\",\"arguments\":{\"source\":{\"name\":\"readme.md\",\"path\":\"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md\"},\"line\":4},\"type\":\"request\",\"seq\":5}";
 
         try {
             //String res1 = receiveProtocolMessage(t);
@@ -306,8 +306,8 @@ public class Receiver {
                 return ThreadsRes;
             case "stackTrace":
                 String StackTraceRes = processStackTraceRequest(json);
-                if(emulator.getCurrentLine() == 0){
-                    callEmulatorNextNTimes(breakpointLineNumbers.get(0)-1);
+                if (emulator.getCurrentLine() == 0) {
+                    callEmulatorNextNTimes(breakpointLineNumbers.get(0) - 1);
                 }
                 sendProtocolMessage(StackTraceRes);
                 return StackTraceRes;
@@ -324,17 +324,17 @@ public class Receiver {
             case "continue":
                 String ContinueRequestRes = processContinueRequest(json);
                 sendProtocolMessage(ContinueRequestRes);
-                int currLine = emulator.getCurrentLine()+1;
+                int currLine = emulator.getCurrentLine() + 1;
                 int nextBreakpointLine = -1;
                 for (int i = 0; i < breakpointLineNumbers.size(); i++) {
-                    if(currLine < breakpointLineNumbers.get(i)) {
+                    if (currLine < breakpointLineNumbers.get(i)) {
                         nextBreakpointLine = breakpointLineNumbers.get(i);
                         break;
                     }
                 }
-                if(nextBreakpointLine != -1) {
+                if (nextBreakpointLine != -1) {
                     callEmulatorNextNTimes(nextBreakpointLine - currLine);
-                }else{
+                } else {
                     emulator.debug();
                 }
                 return ContinueRequestRes;
@@ -386,10 +386,9 @@ public class Receiver {
         VariablesRequest request = gson.fromJson(json, VariablesRequest.class);
         VariablesResponse response = new VariablesResponse();
         Map<String, Integer> variablesMap = emulator.getRegisters();
-        variablesMap.put("RV", emulator.getRv());
         Variable[] variables = new Variable[variablesMap.size()];
         int counter = 0;
-        for(String key : variablesMap.keySet()){
+        for (String key : variablesMap.keySet()) {
             Variable v = new Variable();
             v.setName(key);
             v.setValue(String.valueOf(variablesMap.get(key)));
@@ -436,7 +435,7 @@ public class Receiver {
         DisconnectResponse response = new DisconnectResponse();
         response.setRequest_seq(request.getSeq());
         response.setSuccess(true);
-        return  gson.toJson(response);
+        return gson.toJson(response);
     }
 
     private String processTerminateRequest() {
@@ -488,29 +487,38 @@ public class Receiver {
         r.setRequest_seq(request.getSeq());
         r.setCommand("stackTrace");
         StackTraceResponse response = new StackTraceResponse();
-        StackFrame[] stackFrames = new StackFrame[1];
-        ArrayList<String> callstacks = emulator.getCallStack();
-        stackFrames[0] = new StackFrame();
-        stackFrames[0].setColumn(0);
-        stackFrames[0].setId(0);
-        if(emulator.getCurrentLine() == 0){
-            stackFrames[0].setLine(breakpointLineNumbers.get(0));
-        }else {
-            stackFrames[0].setLine(emulator.getCurrentLine()+1);
+        ArrayList<String> callstack = emulator.getCallStack();
+        //if(callstack.size() == 0){
+          //  processTerminateRequest();
+        //anu morcha da unda shevawyvetino
+       // }
+        StackFrame[] stackFrames = new StackFrame[callstack.size()];
+        for(int i = 0; i < callstack.size(); i++){
+            stackFrames[i] = new StackFrame();
+            stackFrames[i].setColumn(0);
+            stackFrames[i].setId(0);
+            if (emulator.getCurrentLine() == 0) {
+                stackFrames[i].setLine(breakpointLineNumbers.get(0));
+            } else {
+                stackFrames[i].setLine(emulator.getCurrentLine() + 1);
+            }
+            stackFrames[i].setName(callstack.get(i));
+            stackFrames[i].setSource(createSource());
         }
-        //stackFrames[0].setLine(breakpointLineNumbers.get(0));
-        stackFrames[0].setName("VS(0)");
-        Source source = new Source();
-        source.setName(name);
-        source.setAdapterData("mock-adapter-data");
-        source.setSourceReference(0);
-        source.setPath(program);
-        stackFrames[0].setSource(source);
         response.setStackFrames(stackFrames);
         response.setTotalFrames(response.getStackFrames().length);
         r.setBody(response);
         String jsonResponse = gson.toJson(r);
         return jsonResponse;
+    }
+
+    private Source createSource(){
+        Source source = new Source();
+        source.setName(name);
+        source.setAdapterData("mock-adapter-data");
+        source.setSourceReference(0);
+        source.setPath(program);
+        return source;
     }
 
     private String processThreadsRequest(String json) {
@@ -553,7 +561,8 @@ public class Receiver {
         RunInTerminalResponse response = new RunInTerminalResponse();
         return null;
     }
-    private String processBreakpointLocationsRequest(String json){
+
+    private String processBreakpointLocationsRequest(String json) {
         BreakpointLocationsRequest request = gson.fromJson(json, BreakpointLocationsRequest.class);
         BreakpointLocationsResponse response = new BreakpointLocationsResponse();
         response.setRequest_seq(request.getSeq());
@@ -626,6 +635,7 @@ public class Receiver {
         InitializeResponse response = new InitializeResponse();
         Capabilities capabilities = new Capabilities();
         capabilities.setSupportsBreakpointLocationsRequest(true);
+        capabilities.setSupportsExceptionInfoRequest(true);
         response.setBody(capabilities);
         String jsonResponse = gson.toJson(response);
         return jsonResponse;
