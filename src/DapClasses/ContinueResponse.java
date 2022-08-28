@@ -1,6 +1,6 @@
 package src.DapClasses;
 
-public class ContinueResponse extends Response {
+public class ContinueResponse  {
     private boolean allThreadsContinued;
 
     public boolean isAllThreadsContinued() {
