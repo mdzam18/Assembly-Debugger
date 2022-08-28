@@ -156,6 +156,7 @@ public class AssemblyEmulator {
             } else if (line.startsWith("RV")) {
                 int rv = addressManager.getValueOfTheRightSide(line.substring(3, line.length() - 1));
                 registersManager.setRv(rv);
+                registersManager.addRegister("RV", rv);
             } else if (line.startsWith("A")) {
                 //ASSERTS
                 String currentFunction = functionsManager.getCurrentFunction();

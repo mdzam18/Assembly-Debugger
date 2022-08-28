@@ -37,7 +37,7 @@ public class Main {
 
 
 //        String fileName = "C:\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\src\\Tests\\testStack";
-//        //String fileName2 = "src/Tests/calltests.txt";
+//        //String fileName2 = "src/Tests/calltests.asm";
 //        String arr[] = new String[1];
 //        arr[0] = fileName;
 //        //arr[1] = fileName2;

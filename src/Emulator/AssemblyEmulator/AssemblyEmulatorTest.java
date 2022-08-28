@@ -24,7 +24,7 @@ class AssemblyEmulatorTest {
 
     private void testForLoop() throws Exception {
         String[] args = new String[1];
-        args[0] = "src/Tests/forLoop.txt";
+        args[0] = "src/Tests/forLoop.asm";
         AssemblyEmulator assemblyEmulator = new AssemblyEmulator(args);
         assemblyEmulator.debug();
         Map<String, Integer> registers = assemblyEmulator.getRegisters();
@@ -39,7 +39,7 @@ class AssemblyEmulatorTest {
     //compares two registers
     private void testCompare() throws Exception {
         String[] args = new String[1];
-        args[0] = "src/Tests/compare.txt";
+        args[0] = "src/Tests/compare.asm";
         AssemblyEmulator assemblyEmulator = new AssemblyEmulator(args);
         assemblyEmulator.debug();
         Map<String, Integer> registers = assemblyEmulator.getRegisters();
@@ -54,12 +54,12 @@ class AssemblyEmulatorTest {
     //adds two registers
     private void testAddNumbers() throws Exception {
         String[] args = new String[1];
-        args[0] = "src/Tests/addNumbers.txt";
+        args[0] = "src/Tests/addNumbers.asm";
         AssemblyEmulator assemblyEmulator = new AssemblyEmulator(args);
         assemblyEmulator.debug();
         Map<String, Integer> registers = assemblyEmulator.getRegisters();
         Assertions.assertEquals(5, assemblyEmulator.getRv());
-        Assertions.assertEquals(3, registers.size());
+        Assertions.assertEquals(4, registers.size());
         Assertions.assertEquals(2, registers.get("R1"));
         Assertions.assertEquals(3, registers.get("R2"));
         Assertions.assertEquals(3, registers.get("R3"));
@@ -67,12 +67,12 @@ class AssemblyEmulatorTest {
 
     private void testFactorial() throws Exception {
         String[] args = new String[1];
-        args[0] = "src/Tests/factorial.txt";
+        args[0] = "src/Tests/factorial.asm";
         AssemblyEmulator assemblyEmulator = new AssemblyEmulator(args);
         assemblyEmulator.debug();
         Map<String, Integer> registers = assemblyEmulator.getRegisters();
         Assertions.assertEquals(120, assemblyEmulator.getRv());
-        Assertions.assertEquals(3, registers.size());
+        Assertions.assertEquals(4, registers.size());
         Assertions.assertEquals(5, registers.get("R1"));
         Assertions.assertEquals(0, registers.get("R2"));
         Assertions.assertEquals(120, registers.get("R3"));
@@ -81,12 +81,12 @@ class AssemblyEmulatorTest {
     //calls method in method and uses rv
     private void testAdd2() throws Exception {
         String[] args = new String[1];
-        args[0] = "src/Tests/add2.txt";
+        args[0] = "src/Tests/add2.asm";
         AssemblyEmulator assemblyEmulator = new AssemblyEmulator(args);
         assemblyEmulator.debug();
         Map<String, Integer> registers = assemblyEmulator.getRegisters();
         Assertions.assertEquals(8, assemblyEmulator.getRv());
-        Assertions.assertEquals(3, registers.size());
+        Assertions.assertEquals(4, registers.size());
         Assertions.assertEquals(2, registers.get("R1"));
         Assertions.assertEquals(3, registers.get("R2"));
         Assertions.assertEquals(5, registers.get("R3"));
@@ -94,13 +94,13 @@ class AssemblyEmulatorTest {
 
     private void testTestClasses() throws Exception {
         String[] args = new String[2];
-        args[0] = "src/Tests/callTests.txt";
-        args[1] = "src/Tests/sum.txt";
+        args[0] = "src/Tests/callTests.asm";
+        args[1] = "src/Tests/sum.asm";
         AssemblyEmulator assemblyEmulator = new AssemblyEmulator(args);
         assemblyEmulator.debug();
         Map<String, Integer> registers = assemblyEmulator.getRegisters();
         Assertions.assertEquals(12, assemblyEmulator.getRv());
-        Assertions.assertEquals(2, registers.size());
+        Assertions.assertEquals(3, registers.size());
         Assertions.assertEquals(5, registers.get("R1"));
         Assertions.assertEquals(7, registers.get("R2"));
     }
@@ -108,7 +108,7 @@ class AssemblyEmulatorTest {
     @Test
     public void showStack() throws Exception {
         String[] args = new String[1];
-        args[0] = "src/Tests/addNumbers.txt";
+        args[0] = "src/Tests/addNumbers.asm";
         AssemblyEmulator assemblyEmulator = new AssemblyEmulator(args);
         testMain(assemblyEmulator);
         assemblyEmulator = new AssemblyEmulator(args);
@@ -192,7 +192,7 @@ class AssemblyEmulatorTest {
     @Test
     public void getCallStack() throws Exception {
         String[] args = new String[1];
-        args[0] = "src/Tests/addNumbers.txt";
+        args[0] = "src/Tests/addNumbers.asm";
         AssemblyEmulator assemblyEmulator = new AssemblyEmulator(args);
         for(int i = 0; i < 10; i++){
             assemblyEmulator.next();
