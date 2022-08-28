@@ -82,7 +82,7 @@ public class Receiver {
     public Receiver() throws Exception {
         gson = new Gson();
         breakpointLineNumbers = new ArrayList<>();
-        String fileName = "/home/nroga/Final/Assembly-Debugger/src/Tests/addNumbers.txt";
+        String fileName = "/home/nroga/Final/Assembly-Debugger/src/Tests/addNumbers.asm";
         String arr[] = new String[1];
         arr[0] = fileName;
         emulator = new AssemblyEmulator(arr);
@@ -143,7 +143,9 @@ public class Receiver {
     public void receive() throws Exception {
         String t = "{\"command\":\"breakpointLocations\",\"arguments\":{\"source\":{\"name\":\"readme.md\",\"path\":\"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md\"},\"line\":4},\"type\":\"request\",\"seq\":5}";
 
-
+        fWriterEmulator.write("\n exception \n\n");
+        fWriterEmulator.write("nanuka jnjcn");
+        fWriterEmulator.flush();
         try {
             //String res1 = receiveProtocolMessage(t);
             Scanner scanner = new Scanner(System.in);
@@ -248,6 +250,9 @@ public class Receiver {
 
     public void callEmulatorNextNTimes(int num) throws Exception {
         for (int i = 0; i < num; i++) {
+
+            fWriter.write("\n\n\n Next \n\n\n\n");
+            fWriter.flush();
             emulator.next();
         }
     }
@@ -308,11 +313,8 @@ public class Receiver {
             case "stackTrace":
                 String StackTraceRes = processStackTraceRequest(json);
                 if(emulator.getCurrentLine() == 0){
-                    callEmulatorNextNTimes(breakpointLineNumbers.get(0));
-                }else {
-                    callEmulatorNextNTimes(1);
+                    callEmulatorNextNTimes(breakpointLineNumbers.get(0)-1);
                 }
-                //ამის გადატანა გივნდა ნექსთში
                 sendProtocolMessage(StackTraceRes);
                 return StackTraceRes;
             case "scopes":
@@ -337,6 +339,7 @@ public class Receiver {
                 e1.setBody(stoppedEvent1);
                 e1.setEvent("stopped");
                 sendProtocolMessage(gson.toJson(e1));
+                callEmulatorNextNTimes(1);
                 return NextRequestRes;
             case "stepIn":
                 return processStepInRequest();
