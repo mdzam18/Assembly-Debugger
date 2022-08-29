@@ -251,7 +251,18 @@ public class Receiver {
             fWriter.write("\n\n\n Next \n\n\n\n");
             fWriter.flush();
             try {
-               emulator.next();
+               boolean isProgramRunning = emulator.next();
+               if(!isProgramRunning){
+                   OutputEvent oEvent = new OutputEvent();
+                   oEvent.setOutput(Integer.toString(emulator.getRv()));
+                   oEvent.setLine(emulator.getCurrentLine());
+                   oEvent.setCategory("console");
+                   oEvent.setGroup("start");
+                   Event e1 = new Event();
+                   e1.setEvent("output");
+                   e1.setBody(oEvent);
+                   sendProtocolMessage(gson.toJson(e1));
+               }
             } catch (Exception e){
                 processEmulatorException(e);
             }
