@@ -10,7 +10,7 @@
 {"event":"initialized","type":"event"}
  Received 
 
-{"command":"launch","arguments":{"type":"mock","request":"launch","name":"Debug readme.md","program":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","stopOnEntry":true,"trace":false,"__configurationTarget":6,"__sessionId":"4aac031a-d120-4270-b865-130d04162754"},"type":"request","seq":2}
+{"command":"launch","arguments":{"type":"mock","request":"launch","name":"Debug readme.md","program":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","stopOnEntry":true,"trace":false,"__configurationTarget":6,"__sessionId":"af26446d-042f-4d5e-b904-70937454a4cb"},"type":"request","seq":2}
  Sent 
 
 {"request_seq":2,"success":true,"command":"launch","type":"response"}
@@ -25,78 +25,78 @@
 {"event":"stopped","body":{"reason":"breakpoint","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
  Received 
 
-{"command":"threads","type":"request","seq":4}
+{"command":"breakpointLocations","arguments":{"source":{"name":"readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md"},"line":9},"type":"request","seq":4}
  Sent 
 
-{"request_seq":4,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+{"request_seq":4,"success":true,"command":"breakpointLocations","body":[{"line":9,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
  Received 
 
-{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":5}
-
-
- Next 
-
-
-
-
-
-
- Next 
-
-
-
-
-
-
- Next 
-
-
-
-
-
-
- Next 
-
-
-
-
-
-
- Next 
-
-
-
-
-
-
- Next 
-
-
-
-
-
-
- Next 
-
-
-
-
-
-
- Next 
-
-
-
-
+{"command":"threads","type":"request","seq":5}
  Sent 
 
-{"request_seq":5,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":9,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
+{"request_seq":5,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
  Received 
 
-{"command":"breakpointLocations","arguments":{"source":{"name":"readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md"},"line":9},"type":"request","seq":6}
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":6}
+
+
+ Next 
+
+
+
+
+
+
+ Next 
+
+
+
+
+
+
+ Next 
+
+
+
+
+
+
+ Next 
+
+
+
+
+
+
+ Next 
+
+
+
+
+
+
+ Next 
+
+
+
+
+
+
+ Next 
+
+
+
+
+
+
+ Next 
+
+
+
+
  Sent 
 
-{"request_seq":6,"success":true,"command":"breakpointLocations","body":[{"line":9,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+{"request_seq":6,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":9,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
  Received 
 
 {"command":"breakpointLocations","arguments":{"source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":9},"type":"request","seq":7}
@@ -108,10 +108,10 @@
 {"command":"scopes","arguments":{"frameId":0},"type":"request","seq":8}
  Sent 
 
-{"request_seq":8,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":1000,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+{"request_seq":8,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":0,"namedVariables":0,"indexedVariables":0,"expensive":true,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
  Received 
 
-{"command":"variables","arguments":{"variablesReference":1000},"type":"request","seq":9}
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":9}
  Sent 
 
 {"request_seq":9,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"4","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
@@ -154,10 +154,10 @@
 {"command":"scopes","arguments":{"frameId":0},"type":"request","seq":14}
  Sent 
 
-{"request_seq":14,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":1000,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+{"request_seq":14,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":0,"namedVariables":0,"indexedVariables":0,"expensive":true,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
  Received 
 
-{"command":"variables","arguments":{"variablesReference":1000},"type":"request","seq":15}
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":15}
  Sent 
 
 {"request_seq":15,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"4","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
@@ -197,22 +197,10 @@
 {"request_seq":19,"success":true,"command":"breakpointLocations","body":[{"line":9,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
  Received 
 
-{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":20}
+{"command":"next","arguments":{"threadId":1},"type":"request","seq":20}
  Sent 
 
-{"request_seq":20,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":1000,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
- Received 
-
-{"command":"variables","arguments":{"variablesReference":1000},"type":"request","seq":21}
- Sent 
-
-{"request_seq":21,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"4","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
- Received 
-
-{"command":"next","arguments":{"threadId":1},"type":"request","seq":22}
- Sent 
-
-{"request_seq":22,"success":true,"command":"next","type":"response"}
+{"request_seq":20,"success":true,"command":"next","type":"response"}
  Sent 
 
 {"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
@@ -225,10 +213,22 @@
 
  Received 
 
-{"command":"threads","type":"request","seq":23}
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":21}
  Sent 
 
-{"request_seq":23,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+{"request_seq":21,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":0,"namedVariables":0,"indexedVariables":0,"expensive":true,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+ Received 
+
+{"command":"threads","type":"request","seq":22}
+ Sent 
+
+{"request_seq":22,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":23}
+ Sent 
+
+{"request_seq":23,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"4","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
  Received 
 
 {"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":24}
@@ -243,22 +243,10 @@
 {"request_seq":25,"success":true,"command":"breakpointLocations","body":[{"line":9,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
  Received 
 
-{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":26}
+{"command":"next","arguments":{"threadId":1},"type":"request","seq":26}
  Sent 
 
-{"request_seq":26,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":1000,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
- Received 
-
-{"command":"variables","arguments":{"variablesReference":1000},"type":"request","seq":27}
- Sent 
-
-{"request_seq":27,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"4","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
- Received 
-
-{"command":"next","arguments":{"threadId":1},"type":"request","seq":28}
- Sent 
-
-{"request_seq":28,"success":true,"command":"next","type":"response"}
+{"request_seq":26,"success":true,"command":"next","type":"response"}
  Sent 
 
 {"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
@@ -271,10 +259,22 @@
 
  Received 
 
-{"command":"threads","type":"request","seq":29}
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":27}
  Sent 
 
-{"request_seq":29,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+{"request_seq":27,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":0,"namedVariables":0,"indexedVariables":0,"expensive":true,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+ Received 
+
+{"command":"threads","type":"request","seq":28}
+ Sent 
+
+{"request_seq":28,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":29}
+ Sent 
+
+{"request_seq":29,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
  Received 
 
 {"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":30}
@@ -292,13 +292,19 @@
 {"command":"scopes","arguments":{"frameId":0},"type":"request","seq":32}
  Sent 
 
-{"request_seq":32,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":1000,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+{"request_seq":32,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":0,"namedVariables":0,"indexedVariables":0,"expensive":true,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
  Received 
 
-{"command":"next","arguments":{"threadId":1},"type":"request","seq":33}
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":33}
  Sent 
 
-{"request_seq":33,"success":true,"command":"next","type":"response"}
+{"request_seq":33,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+ Received 
+
+{"command":"next","arguments":{"threadId":1},"type":"request","seq":34}
+ Sent 
+
+{"request_seq":34,"success":true,"command":"next","type":"response"}
  Sent 
 
 {"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
@@ -309,12 +315,6 @@
 
 
 
- Received 
-
-{"command":"variables","arguments":{"variablesReference":1000},"type":"request","seq":34}
- Sent 
-
-{"request_seq":34,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
  Received 
 
 {"command":"threads","type":"request","seq":35}
@@ -338,10 +338,10 @@
 {"command":"scopes","arguments":{"frameId":0},"type":"request","seq":38}
  Sent 
 
-{"request_seq":38,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":1000,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+{"request_seq":38,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":0,"namedVariables":0,"indexedVariables":0,"expensive":true,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
  Received 
 
-{"command":"variables","arguments":{"variablesReference":1000},"type":"request","seq":39}
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":39}
  Sent 
 
 {"request_seq":39,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
@@ -384,10 +384,10 @@
 {"command":"scopes","arguments":{"frameId":0},"type":"request","seq":44}
  Sent 
 
-{"request_seq":44,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":1000,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+{"request_seq":44,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":0,"namedVariables":0,"indexedVariables":0,"expensive":true,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
  Received 
 
-{"command":"variables","arguments":{"variablesReference":1000},"type":"request","seq":45}
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":45}
  Sent 
 
 {"request_seq":45,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"RV","value":"5","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
@@ -407,12 +407,6 @@
 
 
 
- Sent 
-
-{"event":"stopped","body":{"reason":"exception","description":"missing pc","threadId":1,"preserveFocusHint":false,"text":"missing pc","allThreadsStopped":false},"type":"event"}
- exception 
-
-missing pc
  Received 
 
 {"command":"threads","type":"request","seq":47}
@@ -421,43 +415,197 @@ missing pc
 {"request_seq":47,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
  Received 
 
-{"command":"threads","type":"request","seq":48}
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":48}
  Sent 
 
-{"request_seq":48,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+{"request_seq":48,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":12,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
  Received 
 
-{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":49}
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":9},"type":"request","seq":49}
  Sent 
 
-{"request_seq":49,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":19,"column":0,"endLine":0,"endColumn":0,"canRestart":false},{"id":0,"name":"ADD","source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":19,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":2},"type":"response"}
+{"request_seq":49,"success":true,"command":"breakpointLocations","body":[{"line":9,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
  Received 
 
-{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":50}
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":50}
  Sent 
 
-{"request_seq":50,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":19,"column":0,"endLine":0,"endColumn":0,"canRestart":false},{"id":0,"name":"ADD","source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":19,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":2},"type":"response"}
+{"request_seq":50,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":0,"namedVariables":0,"indexedVariables":0,"expensive":true,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
  Received 
 
-{"command":"exceptionInfo","arguments":{"threadId":1},"type":"request","seq":51}
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":51}
  Sent 
 
-{"exceptionId":"1","description":"missing pc","breakMode":"always"}
+{"request_seq":51,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"RV","value":"5","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
  Received 
 
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":9},"type":"request","seq":52}
+{"command":"next","arguments":{"threadId":1},"type":"request","seq":52}
  Sent 
 
-{"request_seq":52,"success":true,"command":"breakpointLocations","body":[{"line":9,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+{"request_seq":52,"success":true,"command":"next","type":"response"}
+ Sent 
+
+{"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
+
+
+ Next 
+
+
+
+
  Received 
 
-{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":53}
+{"command":"threads","type":"request","seq":53}
  Sent 
 
-{"request_seq":53,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":1000,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+{"request_seq":53,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
  Received 
 
-{"command":"variables","arguments":{"variablesReference":1000},"type":"request","seq":54}
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":54}
  Sent 
 
-{"request_seq":54,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"RV","value":"5","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+{"request_seq":54,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":13,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":9},"type":"request","seq":55}
+ Sent 
+
+{"request_seq":55,"success":true,"command":"breakpointLocations","body":[{"line":9,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+ Received 
+
+{"command":"next","arguments":{"threadId":1},"type":"request","seq":56}
+ Sent 
+
+{"request_seq":56,"success":true,"command":"next","type":"response"}
+ Sent 
+
+{"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
+
+
+ Next 
+
+
+
+
+ Received 
+
+{"command":"threads","type":"request","seq":57}
+ Sent 
+
+{"request_seq":57,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+ Received 
+
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":58}
+ Sent 
+
+{"request_seq":58,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":0,"namedVariables":0,"indexedVariables":0,"expensive":true,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":59}
+ Sent 
+
+{"request_seq":59,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":14,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":60}
+ Sent 
+
+{"request_seq":60,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"RV","value":"5","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":9},"type":"request","seq":61}
+ Sent 
+
+{"request_seq":61,"success":true,"command":"breakpointLocations","body":[{"line":9,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+ Received 
+
+{"command":"next","arguments":{"threadId":1},"type":"request","seq":62}
+ Sent 
+
+{"request_seq":62,"success":true,"command":"next","type":"response"}
+ Sent 
+
+{"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
+
+
+ Next 
+
+
+
+
+ Received 
+
+{"command":"threads","type":"request","seq":63}
+ Sent 
+
+{"request_seq":63,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":64}
+ Sent 
+
+{"request_seq":64,"success":true,"command":"stackTrace","body":{"stackFrames":[],"totalFrames":0},"type":"response"}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":9},"type":"request","seq":65}
+ Sent 
+
+{"request_seq":65,"success":true,"command":"breakpointLocations","body":[{"line":9,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":66}
+ Sent 
+
+{"request_seq":66,"success":true,"command":"stackTrace","body":{"stackFrames":[],"totalFrames":0},"type":"response"}
+ Received 
+
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":67}
+ Sent 
+
+{"request_seq":67,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":0,"namedVariables":0,"indexedVariables":0,"expensive":true,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":68}
+ Sent 
+
+{"request_seq":68,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"RV","value":"5","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+ Received 
+
+{"command":"next","arguments":{"threadId":1},"type":"request","seq":69}
+ Sent 
+
+{"request_seq":69,"success":true,"command":"next","type":"response"}
+ Sent 
+
+{"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
+
+
+ Next 
+
+
+
+
+ Received 
+
+{"command":"threads","type":"request","seq":70}
+ Sent 
+
+{"request_seq":70,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":71}
+ Sent 
+
+{"request_seq":71,"success":true,"command":"stackTrace","body":{"stackFrames":[],"totalFrames":0},"type":"response"}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":9},"type":"request","seq":72}
+ Sent 
+
+{"request_seq":72,"success":true,"command":"breakpointLocations","body":[{"line":9,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":73}
+ Sent 
+
+{"request_seq":73,"success":true,"command":"stackTrace","body":{"stackFrames":[],"totalFrames":0},"type":"response"}

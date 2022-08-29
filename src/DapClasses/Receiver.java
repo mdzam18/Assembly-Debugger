@@ -409,44 +409,71 @@ public class Receiver {
         return null;
     }
 
-    private String processVariablesRequest(String json) throws IOException {
+    private String processVariablesRequest(String json) throws Exception {
         VariablesRequest request = gson.fromJson(json, VariablesRequest.class);
         VariablesResponse response = new VariablesResponse();
-        Map<String, Integer> variablesMap = emulator.getRegisters();
-        Variable[] variables = new Variable[variablesMap.size()];
-        int counter = 0;
-        for (String key : variablesMap.keySet()) {
-            Variable v = new Variable();
-            v.setName(key);
-            v.setValue(String.valueOf(variablesMap.get(key)));
-            fWriterEmulator.write(key);
-            fWriterEmulator.write(variablesMap.get(key));
-            fWriterEmulator.flush();
-            variables[counter] = v;
-            counter++;
+        if(request.getArguments().getVariablesReference() == 10){
+            //registers
+            //showRegisters();
+            Map<String, Integer> variablesMap = emulator.getRegisters();
+            Variable[] variables = new Variable[variablesMap.size()];
+            int counter = 0;
+            for (String key : variablesMap.keySet()) {
+                Variable v = new Variable();
+                v.setName(key);
+                v.setValue(String.valueOf(variablesMap.get(key)));
+                fWriterEmulator.write(key);
+                fWriterEmulator.write(variablesMap.get(key));
+                fWriterEmulator.flush();
+                variables[counter] = v;
+                counter++;
+            }
+            response.setVariables(variables);
+            Response r = new Response();
+            r.setCommand("variables");
+            r.setRequest_seq(request.getSeq());
+            r.setSuccess(true);
+            r.setBody(response);
+            String jsonResponse = gson.toJson(r);
+            return jsonResponse;
+        } else {
+            List<String> callStack = emulator.getCallStack();
+            List<String> stackFrame = emulator.showStack(callStack.get(callStack.size() - 1));
+            Variable[] variables = new Variable[stackFrame.size()];
+            fWriter.write("hahaha\n");
+            int counter = 0;
+            for (int i = 0; i < variables.length; i++) {
+                Variable v = new Variable();
+                v.setName(stackFrame.get(i));
+                v.setValue("4");
+                fWriter.write(stackFrame.get(i) + " frame\n");
+                fWriter.flush();
+                variables[counter] = v;
+                counter++;
+            }
+            response.setVariables(variables);
+            Response r = new Response();
+            r.setCommand("variables");
+            r.setRequest_seq(request.getSeq());
+            r.setSuccess(true);
+            r.setBody(response);
+            String jsonResponse = gson.toJson(r);
+            return jsonResponse;
         }
-        response.setVariables(variables);
-        Response r = new Response();
-        r.setCommand("variables");
-        r.setRequest_seq(request.getSeq());
-        r.setSuccess(true);
-        r.setBody(response);
-        String jsonResponse = gson.toJson(r);
-        return jsonResponse;
     }
 
     private String processScopesRequest(String json) {
         ScopesRequest request = gson.fromJson(json, ScopesRequest.class);
         ScopesResponse response = new ScopesResponse();
-        Scope[] scopes = new Scope[1];
+        Scope[] scopes = new Scope[2];
         scopes[0] = new Scope();
         scopes[0].setExpensive(false);
         scopes[0].setName("Registers");
-        scopes[0].setVariablesReference(1000);
-//        scopes[1] = new Scope();
-//        scopes[1].setExpensive(false);
-//        scopes[1].setName("Stack Frame");
-//        scopes[1].setVariablesReference(1000);
+        scopes[0].setVariablesReference(10);
+        scopes[1] = new Scope();
+        scopes[1].setExpensive(false);
+        scopes[1].setName("Stack Frame");
+        scopes[1].setVariablesReference(0);
         response.setScopes(scopes);
         Response r = new Response();
         r.setCommand("scopes");
