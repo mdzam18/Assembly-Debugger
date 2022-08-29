@@ -1,6 +1,6 @@
 package src.DapClasses;
 
-public class ExceptionInfoRequest {
+public class ExceptionInfoRequest extends Request{
 
     private ExceptionInfoArguments arguments;
 

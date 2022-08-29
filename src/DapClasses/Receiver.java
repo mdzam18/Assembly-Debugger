@@ -10,9 +10,9 @@ import java.util.*;
 
 public class Receiver {
     private FileWriter fWriter = new FileWriter(
-            "/Users/mariami/Desktop/Assembly-Debugger/src/Emulator/Main/testInputFile");
+            "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile");
     private FileWriter fWriterEmulator = new FileWriter(
-            "/Users/mariami/Desktop/Assembly-Debugger/src/Emulator/Main/testEmulator.txt");
+            "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testEmulator.txt");
     //D:\FINAL\Assembly-Debugger\src\Emulator\Main\testInputFile
     ///home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile
     private String test0 = "Content-Length: 119\r\n" +
@@ -253,21 +253,24 @@ public class Receiver {
             try {
                emulator.next();
             } catch (Exception e){
-                StoppedEvent stoppedEvent = new StoppedEvent();
-                stoppedEvent.setReason("exception");
-                stoppedEvent.setThreadId(1);
-                stoppedEvent.setText(e.getMessage());
-                stoppedEvent.setDescription(e.getMessage());
-                Event exc = new Event();
-                exc.setBody(stoppedEvent);
-                exc.setEvent("stopped");
-                sendProtocolMessage(gson.toJson(exc));
-                exceptionMessage = e.getMessage();
-                fWriter.write("\n exception \n\n");
-                fWriter.write(e.getMessage());
-                fWriter.flush();
+                processEmulatorException(e);
             }
         }
+    }
+    private void processEmulatorException(Exception e) throws IOException {
+        StoppedEvent stoppedEvent = new StoppedEvent();
+        stoppedEvent.setReason("exception");
+        stoppedEvent.setThreadId(1);
+        stoppedEvent.setText(e.getMessage());
+        stoppedEvent.setDescription(e.getMessage());
+        Event exc = new Event();
+        exc.setBody(stoppedEvent);
+        exc.setEvent("stopped");
+        sendProtocolMessage(gson.toJson(exc));
+        exceptionMessage = e.getMessage();
+        fWriter.write("\n exception \n\n");
+        fWriter.write(e.getMessage());
+        fWriter.flush();
     }
 
     public String processRequest(String json) throws Exception {
@@ -379,19 +382,27 @@ public class Receiver {
                 sendProtocolMessage(DisconnectRequestRes);
                 return DisconnectRequestRes;
             case "exceptionInfo":
-                ExceptionInfoResponse exceptionInfoResponse = new ExceptionInfoResponse();
-                exceptionInfoResponse.setExceptionId("1");
-                exceptionInfoResponse.setDescription(exceptionMessage);
-               // ExceptionBreakMode mode = new ExceptionBreakMode();
-                //mode.setMode("always");
-                exceptionInfoResponse.setBreakMode("always");
-                sendProtocolMessage(gson.toJson(exceptionInfoResponse));
-                return "";//gson.toJson(initResponse) + gson.toJson(initEvent);
+               String exceptionInfoRequestRes = processExceptionInfoRequest(json);
+                sendProtocolMessage(exceptionInfoRequestRes);
+                return exceptionInfoRequestRes;
             default:
                 return null;
         }
     }
-
+    private String processExceptionInfoRequest(String json) throws IOException {
+        ExceptionInfoRequest request = gson.fromJson(json, ExceptionInfoRequest.class);
+        Response r = new Response();
+        r.setCommand("exceptionInfo");
+        r.setRequest_seq(request.getSeq());
+        r.setSuccess(true);
+        ExceptionInfoResponse response = new ExceptionInfoResponse();
+        response.setExceptionId("1");
+        response.setDescription(exceptionMessage);
+        response.setBreakMode("always");
+        r.setBody(response);
+        String jsonResponse = gson.toJson(r);
+        return jsonResponse;
+    }
     private String processExitedEvent() {
         return null;
     }
@@ -422,6 +433,7 @@ public class Receiver {
                 Variable v = new Variable();
                 v.setName(key);
                 v.setValue(String.valueOf(variablesMap.get(key)));
+                v.setVariablesReference(request.getArguments().getVariablesReference());
                 fWriterEmulator.write(key);
                 fWriterEmulator.write(variablesMap.get(key));
                 fWriterEmulator.flush();
@@ -446,6 +458,7 @@ public class Receiver {
                 Variable v = new Variable();
                 v.setName(stackFrame.get(i));
                 v.setValue("4");
+                v.setVariablesReference(request.getArguments().getVariablesReference());
                 fWriter.write(stackFrame.get(i) + " frame\n");
                 fWriter.flush();
                 variables[counter] = v;
@@ -473,7 +486,7 @@ public class Receiver {
         scopes[1] = new Scope();
         scopes[1].setExpensive(false);
         scopes[1].setName("Stack Frame");
-        scopes[1].setVariablesReference(0);
+        scopes[1].setVariablesReference(11);
         response.setScopes(scopes);
         Response r = new Response();
         r.setCommand("scopes");
@@ -638,12 +651,18 @@ public class Receiver {
         program = request.getArguments().getProgram();
         String arr[] = new String[1];
         arr[0] = program;
-        emulator = new AssemblyEmulator(arr);
-        LaunchResponse response = new LaunchResponse();
-        response.setRequest_seq(request.getSeq());
-        response.setSuccess(true);
-        String jsonResponse = gson.toJson(response);
-        return jsonResponse;
+        try{
+            emulator = new AssemblyEmulator(arr);
+            LaunchResponse response = new LaunchResponse();
+            response.setRequest_seq(request.getSeq());
+            response.setSuccess(true);
+            String jsonResponse = gson.toJson(response);
+            return jsonResponse;
+        }catch (Exception e){
+            processEmulatorException(e);
+        }
+
+        return "";
     }
 
     private String processConfigurationDoneRequest(String json) {
