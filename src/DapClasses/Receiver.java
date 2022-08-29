@@ -9,13 +9,13 @@ import java.util.*;
 
 
 public class Receiver {
-    FileWriter fWriter = new FileWriter(
+    private FileWriter fWriter = new FileWriter(
             "/Users/mariami/Desktop/Assembly-Debugger/src/Emulator/Main/testInputFile");
-    FileWriter fWriterEmulator = new FileWriter(
+    private FileWriter fWriterEmulator = new FileWriter(
             "/Users/mariami/Desktop/Assembly-Debugger/src/Emulator/Main/testEmulator.txt");
     //D:\FINAL\Assembly-Debugger\src\Emulator\Main\testInputFile
     ///home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile
-    String test0 = "Content-Length: 119\r\n" +
+    private String test0 = "Content-Length: 119\r\n" +
             "\r\n" +
             "{\r\n" +
             "    \"seq\": 153,\r\n" +
@@ -27,7 +27,7 @@ public class Receiver {
             "}";
 
 
-    String test2 =
+    private String test2 =
             "Content-Length: 451\r\n" +
                     "\r\n" +
                     "{" +
@@ -52,7 +52,7 @@ public class Receiver {
                     "\"seq\":1\r\n" +
                     "}" +
                     "Content-Length: 79\r\n";
-    String test3 = "{\n" +
+    private String test3 = "{\n" +
             "\"command\":\"initialize\",\n" +
             "\"arguments\":{\n" +
             "\"clientID\":\"vscode\",\n" +
@@ -78,6 +78,8 @@ public class Receiver {
     private String program;
     private AssemblyEmulator emulator;
     private List<Integer> breakpointLineNumbers;
+
+    private String exceptionMessage;
 
     public Receiver() throws Exception {
         gson = new Gson();
@@ -133,17 +135,16 @@ public class Receiver {
         System.out.print(message);
         System.out.flush();
         fWriter.write("\n Sent \n\n");
-        fWriter.write(message);
+        fWriter.write(json);
         fWriter.flush();
     }
 
     public void receive() throws Exception {
         //String t = "{\"command\":\"breakpointLocations\",\"arguments\":{\"source\":{\"name\":\"readme.md\",\"path\":\"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md\"},\"line\":4},\"type\":\"request\",\"seq\":5}";
-
+        Scanner scanner = new Scanner(System.in);
+        scanner.useDelimiter("");
         try {
             //String res1 = receiveProtocolMessage(t);
-            Scanner scanner = new Scanner(System.in);
-            scanner.useDelimiter("");
             while (true) {
                 String message = readRequest(scanner);
                 fWriter.write("\n Received \n\n");
@@ -152,19 +153,25 @@ public class Receiver {
                 String res = receiveProtocolMessage(message);
             }
         } catch (Exception e) {
-
-            StoppedEvent stoppedEvent = new StoppedEvent();
-            stoppedEvent.setReason("exception");
-            stoppedEvent.setThreadId(1);
-            stoppedEvent.setText(e.getMessage());
-            Event exc = new Event();
-            exc.setBody(stoppedEvent);
-            exc.setEvent("stopped");
-            sendProtocolMessage(gson.toJson(exc));
-
-            fWriter.write("\n exception \n\n");
-            fWriter.write(e.getMessage());
-            fWriter.flush();
+//            StoppedEvent stoppedEvent = new StoppedEvent();
+//            stoppedEvent.setReason("exception");
+//            stoppedEvent.setThreadId(1);
+//            stoppedEvent.setText(e.getMessage());
+//            stoppedEvent.setDescription(e.getMessage());
+//            Event exc = new Event();
+//
+//            sendProtocolMessage(gson.toJson(exc));
+//            exc.setBody(stoppedEvent);
+//            exc.setEvent("stopped");
+//
+//            String message = readRequest(scanner);
+//            fWriter.write("\n Received2 \n\n");
+//            fWriter.write(message.length() + " length\n");
+//            fWriter.write("message " + message);
+//            fWriter.flush();
+//            fWriter.write("\n exception \n\n");
+//            fWriter.write("exception "  + e.getMessage());
+//            fWriter.flush();
             //System.out.println(e.getMessage());
         } finally {
             fWriter.close();
@@ -201,7 +208,6 @@ public class Receiver {
     }
 
     public String receiveProtocolMessage(String json) throws Exception {
-
         ProtocolMessage protocolMessage = gson.fromJson(json, ProtocolMessage.class);
         String type = protocolMessage.getType();
         switch (type) {
@@ -209,11 +215,9 @@ public class Receiver {
                 String r1 = processRequest(json);
                 return r1;
             case "response":
-
                 break;
             case "event":
                 return processEvent(json);
-
         }
         return null;
     }
@@ -244,15 +248,29 @@ public class Receiver {
 
     public void callEmulatorNextNTimes(int num) throws Exception {
         for (int i = 0; i < num; i++) {
-
             fWriter.write("\n\n\n Next \n\n\n\n");
             fWriter.flush();
-            emulator.next();
+            try {
+               emulator.next();
+            } catch (Exception e){
+                StoppedEvent stoppedEvent = new StoppedEvent();
+                stoppedEvent.setReason("exception");
+                stoppedEvent.setThreadId(1);
+                stoppedEvent.setText(e.getMessage());
+                stoppedEvent.setDescription(e.getMessage());
+                Event exc = new Event();
+                exc.setBody(stoppedEvent);
+                exc.setEvent("stopped");
+                sendProtocolMessage(gson.toJson(exc));
+                exceptionMessage = e.getMessage();
+                fWriter.write("\n exception \n\n");
+                fWriter.write(e.getMessage());
+                fWriter.flush();
+            }
         }
     }
 
     public String processRequest(String json) throws Exception {
-
         Request request = gson.fromJson(json, Request.class);
         String command = request.getCommand();
         switch (command) {
@@ -360,6 +378,15 @@ public class Receiver {
                 String DisconnectRequestRes = processDisconnectRequest(json);
                 sendProtocolMessage(DisconnectRequestRes);
                 return DisconnectRequestRes;
+            case "exceptionInfo":
+                ExceptionInfoResponse exceptionInfoResponse = new ExceptionInfoResponse();
+                exceptionInfoResponse.setExceptionId("1");
+                exceptionInfoResponse.setDescription(exceptionMessage);
+               // ExceptionBreakMode mode = new ExceptionBreakMode();
+                //mode.setMode("always");
+                exceptionInfoResponse.setBreakMode("always");
+                sendProtocolMessage(gson.toJson(exceptionInfoResponse));
+                return "";//gson.toJson(initResponse) + gson.toJson(initEvent);
             default:
                 return null;
         }
@@ -414,12 +441,12 @@ public class Receiver {
         Scope[] scopes = new Scope[1];
         scopes[0] = new Scope();
         scopes[0].setExpensive(false);
-        scopes[0].setName("Globals");
+        scopes[0].setName("Registers");
         scopes[0].setVariablesReference(1000);
 //        scopes[1] = new Scope();
-//        scopes[1].setExpensive(true);
-//        scopes[1].setName("Globals");
-//        scopes[1].setVariablesReference(1001);
+//        scopes[1].setExpensive(false);
+//        scopes[1].setName("Stack Frame");
+//        scopes[1].setVariablesReference(1000);
         response.setScopes(scopes);
         Response r = new Response();
         r.setCommand("scopes");
@@ -489,11 +516,11 @@ public class Receiver {
         StackTraceResponse response = new StackTraceResponse();
         ArrayList<String> callstack = emulator.getCallStack();
         //if(callstack.size() == 0){
-          //  processTerminateRequest();
+        //  processTerminateRequest();
         //anu morcha da unda shevawyvetino
-       // }
+        // }
         StackFrame[] stackFrames = new StackFrame[callstack.size()];
-        for(int i = 0; i < callstack.size(); i++){
+        for (int i = 0; i < callstack.size(); i++) {
             stackFrames[i] = new StackFrame();
             stackFrames[i].setColumn(0);
             stackFrames[i].setId(0);
@@ -512,7 +539,7 @@ public class Receiver {
         return jsonResponse;
     }
 
-    private Source createSource(){
+    private Source createSource() {
         Source source = new Source();
         source.setName(name);
         source.setAdapterData("mock-adapter-data");
