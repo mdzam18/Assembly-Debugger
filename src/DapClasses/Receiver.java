@@ -13,66 +13,8 @@ public class Receiver {
     //"/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile");
     private FileWriter fWriterEmulator = new FileWriter("/Users/mariami/Desktop/Assembly-Debugger/src/Emulator/Main/testEmulator.txt");
     //"/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testEmulator.txt");
-    //D:\FINAL\Assembly-Debugger\src\Emulator\Main\testInputFile
-    ///home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile
-    private String test0 = "Content-Length: 119\r\n" +
-            "\r\n" +
-            "{\r\n" +
-            "    \"seq\": 153,\r\n" +
-            "    \"type\": \"request\",\r\n" +
-            "    \"command\": \"next\",\r\n" +
-            "    \"arguments\": {\r\n" +
-            "        \"threadId\": 3\r\n" +
-            "    }\r\n" +
-            "}";
 
 
-    private String test2 =
-            "Content-Length: 451\r\n" +
-                    "\r\n" +
-                    "{" +
-                    "\"command\":\"initialize\",\r\n" +
-                    "\"arguments\":{\r\n" +
-                    "\"clientID\":\"vscode\",\r\n" +
-                    "\"clientName\":\"Visual Studio Code\",\r\n" +
-                    "\"adapterID\":\"mock\",\r\n" +
-                    "\"pathFormat\":\"path\",\r\n" +
-                    "\"linesStartAt1\":true,\r\n" +
-                    "\"columnsStartAt1\":true,\r\n" +
-                    "\"supportsVariableType\":true,\r\n" +
-                    "\"supportsVariablePaging\":true,\r\n" +
-                    "\"supportsRunInTerminalRequest\":true,\r\n" +
-                    "\"locale\":\"en-us\",\r\n" +
-                    "\"supportsProgressReporting\":true,\r\n" +
-                    "\"supportsInvalidatedEvent\":true,\r\n" +
-                    "\"supportsMemoryReferences\":true,\r\n" +
-                    "\"supportsArgsCanBeInterpretedByShell\":true\r\n" +
-                    "},\r\n" +
-                    "\"type\":\"request\",\r\n" +
-                    "\"seq\":1\r\n" +
-                    "}" +
-                    "Content-Length: 79\r\n";
-    private String test3 = "{\n" +
-            "\"command\":\"initialize\",\n" +
-            "\"arguments\":{\n" +
-            "\"clientID\":\"vscode\",\n" +
-            "\"clientName\":\"Visual Studio Code\",\n" +
-            "\"adapterID\":\"mock\",\n" +
-            "\"pathFormat\":\"path\",\n" +
-            "\"linesStartAt1\":true,\n" +
-            "\"columnsStartAt1\":true,\n" +
-            "\"supportsVariableType\":true,\n" +
-            "\"supportsVariablePaging\":true,\n" +
-            "\"supportsRunInTerminalRequest\":true,\n" +
-            "\"locale\":\"en-us\",\n" +
-            "\"supportsProgressReporting\":true,\n" +
-            "\"supportsInvalidatedEvent\":true,\n" +
-            "\"supportsMemoryReferences\":true,\n" +
-            "\"supportsArgsCanBeInterpretedByShell\":true\n" +
-            "},\n" +
-            "\"type\":\"request\",\n" +
-            "\"seq\":1\n" +
-            "}";
     private Gson gson;
     private String name;
     private String program;
@@ -80,12 +22,14 @@ public class Receiver {
     private List<Integer> breakpointLineNumbers;
 
     private String exceptionMessage;
+    private RequestsReader requestsReader;
 
     private Breakpoint[] breakpoints;
 
     public Receiver() throws Exception {
         gson = new Gson();
         breakpointLineNumbers = new ArrayList<>();
+        requestsReader = new RequestsReader();
 
     }
 
@@ -95,7 +39,6 @@ public class Receiver {
             String s = "";
             while (true) {
                 String s2 = scanner.next();
-                // System.out.println(s2);
                 if (s2.startsWith("\r")) {
                     break;
                 }
@@ -104,7 +47,6 @@ public class Receiver {
             current = current + s;
             String next = scanner.next();
             if (next.startsWith("\n")) {
-                //readByte
                 break;
             } else {
                 current = current + "\r";
@@ -124,7 +66,6 @@ public class Receiver {
             headers.put(items[0], items[1]);
         }
         int length = Integer.parseInt(headers.get("Content-Length"));
-        //System.out.println(length);
         StringBuilder rem = new StringBuilder();
         for (int i = 0; i < length; i++) {
             rem.append(scanner.next());
@@ -143,17 +84,18 @@ public class Receiver {
 
     public void receive() throws Exception {
         //String t = "{\"command\":\"breakpointLocations\",\"arguments\":{\"source\":{\"name\":\"readme.md\",\"path\":\"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md\"},\"line\":4},\"type\":\"request\",\"seq\":5}";
-        Scanner scanner = null;
+        //Scanner scanner = null;
         try {
-            scanner = new Scanner(System.in);
-            scanner.useDelimiter("");
+//            scanner = new Scanner(System.in);
+//            scanner.useDelimiter("");
             //String res1 = receiveProtocolMessage(t);
             while (true) {
-                String message = readRequest(scanner);
+                //String message = readRequest(scanner);
+                String message = requestsReader.readRequest();
                 fWriter.write("\n Received \n\n");
                 fWriter.write(message);
                 fWriter.flush();
-                String res = receiveProtocolMessage(message);
+                receiveProtocolMessage(message);
             }
         } catch (Exception e) {
             processEmulatorException(e);
@@ -183,35 +125,6 @@ public class Receiver {
         } finally {
             fWriter.close();
         }
-
-//        Scanner scanner = new Scanner(test2);
-//        List<String> lines = new ArrayList<>();
-//        while (true) {
-//        int numBytes = 0;
-//        //for (int i = 0; i <linesArr.size(); i++) {
-//
-//            while (scanner.hasNextLine()) {
-//                String line = scanner.nextLine();
-//                //String line = linesArr.get(i);
-//                lines.add(line);
-//
-//                if (line.startsWith("Content-Length")) {
-//                    String clean = line.replaceAll("\\D+","");
-//                    numBytes = Integer.parseInt(clean);
-//                }
-//                if (lines.size()>2 && lines.get(lines.size() - 2).equals("")) {
-//                        String content = line.substring(0,numBytes);
-//                        String response = receiveProtocolMessage(content);
-//                        int length = response.getBytes().length;
-//                        String header = String.format("Content-Length: %d\r\n" +
-//                                "\r\n", length);
-//                        System.out.println(header + response);
-//                        System.out.flush();
-//                }
-//            }
-//
-//        }
-
     }
 
     public String receiveProtocolMessage(String json) throws Exception {
