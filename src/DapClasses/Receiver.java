@@ -9,9 +9,11 @@ import java.util.*;
 
 
 public class Receiver {
-    private FileWriter fWriter = new FileWriter("/Users/mariami/Desktop/Assembly-Debugger/src/Emulator/Main/testInputFile");
+    private FileWriter fWriter = new FileWriter(
+            "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile");
     //"/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile");
-    private FileWriter fWriterEmulator = new FileWriter("/Users/mariami/Desktop/Assembly-Debugger/src/Emulator/Main/testEmulator.txt");
+    private FileWriter fWriterEmulator = new FileWriter(
+            "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testEmulator.txt");
     //"/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testEmulator.txt");
 
 
@@ -22,14 +24,14 @@ public class Receiver {
     private List<Integer> breakpointLineNumbers;
 
     private String exceptionMessage;
-    private RequestsReader requestsReader;
+    //private RequestsReader requestsReader;
 
     private Breakpoint[] breakpoints;
 
     public Receiver() throws Exception {
         gson = new Gson();
         breakpointLineNumbers = new ArrayList<>();
-        requestsReader = new RequestsReader();
+        //requestsReader = new RequestsReader();
 
     }
 
@@ -84,14 +86,14 @@ public class Receiver {
 
     public void receive() throws Exception {
         //String t = "{\"command\":\"breakpointLocations\",\"arguments\":{\"source\":{\"name\":\"readme.md\",\"path\":\"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md\"},\"line\":4},\"type\":\"request\",\"seq\":5}";
-        //Scanner scanner = null;
+        Scanner scanner = null;
         try {
-//            scanner = new Scanner(System.in);
-//            scanner.useDelimiter("");
+            scanner = new Scanner(System.in);
+            scanner.useDelimiter("");
             //String res1 = receiveProtocolMessage(t);
             while (true) {
-                //String message = readRequest(scanner);
-                String message = requestsReader.readRequest();
+                String message = readRequest(scanner);
+                //String message = requestsReader.readRequest();
                 fWriter.write("\n Received \n\n");
                 fWriter.write(message);
                 fWriter.flush();
