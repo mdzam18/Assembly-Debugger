@@ -10,9 +10,9 @@ import java.util.*;
 
 public class Receiver {
     private FileWriter fWriter = new FileWriter("/Users/mariami/Desktop/Assembly-Debugger/src/Emulator/Main/testInputFile");
-            //"/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile");
+    //"/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile");
     private FileWriter fWriterEmulator = new FileWriter("/Users/mariami/Desktop/Assembly-Debugger/src/Emulator/Main/testEmulator.txt");
-            //"/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testEmulator.txt");
+    //"/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testEmulator.txt");
     //D:\FINAL\Assembly-Debugger\src\Emulator\Main\testInputFile
     ///home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile
     private String test0 = "Content-Length: 119\r\n" +
@@ -81,6 +81,8 @@ public class Receiver {
 
     private String exceptionMessage;
 
+    private Breakpoint[] breakpoints;
+
     public Receiver() throws Exception {
         gson = new Gson();
         breakpointLineNumbers = new ArrayList<>();
@@ -141,9 +143,10 @@ public class Receiver {
 
     public void receive() throws Exception {
         //String t = "{\"command\":\"breakpointLocations\",\"arguments\":{\"source\":{\"name\":\"readme.md\",\"path\":\"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md\"},\"line\":4},\"type\":\"request\",\"seq\":5}";
-        Scanner scanner = new Scanner(System.in);
-        scanner.useDelimiter("");
+        Scanner scanner = null;
         try {
+            scanner = new Scanner(System.in);
+            scanner.useDelimiter("");
             //String res1 = receiveProtocolMessage(t);
             while (true) {
                 String message = readRequest(scanner);
@@ -153,11 +156,15 @@ public class Receiver {
                 String res = receiveProtocolMessage(message);
             }
         } catch (Exception e) {
+            processEmulatorException(e);
 //            StoppedEvent stoppedEvent = new StoppedEvent();
 //            stoppedEvent.setReason("exception");
 //            stoppedEvent.setThreadId(1);
 //            stoppedEvent.setText(e.getMessage());
 //            stoppedEvent.setDescription(e.getMessage());
+//            stoppedEvent.setAllThreadsStopped(false);
+//            stoppedEvent.setHitBreakpointIds(new int[0]);
+//            stoppedEvent.setPreserveFocusHint(true);
 //            Event exc = new Event();
 //
 //            sendProtocolMessage(gson.toJson(exc));
@@ -172,7 +179,7 @@ public class Receiver {
 //            fWriter.write("\n exception \n\n");
 //            fWriter.write("exception "  + e.getMessage());
 //            fWriter.flush();
-            //System.out.println(e.getMessage());
+//            System.out.println(e.getMessage());
         } finally {
             fWriter.close();
         }
@@ -251,29 +258,48 @@ public class Receiver {
             fWriter.write("\n\n\n Next \n\n\n\n");
             fWriter.flush();
             try {
-               boolean isProgramRunning = emulator.next();
-               if(!isProgramRunning){
-                   OutputEvent oEvent = new OutputEvent();
-                   oEvent.setOutput(Integer.toString(emulator.getRv()));
-                   oEvent.setLine(emulator.getCurrentLine());
-                   oEvent.setCategory("console");
-                   oEvent.setGroup("start");
-                   Event e1 = new Event();
-                   e1.setEvent("output");
-                   e1.setBody(oEvent);
-                   sendProtocolMessage(gson.toJson(e1));
-               }
-            } catch (Exception e){
+                boolean isProgramRunning = emulator.next();
+                if (!isProgramRunning) {
+                    OutputEvent oEvent = new OutputEvent();
+                    oEvent.setOutput(Integer.toString(emulator.getRv()));
+                    oEvent.setLine(emulator.getCurrentLine());
+                    oEvent.setCategory("console");
+                    oEvent.setGroup("start");
+                    Event e1 = new Event();
+                    e1.setEvent("output");
+                    e1.setBody(oEvent);
+                    sendProtocolMessage(gson.toJson(e1));
+                }
+            } catch (Exception e) {
                 processEmulatorException(e);
             }
         }
     }
+
     private void processEmulatorException(Exception e) throws IOException {
+//        StoppedEvent stoppedEvent = new StoppedEvent();
+//        stoppedEvent.setReason("exception");
+//        stoppedEvent.setThreadId(1);
+//        stoppedEvent.setText(e.getMessage());
+//        stoppedEvent.setDescription(e.getMessage());
+//        stoppedEvent.setAllThreadsStopped(false);
+//        stoppedEvent.setHitBreakpointIds(new int[0]);
+//        stoppedEvent.setPreserveFocusHint(true);
+//        Event exc = new Event();
+//        exc.setBody(stoppedEvent);
+//        exc.setEvent("stopped");
+//        sendProtocolMessage(gson.toJson(exc));
+//        exceptionMessage = e.getMessage();
+//        fWriter.write("\n exception \n\n");
+//        fWriter.write(e.getMessage());
+//        fWriter.flush();
         StoppedEvent stoppedEvent = new StoppedEvent();
         stoppedEvent.setReason("exception");
         stoppedEvent.setThreadId(1);
         stoppedEvent.setText(e.getMessage());
         stoppedEvent.setDescription(e.getMessage());
+        stoppedEvent.setAllThreadsStopped(false);
+        stoppedEvent.setPreserveFocusHint(false);
         Event exc = new Event();
         exc.setBody(stoppedEvent);
         exc.setEvent("stopped");
@@ -337,12 +363,16 @@ public class Receiver {
                 sendProtocolMessage(ThreadsRes);
                 return ThreadsRes;
             case "stackTrace":
-                String StackTraceRes = processStackTraceRequest(json);
-                if (emulator.getCurrentLine() == 0) {
-                    callEmulatorNextNTimes(breakpointLineNumbers.get(0) - 1);
+                try {
+                    String StackTraceRes = processStackTraceRequest(json);
+                    if (emulator.getCurrentLine() == 0) {
+                        callEmulatorNextNTimes(breakpointLineNumbers.get(0) - 1);
+                    }
+                    sendProtocolMessage(StackTraceRes);
+                    return StackTraceRes;
+                } catch (Exception exception) {
+                    //  processEmulatorException(exception);
                 }
-                sendProtocolMessage(StackTraceRes);
-                return StackTraceRes;
             case "scopes":
                 String ScopesRequestRes = processScopesRequest(json);
                 sendProtocolMessage(ScopesRequestRes);
@@ -393,13 +423,14 @@ public class Receiver {
                 sendProtocolMessage(DisconnectRequestRes);
                 return DisconnectRequestRes;
             case "exceptionInfo":
-               String exceptionInfoRequestRes = processExceptionInfoRequest(json);
+                String exceptionInfoRequestRes = processExceptionInfoRequest(json);
                 sendProtocolMessage(exceptionInfoRequestRes);
                 return exceptionInfoRequestRes;
             default:
                 return null;
         }
     }
+
     private String processExceptionInfoRequest(String json) throws IOException {
         ExceptionInfoRequest request = gson.fromJson(json, ExceptionInfoRequest.class);
         Response r = new Response();
@@ -414,6 +445,7 @@ public class Receiver {
         String jsonResponse = gson.toJson(r);
         return jsonResponse;
     }
+
     private String processExitedEvent() {
         return null;
     }
@@ -431,9 +463,9 @@ public class Receiver {
         return null;
     }
 
-    private Variable [] showRegisters(){
+    private Variable[] showRegisters() {
         Map<String, Integer> variablesMap = emulator.getRegisters();
-        Variable [] variables = new Variable[variablesMap.size()];
+        Variable[] variables = new Variable[variablesMap.size()];
         int counter = 0;
         for (String key : variablesMap.keySet()) {
             Variable v = new Variable();
@@ -447,15 +479,15 @@ public class Receiver {
     }
 
     //shows stack frame of every method in callstack
-    private Variable [] showStackFrame() throws Exception {
+    private Variable[] showStackFrame() throws Exception {
         List<String> callStack = emulator.getCallStack();
-        Variable [] variables = new Variable[callStack.size()];
-        for(int j = 0; j < callStack.size(); j++){
+        Variable[] variables = new Variable[callStack.size()];
+        for (int j = 0; j < callStack.size(); j++) {
             List<String> stackFrame = emulator.showStack(callStack.get(j));
             Variable v = new Variable();
             v.setName(callStack.get(j));
             v.setVariablesReference(0);
-            String [] arr = new String[stackFrame.size()];
+            String[] arr = new String[stackFrame.size()];
             for (int i = 0; i < stackFrame.size(); i++) {
                 arr[i] = stackFrame.get(i);
             }
@@ -469,7 +501,7 @@ public class Receiver {
         VariablesRequest request = gson.fromJson(json, VariablesRequest.class);
         VariablesResponse response = new VariablesResponse();
         Variable[] variables = null;
-        if(request.getArguments().getVariablesReference() == 10){
+        if (request.getArguments().getVariablesReference() == 10) {
             //registers
             variables = showRegisters();
         } else {
@@ -661,14 +693,14 @@ public class Receiver {
         program = request.getArguments().getProgram();
         String arr[] = new String[1];
         arr[0] = program;
-        try{
+        try {
             emulator = new AssemblyEmulator(arr);
             LaunchResponse response = new LaunchResponse();
             response.setRequest_seq(request.getSeq());
             response.setSuccess(true);
             String jsonResponse = gson.toJson(response);
             return jsonResponse;
-        }catch (Exception e){
+        } catch (Exception e) {
             processEmulatorException(e);
         }
 
@@ -701,7 +733,7 @@ public class Receiver {
         for (int i = 0; i < requestLines.length; i++) {
             breakpointLineNumbers.add(requestLines[i]);
         }
-        Breakpoint[] breakpoints = new Breakpoint[requestBreakpoints.length];
+        breakpoints = new Breakpoint[requestBreakpoints.length];
         for (int i = 0; i < requestBreakpoints.length; i++) {
             breakpoints[i] = new Breakpoint();
             breakpoints[i].setLine(requestBreakpoints[i].getLine());

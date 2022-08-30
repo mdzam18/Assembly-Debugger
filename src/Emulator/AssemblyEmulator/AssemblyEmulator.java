@@ -143,12 +143,18 @@ public class AssemblyEmulator {
                 functionsManager.processFunction(line, numberOfLine);
             } else if (line.startsWith("CALL")) {
                 //call
-                if (line.contains("<")) {
+                if (line.contains("<") && line.contains(">")) {
                     functionsManager.processCall(line, numberOfLine);
                     currentLine = functionsManager.getCurrentLine();
-                } else {
+                } else if (!line.contains("<") && !line.contains(">")) {
                     int result = addressManager.getAddress(line.substring(4, line.length() - 1));
                     //aq sad unda gadavaxtuno call-it?
+                } else {
+                    if(!line.contains("<")){
+                        throw new Exception("missing <");
+                    } else {
+                        throw new Exception("missing >");
+                    }
                 }
             } else if (line.startsWith("RET")) {
                 //RET

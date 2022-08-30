@@ -57,7 +57,8 @@ public class FunctionsManager {
         }
     }
 
-    public void processCall(String line, int numberOfLine) {
+    //process call function, jumps to the function and adds names to callstack
+    public void processCall(String line, int numberOfLine) throws Exception {
         int length = memoryManager.getMemory().length;
         line = line.substring(line.indexOf('<') + 1, line.indexOf(('>')));
         memoryManager.resizeMemory(length + 1); //add saved pc

@@ -38,6 +38,6 @@ class FilesManagerTest {
         String [] args = new String[1];
         args[0] = "src/Tests/testCommandWithoutSemicolon.asm";
         Throwable exception = assertThrows(Exception.class, () -> filesManager.createList(args));
-        Assertions.assertEquals("SP=SP+3 missing semicolon", exception.getMessage());
+        Assertions.assertEquals("line: 1 missing semicolon", exception.getMessage());
     }
 }

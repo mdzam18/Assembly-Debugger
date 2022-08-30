@@ -39,7 +39,7 @@ public class FilesManager {
                 line = line.replaceAll(" ", ""); //Delete white spaces.
                 line = line.toUpperCase(Locale.ROOT);
                 if (!line.endsWith(";")) {
-                    throw new Exception(line + " missing semicolon");
+                    throw new Exception("line: " + (list.size() + 1) + " missing semicolon");
                 }
                 int index = line.indexOf(";");
                 int start = 0;
