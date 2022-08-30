@@ -9,10 +9,10 @@ import java.util.*;
 
 
 public class Receiver {
-    private FileWriter fWriter = new FileWriter(
-            "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile");
-    private FileWriter fWriterEmulator = new FileWriter(
-            "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testEmulator.txt");
+    private FileWriter fWriter = new FileWriter("/Users/mariami/Desktop/Assembly-Debugger/src/Emulator/Main/testInputFile");
+            //"/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile");
+    private FileWriter fWriterEmulator = new FileWriter("/Users/mariami/Desktop/Assembly-Debugger/src/Emulator/Main/testEmulator.txt");
+            //"/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testEmulator.txt");
     //D:\FINAL\Assembly-Debugger\src\Emulator\Main\testInputFile
     ///home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile
     private String test0 = "Content-Length: 119\r\n" +
@@ -431,59 +431,58 @@ public class Receiver {
         return null;
     }
 
+    private Variable [] showRegisters(){
+        Map<String, Integer> variablesMap = emulator.getRegisters();
+        Variable [] variables = new Variable[variablesMap.size()];
+        int counter = 0;
+        for (String key : variablesMap.keySet()) {
+            Variable v = new Variable();
+            v.setName(key);
+            v.setVariablesReference(0);
+            v.setValue(String.valueOf(variablesMap.get(key)));
+            variables[counter] = v;
+            counter++;
+        }
+        return variables;
+    }
+
+    //shows stack frame of every method in callstack
+    private Variable [] showStackFrame() throws Exception {
+        List<String> callStack = emulator.getCallStack();
+        Variable [] variables = new Variable[callStack.size()];
+        for(int j = 0; j < callStack.size(); j++){
+            List<String> stackFrame = emulator.showStack(callStack.get(j));
+            Variable v = new Variable();
+            v.setName(callStack.get(j));
+            v.setVariablesReference(0);
+            String [] arr = new String[stackFrame.size()];
+            for (int i = 0; i < stackFrame.size(); i++) {
+                arr[i] = stackFrame.get(i);
+            }
+            v.setValue(Arrays.toString(arr));
+            variables[j] = v;
+        }
+        return variables;
+    }
+
     private String processVariablesRequest(String json) throws Exception {
         VariablesRequest request = gson.fromJson(json, VariablesRequest.class);
         VariablesResponse response = new VariablesResponse();
+        Variable[] variables = null;
         if(request.getArguments().getVariablesReference() == 10){
             //registers
-            //showRegisters();
-            Map<String, Integer> variablesMap = emulator.getRegisters();
-            Variable[] variables = new Variable[variablesMap.size()];
-            int counter = 0;
-            for (String key : variablesMap.keySet()) {
-                Variable v = new Variable();
-                v.setName(key);
-                v.setValue(String.valueOf(variablesMap.get(key)));
-                v.setVariablesReference(request.getArguments().getVariablesReference());
-                fWriterEmulator.write(key);
-                fWriterEmulator.write(variablesMap.get(key));
-                fWriterEmulator.flush();
-                variables[counter] = v;
-                counter++;
-            }
-            response.setVariables(variables);
-            Response r = new Response();
-            r.setCommand("variables");
-            r.setRequest_seq(request.getSeq());
-            r.setSuccess(true);
-            r.setBody(response);
-            String jsonResponse = gson.toJson(r);
-            return jsonResponse;
+            variables = showRegisters();
         } else {
-            List<String> callStack = emulator.getCallStack();
-            List<String> stackFrame = emulator.showStack(callStack.get(callStack.size() - 1));
-            Variable[] variables = new Variable[stackFrame.size()];
-            fWriter.write("hahaha\n");
-            int counter = 0;
-            for (int i = 0; i < variables.length; i++) {
-                Variable v = new Variable();
-                v.setName(stackFrame.get(i));
-                v.setValue("4");
-                v.setVariablesReference(request.getArguments().getVariablesReference());
-                fWriter.write(stackFrame.get(i) + " frame\n");
-                fWriter.flush();
-                variables[counter] = v;
-                counter++;
-            }
-            response.setVariables(variables);
-            Response r = new Response();
-            r.setCommand("variables");
-            r.setRequest_seq(request.getSeq());
-            r.setSuccess(true);
-            r.setBody(response);
-            String jsonResponse = gson.toJson(r);
-            return jsonResponse;
+            variables = showStackFrame();
         }
+        response.setVariables(variables);
+        Response r = new Response();
+        r.setCommand("variables");
+        r.setRequest_seq(request.getSeq());
+        r.setSuccess(true);
+        r.setBody(response);
+        String jsonResponse = gson.toJson(r);
+        return jsonResponse;
     }
 
     private String processScopesRequest(String json) {
