@@ -8,7 +8,7 @@ R3 = .2M[SP];
 SP = SP - 8;
 M[SP] = R2;
 M[SP+4] = .2R3;
-CALLadd>;
+CALL<add>;
 SP = SP + 8;
 SP = SP + 8;
 RET;

@@ -24,18 +24,22 @@ public class AssemblyEmulator {
     private FunctionsManager functionsManager;
     private ArrayList<String> list;
     private int currentLine;
+    private int ending;
 
     public AssemblyEmulator(String[] arr) throws Exception {
         FilesManager files = new FilesManager();
         list = files.createList(arr);
         init();
         currentLine = functionsManager.getCurrentLine();
+        ending = functionsManager.getMainReturnLine();
+        System.out.println("ending " + ending);
     }
 
-    public void setCurrentLine(int line){
+    public void setCurrentLine(int line) {
         currentLine = line;
     }
-    public int getCurrentLine(){
+
+    public int getCurrentLine() {
         return currentLine;
     }
 
@@ -46,13 +50,19 @@ public class AssemblyEmulator {
 
     //executes next line
     public boolean next() throws Exception {
-        if (currentLine == (list.size())) {
-            if (!list.get(currentLine - 1).startsWith("RET")){
-                throw new Exception("missing RET");
-            }
+        System.out.println(ending + " ending");
+        if (currentLine == ending) {
             memoryManager.deleteSavedPC();
+            stackManager.removeFunctionName(0);
             currentLine++;
             return false;
+//        if (currentLine == (list.size())) {
+//            if (!list.get(currentLine - 1).startsWith("RET")){
+//                throw new Exception("missing RET");
+//            }
+//            memoryManager.deleteSavedPC();
+//            currentLine++;
+//            return false;
         } else {
             int line = processLine(list.get(currentLine), currentLine);
             if (line != -1) {
@@ -107,7 +117,7 @@ public class AssemblyEmulator {
         return stackManager.showStack(functionName);
     }
 
-    public int getRv(){
+    public int getRv() {
         return registersManager.getRv();
     }
 
@@ -150,7 +160,7 @@ public class AssemblyEmulator {
                     int result = addressManager.getAddress(line.substring(4, line.length() - 1));
                     //aq sad unda gadavaxtuno call-it?
                 } else {
-                    if(!line.contains("<")){
+                    if (!line.contains("<")) {
                         throw new Exception("missing <");
                     } else {
                         throw new Exception("missing >");

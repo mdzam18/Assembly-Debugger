@@ -18,6 +18,11 @@ public class FunctionsManager {
     private StackManager stackManager;
     private String currentFunction;
     private int currentLine;
+    private int retOfMain;
+
+    public int getMainReturnLine(){
+        return retOfMain;
+    }
 
     public FunctionsManager(ArrayList<String> list, MemoryManager memoryManager, StackManager stackManager) throws Exception {
         functions = new HashMap<>();
@@ -50,6 +55,10 @@ public class FunctionsManager {
             if (list.get(i).startsWith("RET")) {
                 returns.put(i, name);
                 been = true;
+                if(name.equals("FUNCTIONMAIN")){
+                    retOfMain = i;
+                    System.out.println("ret: " + retOfMain);
+                }
             }
         }
         if (!been) {

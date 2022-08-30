@@ -10,7 +10,7 @@
 {"event":"initialized","type":"event"}
  Received 
 
-{"command":"launch","arguments":{"type":"mock","request":"launch","name":"Debug readme.md","program":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","stopOnEntry":true,"trace":false,"__configurationTarget":6,"__sessionId":"3c30c690-1dad-42dd-8206-4ded5362f472"},"type":"request","seq":2}
+{"command":"launch","arguments":{"type":"mock","request":"launch","name":"Debug readme.md","program":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","stopOnEntry":true,"trace":false,"__configurationTarget":6,"__sessionId":"61670aab-13d3-4ef2-ab36-ac3a0d68230a"},"type":"request","seq":2}
  Sent 
 
 {"request_seq":2,"success":true,"command":"launch","type":"response"}
@@ -25,64 +25,64 @@
 {"event":"stopped","body":{"reason":"breakpoint","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
  Received 
 
-{"command":"breakpointLocations","arguments":{"source":{"name":"readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md"},"line":7},"type":"request","seq":4}
+{"command":"threads","type":"request","seq":4}
  Sent 
 
-{"request_seq":4,"success":true,"command":"breakpointLocations","body":[{"line":7,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+{"request_seq":4,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
  Received 
 
-{"command":"threads","type":"request","seq":5}
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":5}
+
+
+ Next 
+
+
+
+
+
+
+ Next 
+
+
+
+
+
+
+ Next 
+
+
+
+
+
+
+ Next 
+
+
+
+
+
+
+ Next 
+
+
+
+
+
+
+ Next 
+
+
+
+
  Sent 
 
-{"request_seq":5,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+{"request_seq":5,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
  Received 
 
-{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":6}
-
-
- Next 
-
-
-
-
-
-
- Next 
-
-
-
-
-
-
- Next 
-
-
-
-
-
-
- Next 
-
-
-
-
-
-
- Next 
-
-
-
-
-
-
- Next 
-
-
-
-
+{"command":"breakpointLocations","arguments":{"source":{"name":"readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md"},"line":7},"type":"request","seq":6}
  Sent 
 
-{"request_seq":6,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
+{"request_seq":6,"success":true,"command":"breakpointLocations","body":[{"line":7,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
  Received 
 
 {"command":"breakpointLocations","arguments":{"source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7},"type":"request","seq":7}
@@ -97,33 +97,19 @@
 {"request_seq":8,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
  Received 
 
-{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":9}
- Sent 
-
-{"request_seq":9,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"4","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+{"command":"vari
  Received 
 
-{"command":"next","arguments":{"threadId":1},"type":"request","seq":10}
+{"command":"breakpointLocations","arguments":{"source":{"name":"readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md"},"line":7},"type":"request","seq":9}
  Sent 
 
-{"request_seq":10,"success":true,"command":"next","type":"response"}
- Sent 
-
-{"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
-
-
- Next 
-
-
-
-
+{"request_seq":9,"success":true,"command":"breakpointLocations","body":[{"line":7,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
  Received 
 
-{"command":"threads","type":"request","seq":11}
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":10}
  Sent 
 
-{"request_seq":11,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
- Received 
+{"request_seq":10,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}d 
 
 {"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":12}
  Sent 
@@ -195,145 +181,13 @@
 {"request_seq":21,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"4","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
  Received 
 
-{"command":"next","arguments":{"threadId":1},"type":"request","seq":22}
+{"command":"variables","arguments":{"variablesReference":11},"type":"request","seq":22}
  Sent 
 
-{"request_seq":22,"success":true,"command":"next","type":"response"}
- Sent 
-
-{"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
-
-
- Next 
-
-
-
-
+{"request_seq":22,"success":true,"command":"variables","body":{"variables":[{"name":"MAIN","value":"[SAVED PC, 2, 3, 0, 0]","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
  Received 
 
-{"command":"threads","type":"request","seq":23}
+{"command":"disconnect","arguments":{"restart":false},"type":"request","seq":23}
  Sent 
 
-{"request_seq":23,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
- Received 
-
-{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":24}
- Sent 
-
-{"request_seq":24,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":10,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
- Received 
-
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7},"type":"request","seq":25}
- Sent 
-
-{"request_seq":25,"success":true,"command":"breakpointLocations","body":[{"line":7,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
- Received 
-
-{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":26}
- Sent 
-
-{"request_seq":26,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
- Received 
-
-{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":27}
- Sent 
-
-{"request_seq":27,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"4","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
- Received 
-
-{"command":"next","arguments":{"threadId":1},"type":"request","seq":28}
- Sent 
-
-{"request_seq":28,"success":true,"command":"next","type":"response"}
- Sent 
-
-{"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
-
-
- Next 
-
-
-
-
- Received 
-
-{"command":"threads","type":"request","seq":29}
- Sent 
-
-{"request_seq":29,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
- Received 
-
-{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":30}
- Sent 
-
-{"request_seq":30,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":11,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
- Received 
-
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7},"type":"request","seq":31}
- Sent 
-
-{"request_seq":31,"success":true,"command":"breakpointLocations","body":[{"line":7,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
- Received 
-
-{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":32}
- Sent 
-
-{"request_seq":32,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
- Received 
-
-{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":33}
- Sent 
-
-{"request_seq":33,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"4","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
- Received 
-
-{"command":"next","arguments":{"threadId":1},"type":"request","seq":34}
- Sent 
-
-{"request_seq":34,"success":true,"command":"next","type":"response"}
- Sent 
-
-{"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
-
-
- Next 
-
-
-
-
- Received 
-
-{"command":"threads","type":"request","seq":35}
- Sent 
-
-{"request_seq":35,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
- Received 
-
-{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":36}
- Sent 
-
-{"request_seq":36,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":12,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
- Received 
-
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7},"type":"request","seq":37}
- Sent 
-
-{"request_seq":37,"success":true,"command":"breakpointLocations","body":[{"line":7,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
- Received 
-
-{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":38}
- Sent 
-
-{"request_seq":38,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
- Received 
-
-{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":39}
- Sent 
-
-{"request_seq":39,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"4","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
- Received 
-
-{"command":"disconnect","arguments":{"restart":false},"type":"request","seq":40}
- Sent 
-
-{"request_seq":40,"success":true,"command":"disconnect","type":"response"}
+{"request_seq":23,"success":true,"command":"disconnect","type":"response"}

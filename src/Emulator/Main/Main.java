@@ -3,6 +3,7 @@ package src.Emulator.Main;
 import src.DapClasses.Receiver;
 import src.Emulator.AssemblyEmulator.AssemblyEmulator;
 
+import java.util.ArrayList;
 
 
 public class Main {
@@ -32,31 +33,28 @@ public class Main {
             "Content-Length: 79\r\n";
     public static void main(String[] args) throws Exception {
         //System.out.printf(test2);
-        Receiver receiver = new Receiver();
-        receiver.receive();
+//        Receiver receiver = new Receiver();
+//        receiver.receive();
 
 
-//        String fileName = "C:\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\src\\Tests\\testStack";
-//        //String fileName2 = "src/Tests/calltests.asm";
-//        String arr[] = new String[1];
-//        arr[0] = fileName;
-//        //arr[1] = fileName2;
-//        AssemblyEmulator emulator = new AssemblyEmulator(arr);
-//       // emulator.debug();
-//        for(int i = 0; i < 8; i++){
-//            emulator.next();
-//        }
-//        ArrayList<String> list = emulator.getCallStack();
-//        System.out.println("call stack: ");
-//        for (String s : list) {
-//            System.out.println(s);
-//        }
-//        System.out.println("done");
-//        System.out.println("show stack: ");
-//        emulator.showStack("A");
-//        System.out.println("done");
-        //  emulator.showStack("test_sum2");
-
-
+        String fileName = "C:\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\src\\Tests\\addNumbers.asm";
+        //String fileName2 = "src/Tests/calltests.asm";
+        String arr[] = new String[1];
+        arr[0] = fileName;
+        //arr[1] = fileName2;
+        AssemblyEmulator emulator = new AssemblyEmulator(arr);
+       // emulator.debug();
+        for(int i = 0; i < 4; i++){
+            emulator.next();
+        }
+        ArrayList<String> list = emulator.getCallStack();
+        System.out.println("call stack: ");
+        for (String s : list) {
+            System.out.println(s);
+        }
+        System.out.println("done");
+        System.out.println("show stack: ");
+        emulator.showStack("MAIN");
+        System.out.println("done");
     }
 }
