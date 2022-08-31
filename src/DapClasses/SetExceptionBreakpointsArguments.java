@@ -1,5 +1,8 @@
 package src.DapClasses;
 
+import src.DapClasses.Exceptions.ExceptionFilterOptions;
+import src.DapClasses.Exceptions.ExceptionOptions;
+
 public class SetExceptionBreakpointsArguments {
     private String[] filters;
 

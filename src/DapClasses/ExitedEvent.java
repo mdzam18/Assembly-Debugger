@@ -1,5 +1,7 @@
 package src.DapClasses;
 
+import src.DapClasses.Event.Event;
+
 public class ExitedEvent extends Event {
     public ExitedEvent() {
         super.setEvent("exited");

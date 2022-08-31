@@ -1,6 +1,29 @@
 package src.DapClasses;
 
 import com.google.gson.Gson;
+import src.DapClasses.Attachs.AttachResponse;
+import src.DapClasses.Breakpoints.BreakpointLocation;
+import src.DapClasses.Breakpoints.Breakpoint;
+import src.DapClasses.Breakpoints.BreakpointLocationsRequest;
+import src.DapClasses.Breakpoints.BreakpointLocationsResponse;
+import src.DapClasses.Capabilities.Capabilities;
+import src.DapClasses.Configurations.ConfigurationDoneRequest;
+import src.DapClasses.Configurations.ConfigurationDoneResponse;
+import src.DapClasses.Continues.ContinueRequest;
+import src.DapClasses.Continues.ContinueResponse;
+import src.DapClasses.Disconnects.DisconnectRequest;
+import src.DapClasses.Disconnects.DisconnectResponse;
+import src.DapClasses.Event.Event;
+import src.DapClasses.Exceptions.ExceptionInfoRequest;
+import src.DapClasses.Exceptions.ExceptionInfoResponse;
+import src.DapClasses.Initialize.InitializeRequest;
+import src.DapClasses.Initialize.InitializeResponse;
+import src.DapClasses.Initialize.InitializedEvent;
+import src.DapClasses.Launches.LaunchRequest;
+import src.DapClasses.Launches.LaunchResponse;
+import src.DapClasses.Nexts.NextRequest;
+import src.DapClasses.Nexts.NextResponse;
+import src.DapClasses.Output.OutputEvent;
 import src.Emulator.AssemblyEmulator.AssemblyEmulator;
 
 import java.io.FileWriter;

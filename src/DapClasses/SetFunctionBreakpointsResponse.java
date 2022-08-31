@@ -1,5 +1,7 @@
 package src.DapClasses;
 
+import src.DapClasses.Breakpoints.Breakpoint;
+
 public class SetFunctionBreakpointsResponse extends Response {
     private Breakpoint[] breakpoints;
     public SetFunctionBreakpointsResponse(){

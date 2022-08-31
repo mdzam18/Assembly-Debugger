@@ -1,5 +1,7 @@
 package src.DapClasses;
 
+import src.DapClasses.Event.Event;
+
 public class TerminatedEvent extends Event {
     public TerminatedEvent() {
         super.setEvent("terminated");
