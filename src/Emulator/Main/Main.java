@@ -37,24 +37,24 @@ public class Main {
         receiver.receive();
 
 //
-//        String fileName = "C:\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\src\\Tests\\addNumbers.asm";
-//        //String fileName2 = "src/Tests/calltests.asm";
+//        String fileName = "/Users/mariami/Desktop/Assembly-Debugger/src/Tests/factorial.asm";
+//        //String fileName2 = "src/Tests/callTests.asm";
 //        String arr[] = new String[1];
 //        arr[0] = fileName;
 //        //arr[1] = fileName2;
 //        AssemblyEmulator emulator = new AssemblyEmulator(arr);
 //       // emulator.debug();
-//        for(int i = 0; i < 4; i++){
+//        for(int i = 0; i < 13; i++){
 //            emulator.next();
 //        }
 //        ArrayList<String> list = emulator.getCallStack();
 //        System.out.println("call stack: ");
-//        for (String s : list) {
-//            System.out.println(s);
+//        for (int i = 0; i < list.size(); i++) {
+//            System.out.println(list.get(i));
+//            System.out.println("show stack: ");
+//            emulator.showStack(i);
+//            System.out.println("done");
 //        }
-//        System.out.println("done");
-//        System.out.println("show stack: ");
-//        emulator.showStack("MAIN");
 //        System.out.println("done");
     }
 }

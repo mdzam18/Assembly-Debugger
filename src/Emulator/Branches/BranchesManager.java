@@ -30,6 +30,7 @@ public class BranchesManager {
         return compareValues(type, a, b, pc);
     }
 
+    //counts where to jump
     public int jump(String str, int numberOfLine) throws Exception {
         String s = str.substring(3, str.length() - 1);
         int pc = getValue(s, numberOfLine);
@@ -46,7 +47,8 @@ public class BranchesManager {
             //assert
             int expected = b;
             int got = a;
-           /* if (str.substring(3, index).equals("RV")) {
+           /* if (str.substring(3
+           , index).equals("RV")) {
                 expected = b;
                 got = a;
             } */

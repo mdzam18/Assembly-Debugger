@@ -10,12 +10,9 @@ import java.util.*;
 
 public class Receiver {
     private FileWriter fWriter = new FileWriter(
-            "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile");
-    //"/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile");
+            "/Users/mariami/Desktop/Assembly-Debugger/src/Emulator/Main/testInputFile");
     private FileWriter fWriterEmulator = new FileWriter(
-            "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testEmulator.txt");
-    //"/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testEmulator.txt");
-
+            "/Users/mariami/Desktop/Assembly-Debugger/src/Emulator/Main/testEmulator.txt");
 
     private Gson gson;
     private String name;
@@ -168,6 +165,19 @@ public class Receiver {
         return null;
     }
 
+    private void showTextInConsole(String text) throws IOException {
+        OutputEvent oEvent = new OutputEvent();
+        oEvent.setVariablesReference(0);
+        oEvent.setOutput(text);
+        oEvent.setLine(emulator.getCurrentLine());
+        oEvent.setCategory("stdout");
+        oEvent.setGroup("end");
+        Event e1 = new Event();
+        e1.setEvent("output");
+        e1.setBody(oEvent);
+        sendProtocolMessage(gson.toJson(e1));
+    }
+
     public void callEmulatorNextNTimes(int num) throws Exception {
         for (int i = 0; i < num; i++) {
             fWriter.write("\n\n\n Next \n\n\n\n");
@@ -175,15 +185,12 @@ public class Receiver {
             try {
                 boolean isProgramRunning = emulator.next();
                 if (!isProgramRunning) {
-                    OutputEvent oEvent = new OutputEvent();
-                    oEvent.setOutput(Integer.toString(emulator.getRv()));
-                    oEvent.setLine(emulator.getCurrentLine());
-                    oEvent.setCategory("console");
-                    oEvent.setGroup("start");
-                    Event e1 = new Event();
-                    e1.setEvent("output");
-                    e1.setBody(oEvent);
-                    sendProtocolMessage(gson.toJson(e1));
+                    showTextInConsole("RV: " + emulator.getRv() + "\n");
+                    if(emulator.getAssertsText().length() != 0){
+                        //print asserts text
+                        showTextInConsole(emulator.getAssertsText());
+                    }
+                    //aq rom morches mtlianad
                 }
             } catch (Exception e) {
                 processEmulatorException(e);
@@ -398,7 +405,7 @@ public class Receiver {
         List<String> callStack = emulator.getCallStack();
         Variable[] variables = new Variable[callStack.size()];
         for (int j = 0; j < callStack.size(); j++) {
-            List<String> stackFrame = emulator.showStack(callStack.get(j));
+            List<String> stackFrame = emulator.showStack(j);
             Variable v = new Variable();
             v.setName(callStack.get(j));
             v.setVariablesReference(0);

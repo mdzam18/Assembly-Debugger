@@ -22,7 +22,7 @@ public class StackManager {
     }
 
     //Gets function name and returns stack of the function.
-    public List<String> showStack(String functionName) throws Exception {
+    public List<String> showStack(int indexInCallStack) throws Exception {
         List<String> list = new ArrayList<>();
         int[] memory = memoryManager.getMemory();
 //        if (functionName.startsWith("MAIN")) {
@@ -37,23 +37,13 @@ public class StackManager {
 //            }
 //            return list;
 //        }
-        int index = -1;
-        for (int i = callStack.size() - 1; i >= 0; i--) {
-            if (callStack.get(i).equals(functionName.toUpperCase(Locale.ROOT))) {
-                index = i;
-                break;
-            }
-        }
-        if(index == -1){
-            throw new Exception("can't show stack of this function");
-        }
         int lastIndex = memory.length;
-        if (savedPc.size() > (index + 1)) {
-            lastIndex = savedPc.get(index + 1);
+        if (savedPc.size() > (indexInCallStack + 1)) {
+            lastIndex = savedPc.get(indexInCallStack + 1);
         }
         System.out.println("SAVED PC");
         list.add("SAVED PC");
-        for (int i = savedPc.get(index) + 1; i < lastIndex; i++) {
+        for (int i = savedPc.get(indexInCallStack) + 1; i < lastIndex; i++) {
             System.out.println(memory[i]);
             list.add(String.valueOf(memory[i]));
         }

@@ -120,32 +120,28 @@ class AssemblyEmulatorTest {
         for (int i = 0; i < 11; i++) {
             assemblyEmulator.next();
         }
-        List<String> list = assemblyEmulator.showStack("ADD");
+        List<String> list = assemblyEmulator.showStack(1);
         Assertions.assertEquals(1, list.size());
         Assertions.assertEquals("SAVED PC", list.get(0));
 
         assemblyEmulator.next();
         assemblyEmulator.next();
         assemblyEmulator.next();
-        list = assemblyEmulator.showStack("ADD");
+        list = assemblyEmulator.showStack(1);
         Assertions.assertEquals(1, list.size());
         Assertions.assertEquals("SAVED PC", list.get(0));
-
-        assemblyEmulator.next();
-        Throwable exception = assertThrows(Exception.class, () -> assemblyEmulator.showStack("ADD"));
-        Assertions.assertEquals("can't show stack of this function", exception.getMessage());
     }
 
     //checks mains stack
     private void testMain(AssemblyEmulator assemblyEmulator) throws Exception {
         assemblyEmulator.next();
-        List<String> list = assemblyEmulator.showStack("MAIN");
+        List<String> list = assemblyEmulator.showStack(0);
         Assertions.assertEquals(1, list.size());
         Assertions.assertEquals("SAVED PC", list.get(0));
         for (int i = 0; i < 4; i++) {
             assemblyEmulator.next();
         }
-        list = assemblyEmulator.showStack("MAIN");
+        list = assemblyEmulator.showStack(0);
         Assertions.assertEquals(3, list.size());
         Assertions.assertEquals("SAVED PC", list.get(0));
         Assertions.assertEquals("2", list.get(1));
@@ -153,7 +149,7 @@ class AssemblyEmulatorTest {
         for (int i = 0; i < 5; i++) {
             assemblyEmulator.next();
         }
-        list = assemblyEmulator.showStack("MAIN");
+        list = assemblyEmulator.showStack(0);
         Assertions.assertEquals(5, list.size());
         Assertions.assertEquals("SAVED PC", list.get(0));
         Assertions.assertEquals("2", list.get(1));
@@ -163,7 +159,7 @@ class AssemblyEmulatorTest {
         for (int i = 0; i < 5; i++) {
             assemblyEmulator.next();
         }
-        list = assemblyEmulator.showStack("MAIN");
+        list = assemblyEmulator.showStack(0);
         Assertions.assertEquals(5, list.size());
         Assertions.assertEquals("SAVED PC", list.get(0));
         Assertions.assertEquals("2", list.get(1));
@@ -172,21 +168,16 @@ class AssemblyEmulatorTest {
         Assertions.assertEquals("2", list.get(4));
 
         assemblyEmulator.next();
-        list = assemblyEmulator.showStack("MAIN");
+        list = assemblyEmulator.showStack(0);
         Assertions.assertEquals(3, list.size());
         Assertions.assertEquals("SAVED PC", list.get(0));
         Assertions.assertEquals("2", list.get(1));
         Assertions.assertEquals("3", list.get(2));
 
         assemblyEmulator.next();
-        list = assemblyEmulator.showStack("MAIN");
+        list = assemblyEmulator.showStack(0);
         Assertions.assertEquals(1, list.size());
         Assertions.assertEquals("SAVED PC", list.get(0));
-
-        assemblyEmulator.next();
-        assemblyEmulator.next();
-        Throwable exception = assertThrows(Exception.class, () -> assemblyEmulator.showStack("ADD"));
-        Assertions.assertEquals("can't show stack of this function", exception.getMessage());
     }
 
     @Test

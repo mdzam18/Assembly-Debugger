@@ -26,13 +26,20 @@ public class AssemblyEmulator {
     private int currentLine;
     private int ending;
 
+    private String assertsText;
+
     public AssemblyEmulator(String[] arr) throws Exception {
         FilesManager files = new FilesManager();
         list = files.createList(arr);
         init();
         currentLine = functionsManager.getCurrentLine();
         ending = functionsManager.getMainReturnLine();
-        System.out.println("ending " + ending);
+        assertsText = "";
+    }
+
+    //reurns all results of assert
+    public String getAssertsText() {
+        return assertsText;
     }
 
     public void setCurrentLine(int line) {
@@ -112,9 +119,9 @@ public class AssemblyEmulator {
     }
 
 
-    //shows stack values
-    public List<String> showStack(String functionName) throws Exception {
-        return stackManager.showStack(functionName);
+    //shows stack values of the method on the index in callstack
+    public List<String> showStack(int index) throws Exception {
+        return stackManager.showStack(index);
     }
 
     public int getRv() {
@@ -176,7 +183,7 @@ public class AssemblyEmulator {
             } else if (line.startsWith("A")) {
                 //ASSERTS
                 String currentFunction = functionsManager.getCurrentFunction();
-                branchesManager.asserts(line, currentFunction);
+                assertsText = assertsText + branchesManager.asserts(line, currentFunction) + "\n";
             }
         }
         return -1;

@@ -20,11 +20,11 @@ class StackManagerTest {
         StackManager stackManager = new StackManager(memoryManager);
         stackManager.addSavedPc(2);
         stackManager.addFunctionName("a");
-        List<String> list = stackManager.showStack("MAIN");
+        List<String> list = stackManager.showStack(0);
         assertEquals("SAVED PC", list.get(0));
         assertEquals("1", list.get(1));
 
-        list = stackManager.showStack("a");
+        list = stackManager.showStack(1);
         assertEquals("SAVED PC", list.get(0));
         assertEquals("3", list.get(1));
         assertEquals(2, list.size());
@@ -32,7 +32,7 @@ class StackManagerTest {
         stackManager.removeSavedPc(1);
         stackManager.addSavedPc(1);
         stackManager.addSavedPc(3);
-        list = stackManager.showStack("a");
+        list = stackManager.showStack(1);
         assertEquals("SAVED PC", list.get(0));
         assertEquals("2", list.get(1));
         assertEquals(2, list.size());
