@@ -245,6 +245,31 @@ public class Receiver {
             }
         }
     }
+    public void callEmulatorNextUntilFistBreakPoint() throws Exception {
+        while(true){
+            fWriter.write("\n\n\n Next \n\n\n\n");
+            fWriter.flush();
+            try {
+                boolean isProgramRunning = emulator.next();
+                if(breakpointLineNumbers.contains(emulator.getCurrentLine()+1)) {
+                    break;
+                }
+                if(emulator.getAssertsText().length() != 0){
+                    //print asserts text
+                    showTextInConsole(emulator.getAssertsText());
+                }
+                if (!isProgramRunning) {
+                    if(emulator.containsRv()) {
+                        showTextInConsole("RV: " + emulator.getRv() + "\n");
+                    }
+                    //aq rom morches mtlianad
+                }
+            } catch (Exception e) {
+                processEmulatorException(e);
+            }
+        }
+    }
+
 
     private void processEmulatorException(Exception e) throws IOException {
 //        StoppedEvent stoppedEvent = new StoppedEvent();
@@ -336,7 +361,7 @@ public class Receiver {
                 try {
                     String StackTraceRes = processStackTraceRequest(json);
                     if (emulator.getCurrentLine() == 0) {
-                        callEmulatorNextNTimes(breakpointLineNumbers.get(0) - 1);
+                        callEmulatorNextUntilFistBreakPoint();
                     }
                     sendProtocolMessage(StackTraceRes);
                     return StackTraceRes;
