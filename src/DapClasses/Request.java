@@ -1,5 +1,7 @@
 package src.DapClasses;
 
+import src.DapClasses.Pauses.ProtocolMessage;
+
 public class Request extends ProtocolMessage {
     public Request(){
         super.setType("request");

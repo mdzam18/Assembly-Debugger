@@ -1,6 +1,6 @@
 package src.DapClasses.Output;
 
-import src.DapClasses.Source;
+import src.DapClasses.Sources.Source;
 
 public class OutputEvent {
     private String category;

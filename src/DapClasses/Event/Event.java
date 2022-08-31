@@ -1,6 +1,6 @@
 package src.DapClasses.Event;
 
-import src.DapClasses.ProtocolMessage;
+import src.DapClasses.Pauses.ProtocolMessage;
 
 public class Event extends ProtocolMessage {
     public Event(){

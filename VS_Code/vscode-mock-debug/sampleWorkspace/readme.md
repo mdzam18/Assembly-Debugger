@@ -5,7 +5,7 @@ RET;
 Function test_sum2;
 SP = SP - 8;
 M[SP] = 5;
-m[sp+4] = 7;
+m[sp+4 = 7;
 call<sum>;
 sp = sp + 8;
 AEQ rv, 11;

@@ -1,5 +1,7 @@
 package src.DapClasses;
 
+import src.DapClasses.Pauses.ProtocolMessage;
+
 public class Response extends ProtocolMessage {
     public Response() {
         super.setType("response");

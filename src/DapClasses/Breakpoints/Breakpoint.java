@@ -1,6 +1,6 @@
 package src.DapClasses.Breakpoints;
 
-import src.DapClasses.Source;
+import src.DapClasses.Sources.Source;
 
 public class Breakpoint {
     private int id;
