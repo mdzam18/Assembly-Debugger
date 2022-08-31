@@ -7,16 +7,16 @@
 		{
 			"type": "mock",
 			"request": "launch",
-			"name": "Debug readme.md",
-			"program": "${workspaceFolder}/readme.md",
+			"name": "Debug addNumbers.asm",
+			"program": "${workspaceFolder}/addNumbers.asm",
 			"stopOnEntry": true,
 			"trace": false
 		},
 		{
 			"type": "mock",
 			"request": "attach",
-			"name": "Attach readme.md",
-			"program": "${workspaceFolder}/readme.md",
+			"name": "Attach addNumbers.asm",
+			"program": "${workspaceFolder}/addNumbers.asm",
 			"stopOnEntry": true,
 			"trace": false
 		}

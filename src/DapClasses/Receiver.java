@@ -56,9 +56,9 @@ import java.util.*;
 
 public class Receiver {
     private FileWriter fWriter = new FileWriter(
-            "/Users/mariami/Desktop/Assembly-Debugger/src/Emulator/Main/testInputFile");
+            "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile");
     private FileWriter fWriterEmulator = new FileWriter(
-            "/Users/mariami/Desktop/Assembly-Debugger/src/Emulator/Main/testEmulator.txt");
+            "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testEmulator.txt");
 
     private Gson gson;
     private String name;
@@ -247,13 +247,22 @@ public class Receiver {
     }
     public void callEmulatorNextUntilFistBreakPoint() throws Exception {
         while(true){
-            fWriter.write("\n\n\n Next \n\n\n\n");
-            fWriter.flush();
+
             try {
-                boolean isProgramRunning = emulator.next();
+
                 if(breakpointLineNumbers.contains(emulator.getCurrentLine()+1)) {
                     break;
                 }
+                boolean isProgramRunning = emulator.next();
+                fWriter.write("\n\n\n Next blaaaa\n\n\n\n");
+                for (int i = 0; i < breakpointLineNumbers.size(); i++) {
+                    fWriter.write(String.valueOf(breakpointLineNumbers.get(i)));
+                    fWriter.write("\n ");
+                }
+                fWriter.write("\ncurrent line:   ");
+                fWriter.write(String.valueOf(emulator.getCurrentLine()));
+                fWriter.write("\n\n\n ");
+                fWriter.flush();
                 if(emulator.getAssertsText().length() != 0){
                     //print asserts text
                     showTextInConsole(emulator.getAssertsText());
