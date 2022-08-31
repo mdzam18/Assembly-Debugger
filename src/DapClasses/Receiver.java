@@ -184,11 +184,13 @@ public class Receiver {
             fWriter.flush();
             try {
                 boolean isProgramRunning = emulator.next();
+                if(emulator.getAssertsText().length() != 0){
+                    //print asserts text
+                    showTextInConsole(emulator.getAssertsText());
+                }
                 if (!isProgramRunning) {
-                    showTextInConsole("RV: " + emulator.getRv() + "\n");
-                    if(emulator.getAssertsText().length() != 0){
-                        //print asserts text
-                        showTextInConsole(emulator.getAssertsText());
+                    if(emulator.containsRv()) {
+                        showTextInConsole("RV: " + emulator.getRv() + "\n");
                     }
                     //aq rom morches mtlianad
                 }

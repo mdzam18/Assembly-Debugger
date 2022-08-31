@@ -28,6 +28,8 @@ public class AssemblyEmulator {
 
     private String assertsText;
 
+    private boolean containsRv;
+
     public AssemblyEmulator(String[] arr) throws Exception {
         FilesManager files = new FilesManager();
         list = files.createList(arr);
@@ -35,9 +37,10 @@ public class AssemblyEmulator {
         currentLine = functionsManager.getCurrentLine();
         ending = functionsManager.getMainReturnLine();
         assertsText = "";
+        containsRv = false;
     }
 
-    //reurns all results of assert
+    //returns result of assert
     public String getAssertsText() {
         return assertsText;
     }
@@ -57,7 +60,7 @@ public class AssemblyEmulator {
 
     //executes next line
     public boolean next() throws Exception {
-        System.out.println(ending + " ending");
+        assertsText = "";
         if (currentLine == ending) {
             memoryManager.deleteSavedPC();
             stackManager.removeFunctionName(0);
@@ -124,6 +127,11 @@ public class AssemblyEmulator {
         return stackManager.showStack(index);
     }
 
+    //return true if there is rv in assembly code
+    public boolean containsRv(){
+        return containsRv;
+    }
+
     public int getRv() {
         return registersManager.getRv();
     }
@@ -180,10 +188,11 @@ public class AssemblyEmulator {
                 int rv = addressManager.getValueOfTheRightSide(line.substring(3, line.length() - 1));
                 registersManager.setRv(rv);
                 registersManager.addRegister("RV", rv);
+                containsRv = true;
             } else if (line.startsWith("A")) {
                 //ASSERTS
                 String currentFunction = functionsManager.getCurrentFunction();
-                assertsText = assertsText + branchesManager.asserts(line, currentFunction) + "\n";
+                assertsText = branchesManager.asserts(line, currentFunction) + "\n";
             }
         }
         return -1;
