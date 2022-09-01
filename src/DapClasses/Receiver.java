@@ -11,6 +11,7 @@ import src.DapClasses.Configurations.ConfigurationDoneRequest;
 import src.DapClasses.Configurations.ConfigurationDoneResponse;
 import src.DapClasses.Continues.ContinueRequest;
 import src.DapClasses.Continues.ContinueResponse;
+import src.DapClasses.Continues.ContinuedEvent;
 import src.DapClasses.Disconnects.DisconnectRequest;
 import src.DapClasses.Disconnects.DisconnectResponse;
 import src.DapClasses.Event.Event;
@@ -47,6 +48,7 @@ import src.DapClasses.Threads.Thread;
 import src.DapClasses.Variables.Variable;
 import src.DapClasses.Variables.VariablesRequest;
 import src.DapClasses.Variables.VariablesResponse;
+import src.DebugAdapter.*;
 import src.Emulator.AssemblyEmulator.AssemblyEmulator;
 
 import java.io.FileWriter;
@@ -237,6 +239,12 @@ public class Receiver {
                 if (!isProgramRunning) {
                     if(emulator.containsRv()) {
                         showTextInConsole("RV: " + emulator.getRv() + "\n");
+                        Event x = new Event();
+                        x.setEvent("exited");
+                        ExitedEvent ee = new ExitedEvent();
+                        ee.setExitCode(200);
+                        x.setBody(ee);
+                        sendProtocolMessage(gson.toJson(x));
                     }
                     //aq rom morches mtlianad
                 }
@@ -319,16 +327,16 @@ public class Receiver {
         String command = request.getCommand();
         switch (command) {
             case "initialize":
-                Response initResponse = gson.fromJson(processInitializeRequest(json), Response.class);
+                Response initResponse = gson.fromJson(processInitializeRequest( json), Response.class);
                 initResponse.setRequest_seq(request.getSeq());
                 initResponse.setSuccess(true);
-                initResponse.setCommand("initialize");
-                InitializedEvent initEvent = new InitializedEvent();
+                initResponse.setCommand("initialize");InitializedEvent initEvent = new InitializedEvent();
                 sendProtocolMessage(gson.toJson(initResponse));
                 sendProtocolMessage(gson.toJson(initEvent));
                 return gson.toJson(initResponse) + gson.toJson(initEvent);
             case "setBreakpoints":
                 String SetBreakpointsRes = processSetBreakpointsRequest(json);
+                //String SetBreakpointsRes = SetBreakpointsResponseBuilder.processSetBreakpointsRequest(gson, json, breakpoints,breakpointLineNumbers);
                 sendProtocolMessage(SetBreakpointsRes);
                 StoppedEvent stoppedEvent = new StoppedEvent();
                 stoppedEvent.setReason("breakpoint");
@@ -345,11 +353,12 @@ public class Receiver {
                 sendProtocolMessage(SetFunctionBreakpointsRes);
                 return SetFunctionBreakpointsRes;
             case "configurationDone":
-                String ConfigurationDoneRes = processConfigurationDoneRequest(json);
+                String ConfigurationDoneRes = processConfigurationDoneRequest( json);
                 sendProtocolMessage(ConfigurationDoneRes);
                 return ConfigurationDoneRes;
             case "launch":
                 String LaunchRes = processLaunchRequest(json);
+                //String LaunchRes = LaunchResponseBuilder.processLaunchRequest(gson, json, name, program);
                 sendProtocolMessage(LaunchRes);
                 return LaunchRes;
             case "breakpointLocations":
@@ -390,6 +399,13 @@ public class Receiver {
             case "continue":
                 String ContinueRequestRes = processContinueRequest(json);
                 sendProtocolMessage(ContinueRequestRes);
+                ContinuedEvent ce = new ContinuedEvent();
+                ce.setThreadId(1);
+                ce.setAllThreadsContinued(true);
+                Event x = new Event();
+                x.setEvent("continued");
+                x.setBody(ce);
+                sendProtocolMessage(gson.toJson(x));
                 int currLine = emulator.getCurrentLine() + 1;
                 int nextBreakpointLine = -1;
                 for (int i = 0; i < breakpointLineNumbers.size(); i++) {
@@ -403,6 +419,7 @@ public class Receiver {
                 } else {
                     emulator.debug();
                 }
+
                 return ContinueRequestRes;
             case "next":
                 String NextRequestRes = processNextRequest(json);
@@ -755,6 +772,7 @@ public class Receiver {
         Capabilities capabilities = new Capabilities();
         capabilities.setSupportsBreakpointLocationsRequest(true);
         capabilities.setSupportsExceptionInfoRequest(true);
+        capabilities.setSupportsSingleThreadExecutionRequests(true);
         response.setBody(capabilities);
         String jsonResponse = gson.toJson(response);
         return jsonResponse;

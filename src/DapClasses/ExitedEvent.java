@@ -2,17 +2,15 @@ package src.DapClasses;
 
 import src.DapClasses.Event.Event;
 
-public class ExitedEvent extends Event {
-    public ExitedEvent() {
-        super.setEvent("exited");
-    }
-    private Object body;
+public class ExitedEvent  {
 
-    public Object getBody() {
-        return body;
+    private int exitCode;
+
+    public int getExitCode() {
+        return exitCode;
     }
 
-    public void setBody(Object body) {
-        this.body = body;
+    public void setExitCode(int exitCode) {
+        this.exitCode = exitCode;
     }
 }

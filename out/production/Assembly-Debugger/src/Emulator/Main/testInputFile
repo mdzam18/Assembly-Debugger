@@ -4,40 +4,40 @@
 {"command":"initialize","arguments":{"clientID":"vscode","clientName":"Visual Studio Code","adapterID":"mock","pathFormat":"path","linesStartAt1":true,"columnsStartAt1":true,"supportsVariableType":true,"supportsVariablePaging":true,"supportsRunInTerminalRequest":true,"locale":"en-us","supportsProgressReporting":true,"supportsInvalidatedEvent":true,"supportsMemoryReferences":true,"supportsArgsCanBeInterpretedByShell":true},"type":"request","seq":1}
  Sent 
 
-{"request_seq":1,"success":true,"command":"initialize","body":{"supportsExceptionInfoRequest":true,"supportsBreakpointLocationsRequest":true},"type":"response"}
+{"request_seq":1,"success":true,"command":"initialize","body":{"supportsExceptionInfoRequest":true,"supportsBreakpointLocationsRequest":true,"supportsSingleThreadExecutionRequests":true},"type":"response"}
  Sent 
 
 {"event":"initialized","type":"event"}
  Received 
 
-{"command":"launch","arguments":{"type":"mock","request":"launch","name":"Debug add1.md","program":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/add1.md","stopOnEntry":true,"trace":false,"__configurationTarget":6,"__sessionId":"1e3433c1-b4f8-4569-8b45-1ec7944f40b8"},"type":"request","seq":2}
+{"command":"launch","arguments":{"type":"mock","request":"launch","name":"Debug add1.md","program":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/add1.md","stopOnEntry":true,"trace":false,"__configurationTarget":6,"__sessionId":"bff84610-b8aa-4c9c-ac2d-2dfa1b088e1b"},"type":"request","seq":2}
  Sent 
 
 {"request_seq":2,"success":true,"command":"launch","type":"response"}
  Received 
 
-{"command":"setBreakpoints","arguments":{"source":{"name":"add1.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/add1.md"},"lines":[6],"breakpoints":[{"line":6}],"sourceModified":false},"type":"request","seq":3}
+{"command":"setBreakpoints","arguments":{"source":{"name":"add1.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/add1.md"},"lines":[7],"breakpoints":[{"line":7}],"sourceModified":false},"type":"request","seq":3}
  Sent 
 
-{"request_seq":3,"success":true,"command":"setBreakpoints","body":[{"id":0,"verified":true,"line":6,"column":0,"endLine":0,"endColumn":0,"offset":0}],"type":"response"}
- Sent 
-
-{"event":"stopped","body":{"reason":"breakpoint","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
- Received 
-
-{"command":"setBreakpoints","arguments":{"source":{"name":"readme.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md"},"lines":[26],"breakpoints":[{"line":26}],"sourceModified":false},"type":"request","seq":4}
- Sent 
-
-{"request_seq":4,"success":true,"command":"setBreakpoints","body":[{"id":0,"verified":true,"line":26,"column":0,"endLine":0,"endColumn":0,"offset":0}],"type":"response"}
+{"request_seq":3,"success":true,"command":"setBreakpoints","body":[{"id":0,"verified":true,"line":7,"column":0,"endLine":0,"endColumn":0,"offset":0}],"type":"response"}
  Sent 
 
 {"event":"stopped","body":{"reason":"breakpoint","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
  Received 
 
-{"command":"breakpointLocations","arguments":{"source":{"name":"add1.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/add1.md"},"line":6},"type":"request","seq":5}
+{"command":"setBreakpoints","arguments":{"source":{"name":"www.c","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/www.c"},"lines":[1,2,4],"breakpoints":[{"line":1},{"line":2},{"line":4}],"sourceModified":false},"type":"request","seq":4}
  Sent 
 
-{"request_seq":5,"success":true,"command":"breakpointLocations","body":[{"line":6,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+{"request_seq":4,"success":true,"command":"setBreakpoints","body":[{"id":0,"verified":true,"line":1,"column":0,"endLine":0,"endColumn":0,"offset":0},{"id":0,"verified":true,"line":2,"column":0,"endLine":0,"endColumn":0,"offset":0},{"id":0,"verified":true,"line":4,"column":0,"endLine":0,"endColumn":0,"offset":0}],"type":"response"}
+ Sent 
+
+{"event":"stopped","body":{"reason":"breakpoint","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"add1.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/add1.md"},"line":7},"type":"request","seq":5}
+ Sent 
+
+{"request_seq":5,"success":true,"command":"breakpointLocations","body":[{"line":7,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
  Received 
 
 {"command":"threads","type":"request","seq":6}
@@ -53,137 +53,94 @@
  Received 
 
 {"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":8}
-
-
- Next blaaaa
-
-
-
-
-
-
- 
-
-
- Next blaaaa
-
-
-
-
-
-
- 
-
-
- Next blaaaa
-
-
-
-
-
-
- 
-
-
- Next blaaaa
-
-
-
-
-
-
- 
-
-
- Next blaaaa
-
-
-
-
-
-
- 
-
-
- Next blaaaa
-
-
-
-
-
-
- 
-
-
- Next blaaaa
-
-
-
-
-
-
- 
-
-
- Next blaaaa
-
-
-
-
-
-
- 
-
-
- Next blaaaa
-
-
-
-
-
-
- 
  Sent 
 
-{"request_seq":8,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug add1.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/add1.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":6,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
+{"request_seq":8,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug add1.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/add1.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
  Received 
 
 {"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":9}
  Sent 
 
-{"request_seq":9,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug add1.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/add1.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":26,"column":0,"endLine":0,"endColumn":0,"canRestart":false},{"id":0,"name":"TEST_SUM1","source":{"name":"Debug add1.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/add1.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":26,"column":0,"endLine":0,"endColumn":0,"canRestart":false},{"id":0,"name":"SUM","source":{"name":"Debug add1.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/add1.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":26,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":3},"type":"response"}
+{"request_seq":9,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug add1.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/add1.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
  Received 
 
-{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":10}
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug add1.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/add1.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7},"type":"request","seq":10}
  Sent 
 
-{"request_seq":10,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug add1.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/add1.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":26,"column":0,"endLine":0,"endColumn":0,"canRestart":false},{"id":0,"name":"TEST_SUM1","source":{"name":"Debug add1.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/add1.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":26,"column":0,"endLine":0,"endColumn":0,"canRestart":false},{"id":0,"name":"SUM","source":{"name":"Debug add1.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/add1.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":26,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":3},"type":"response"}
+{"request_seq":10,"success":true,"command":"breakpointLocations","body":[{"line":7,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
  Received 
 
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug add1.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/add1.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":6},"type":"request","seq":11}
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":11}
  Sent 
 
-{"request_seq":11,"success":true,"command":"breakpointLocations","body":[{"line":6,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+{"request_seq":11,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
  Received 
 
-{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":12}
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":12}
  Sent 
 
-{"request_seq":12,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+{"request_seq":12,"success":true,"command":"variables","body":{"variables":[],"request_seq":0,"type":"response"},"type":"response"}
  Received 
 
-{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":13}
+{"command":"next","arguments":{"threadId":1},"type":"request","seq":13}
  Sent 
 
-{"request_seq":13,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"7","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"RV","value":"12","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"5","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+{"request_seq":13,"success":true,"command":"next","type":"response"}
+ Sent 
+
+{"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
+
+
+ Next 
+
+
+
+
  Received 
 
-{"command":"disconnect","arguments":{"restart":false},"type":"request","seq":14}
+{"command":"threads","type":"request","seq":14}
  Sent 
 
-{"request_seq":14,"success":true,"command":"disconnect","type":"response"}
+{"request_seq":14,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":15}
  Sent 
 
-{"event":"stopped","body":{"reason":"exception","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
- exception 
+{"request_seq":15,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug add1.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/add1.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
+ Received 
 
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug add1.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/add1.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7},"type":"request","seq":16}
+ Sent 
+
+{"request_seq":16,"success":true,"command":"breakpointLocations","body":[{"line":7,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug add1.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/add1.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7},"type":"request","seq":17}
+ Sent 
+
+{"request_seq":17,"success":true,"command":"breakpointLocations","body":[{"line":7,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+ Received 
+
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":18}
+ Sent 
+
+{"request_seq":18,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":19}
+ Sent 
+
+{"request_seq":19,"success":true,"command":"variables","body":{"variables":[],"request_seq":0,"type":"response"},"type":"response"}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug add1.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/add1.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7},"type":"request","seq":20}
+ Sent 
+
+{"request_seq":20,"success":true,"command":"breakpointLocations","body":[{"line":7,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+ Received 
+
+{"command":"disconnect","arguments":{"restart":false},"type":"request","seq":21}
+ Sent 
+
+{"request_seq":21,"success":true,"command":"disconnect","type":"response"}

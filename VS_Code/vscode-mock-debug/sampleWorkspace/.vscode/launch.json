@@ -7,16 +7,16 @@
 		{
 			"type": "mock",
 			"request": "launch",
-			"name": "Debug addNumbers.asm",
-			"program": "${workspaceFolder}/addNumbers.asm",
+			"name": "Debug add1.md",
+			"program": "${workspaceFolder}/add1.md",
 			"stopOnEntry": true,
 			"trace": false
 		},
 		{
 			"type": "mock",
 			"request": "attach",
-			"name": "Attach addNumbers.asm",
-			"program": "${workspaceFolder}/addNumbers.asm",
+			"name": "Attach add1.md",
+			"program": "${workspaceFolder}/add1.md",
 			"stopOnEntry": true,
 			"trace": false
 		}
