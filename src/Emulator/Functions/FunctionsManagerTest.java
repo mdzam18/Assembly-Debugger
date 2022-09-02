@@ -2,6 +2,7 @@ package src.Emulator.Functions;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import src.Emulator.Files.Lines;
 import src.Emulator.Memory.MemoryManager;
 import src.Emulator.Stack.StackManager;
 
@@ -13,18 +14,31 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class FunctionsManagerTest {
 
+    private void fillTheList(ArrayList<Lines> list) {
+        Lines line = new Lines("FUNCTIONMAIN;", 0, "");
+        Lines line2 = new Lines("SP=SP-4;", 0, "");
+        Lines line3 = new Lines("M[SP]=4;", 0, "");
+        Lines line4 = new Lines("CALL<A>;", 0, "");
+        Lines line5 = new Lines("SP=SP+4;", 0, "");
+        Lines line6 = new Lines("RET;", 0, "");
+        Lines line7 = new Lines("FUNCTIONA;", 0, "");
+        Lines line8 = new Lines("R1=2;", 0, "");
+        Lines line9 = new Lines("RET;", 0, "");
+        list.add(line);
+        list.add(line2);
+        list.add(line3);
+        list.add(line4);
+        list.add(line5);
+        list.add(line6);
+        list.add(line7);
+        list.add(line8);
+        list.add(line9);
+    }
+
     @Test
     public void processCall() throws Exception {
-        ArrayList<String> list = new ArrayList<>();
-        list.add("FUNCTIONMAIN;");
-        list.add("SP=SP-4;");
-        list.add("M[SP]=4;");
-        list.add("CALL<A>;");
-        list.add("SP=SP+4;");
-        list.add("RET;");
-        list.add("FUNCTIONA;");
-        list.add("R1=2;");
-        list.add("RET;");
+        ArrayList<Lines> list = new ArrayList<>();
+        fillTheList(list);
         MemoryManager memoryManager = new MemoryManager();
         StackManager stackManager = new StackManager(memoryManager);
         FunctionsManager functionsManager = new FunctionsManager(list, memoryManager, stackManager);
@@ -34,24 +48,36 @@ class FunctionsManagerTest {
         Assertions.assertEquals(2, stackManager.getCallStack().size());
     }
 
+    private void fillTheList2(ArrayList<Lines> list) {
+        Lines line = new Lines("FUNCTIONMAIN;", 0, "");
+        Lines line2 = new Lines("SP=SP-4;", 0, "");
+        Lines line3 = new Lines("M[SP]=4;", 0, "");
+        Lines line4 = new Lines("CALL<A>;", 0, "");
+        Lines line5 = new Lines("SP=SP+4;", 0, "");
+        Lines line6 = new Lines("RET;", 0, "");
+        Lines line7 = new Lines("FUNCTIONA;", 0, "");
+        Lines line8 = new Lines("R1=2;", 0, "");
+        list.add(line);
+        list.add(line2);
+        list.add(line3);
+        list.add(line4);
+        list.add(line5);
+        list.add(line6);
+        list.add(line7);
+        list.add(line8);
+    }
+
     @Test
     public void processReturns() throws Exception {
-        ArrayList<String> list = new ArrayList<>();
-        list.add("FUNCTIONMAIN;");
-        list.add("SP=SP-4;");
-        list.add("M[SP]=4;");
-        list.add("CALL<A>;");
-        list.add("SP=SP+4;");
-        list.add("RET;");
-        list.add("FUNCTIONA;");
-        list.add("R1=2;");
-
+        ArrayList<Lines> list = new ArrayList<>();
+        fillTheList2(list);
         MemoryManager memoryManager = new MemoryManager();
         StackManager stackManager = new StackManager(memoryManager);
         Throwable exception = assertThrows(Exception.class, () -> new FunctionsManager(list, memoryManager, stackManager));
         Assertions.assertEquals("missing RET of: A", exception.getMessage());
 
-        list.add("RET");
+        Lines line9 = new Lines("RET", 0, "");
+        list.add(line9);
 
         FunctionsManager functionsManager = new FunctionsManager(list, memoryManager, stackManager);
         functionsManager.processCall("CALL<A>;", 3);
@@ -61,47 +87,78 @@ class FunctionsManagerTest {
         Assertions.assertEquals(-1, functionsManager.processReturns(5));
     }
 
+    private void fillTheList3(ArrayList<Lines> list) {
+        Lines line = new Lines("FUNCTIONMAIN;", 0, "");
+        Lines line2 = new Lines("SP=SP-4;", 0, "");
+        Lines line3 = new Lines("M[SP]=4;", 0, "");
+        Lines line4 = new Lines("SP=SP+4;", 0, "");
+        Lines line5 = new Lines("RET;", 0, "");
+
+        list.add(line);
+        list.add(line2);
+        list.add(line3);
+        list.add(line4);
+        list.add(line5);
+    }
+
     @Test
     public void getCurrentFunction() throws Exception {
-        ArrayList<String> list = new ArrayList<>();
-        list.add("FUNCTIONMAIN;");
-        list.add("SP=SP-4;");
-        list.add("M[SP]=4;");
-        list.add("SP=SP+4;");
-        list.add("RET;");
+        ArrayList<Lines> list = new ArrayList<>();
+        fillTheList3(list);
         MemoryManager memoryManager = new MemoryManager();
         StackManager stackManager = new StackManager(memoryManager);
         FunctionsManager functionsManager = new FunctionsManager(list, memoryManager, stackManager);
         Assertions.assertEquals("FUNCTIONMAIN", functionsManager.getCurrentFunction());
     }
 
+    private void fillTheList4(ArrayList<Lines> list) {
+        Lines line = new Lines("FUNCTIONMAIN;", 0, "");
+        Lines line2 = new Lines("SP=SP-4;", 0, "");
+        Lines line3 = new Lines("M[SP]=4;", 0, "");
+        Lines line4 = new Lines("SP=SP+4;", 0, "");
+        Lines line5 = new Lines("RET;", 0, "");
+        list.add(line);
+        list.add(line2);
+        list.add(line3);
+        list.add(line4);
+        list.add(line5);
+    }
+
     @Test
     public void getCurrentLine() throws Exception {
-        ArrayList<String> list = new ArrayList<>();
-        list.add("FUNCTIONMAIN;");
-        list.add("SP=SP-4;");
-        list.add("M[SP]=4;");
-        list.add("SP=SP+4;");
-        list.add("RET;");
+        ArrayList<Lines> list = new ArrayList<>();
+        fillTheList4(list);
         MemoryManager memoryManager = new MemoryManager();
         StackManager stackManager = new StackManager(memoryManager);
         FunctionsManager functionsManager = new FunctionsManager(list, memoryManager, stackManager);
         Assertions.assertEquals(0, functionsManager.getCurrentLine());
     }
 
+    private void fillTheList5(ArrayList<Lines> list){
+        Lines line = new Lines("FUNCTIONMAIN;", 0, "");
+        Lines line2 = new Lines("SP=SP-4;", 0, "");
+        Lines line3 = new Lines("M[SP]=4;", 0, "");
+        Lines line4 = new Lines("CALL<A>;", 0, "");
+        Lines line5 = new Lines("SP=SP+4;", 0, "");
+        Lines line6 = new Lines("RET;", 0, "");
+        Lines line7 = new Lines("FUNCTIONA;", 0, "");
+        Lines line8 = new Lines("R1=2;", 0, "");
+        Lines line9 = new Lines("RET;", 0, "");
+        list.add(line);
+        list.add(line2);
+        list.add(line3);
+        list.add(line4);
+        list.add(line5);
+        list.add(line6);
+        list.add(line7);
+        list.add(line8);
+        list.add(line9);
+    }
+
     @Test
     public void processFunction() throws Exception {
-        ArrayList<String> list = new ArrayList<>();
-        list.add("FUNCTIONMAIN;");
-        list.add("SP=SP-4;");
-        list.add("M[SP]=4;");
-        list.add("CALL<A>;");
-        list.add("SP=SP+4;");
-        list.add("RET;");
-        list.add("FUNCTIONA;");
-        list.add("R1=2;");
-        list.add("RET;");
-
+        ArrayList<Lines> list = new ArrayList<>();
+        fillTheList5(list);
         MemoryManager memoryManager = new MemoryManager();
         StackManager stackManager = new StackManager(memoryManager);
         FunctionsManager functionsManager = new FunctionsManager(list, memoryManager, stackManager);

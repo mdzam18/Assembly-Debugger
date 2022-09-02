@@ -10,12 +10,12 @@ public class FilesManager {
     private boolean containsMain;
 
     //reads all files and creates list of commands to execute
-    public ArrayList<String> createList(String[] arr) throws Exception {
+    public ArrayList<Lines> createList(String[] arr) throws Exception {
         containsMain = false;
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<Lines> list = new ArrayList<>();
         for (int i = 0; i < arr.length; i++) {
             FileReader curr = new FileReader(arr[i]);
-            ArrayList<String> list2 = readFile(curr);
+            ArrayList<Lines> list2 = readFile(curr, arr[i]);
             for (int j = 0; j < list2.size(); j++) {
                 list.add(list2.get(j));
             }
@@ -27,9 +27,10 @@ public class FilesManager {
         return list;
     }
 
-    private ArrayList<String> readFile(FileReader file) throws Exception {
+    private ArrayList<Lines> readFile(FileReader file, String fileName) throws Exception {
         BufferedReader rd = new BufferedReader(file);
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<Lines> list = new ArrayList<>();
+        int numberOfLine = 0;
         while (true) {
             String line = rd.readLine();
             if (line == null) {
@@ -50,11 +51,13 @@ public class FilesManager {
                     if(curr.contains("MAIN")){
                         containsMain = true;
                     }
-                    list.add(curr);
+                    Lines currentLine = new Lines(curr, numberOfLine, fileName);
+                    list.add(currentLine);
                     start = end + 1;
                     index = line.indexOf(";", start);
                     end = index;
                 }
+                numberOfLine++;
             }
         }
         rd.close();

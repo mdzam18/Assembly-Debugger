@@ -1,5 +1,6 @@
 package src.Emulator.Functions;
 
+import src.Emulator.Files.Lines;
 import src.Emulator.Memory.MemoryManager;
 import src.Emulator.Stack.StackManager;
 
@@ -13,7 +14,7 @@ public class FunctionsManager {
     private Map<String, Integer> functions;
     private Map<Integer, String> returns;
     private ArrayList<Integer> returnsIndexes;
-    private ArrayList<String> list;
+    private ArrayList<Lines> list;
     private MemoryManager memoryManager;
     private StackManager stackManager;
     private String currentFunction;
@@ -24,7 +25,7 @@ public class FunctionsManager {
         return retOfMain;
     }
 
-    public FunctionsManager(ArrayList<String> list, MemoryManager memoryManager, StackManager stackManager) throws Exception {
+    public FunctionsManager(ArrayList<Lines> list, MemoryManager memoryManager, StackManager stackManager) throws Exception {
         functions = new HashMap<>();
         returns = new HashMap<>();
         returnsIndexes = new ArrayList<>();
@@ -40,8 +41,8 @@ public class FunctionsManager {
 
     private void fillReturnsIndex() throws Exception {
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).startsWith("FUNCTION")) {
-                getAllReturns(i + 1, list.get(i).substring(0, list.get(i).length() - 1));
+            if (list.get(i).getLine().startsWith("FUNCTION")) {
+                getAllReturns(i + 1, list.get(i).getLine().substring(0, list.get(i).getLine().length() - 1));
             }
         }
     }
@@ -49,10 +50,10 @@ public class FunctionsManager {
     private void getAllReturns(int index, String name) throws Exception {
         boolean been = false;
         for (int i = index; i < list.size(); i++) {
-            if (list.get(i).startsWith("FUNCTION")) {
+            if (list.get(i).getLine().startsWith("FUNCTION")) {
                 break;
             }
-            if (list.get(i).startsWith("RET")) {
+            if (list.get(i).getLine().startsWith("RET")) {
                 returns.put(i, name);
                 been = true;
                 if(name.equals("FUNCTIONMAIN")){
@@ -109,7 +110,7 @@ public class FunctionsManager {
 
     private void fillFunctionArray() {
         for (int i = 0; i < list.size(); i++) {
-            String line = list.get(i);
+            String line = list.get(i).getLine();
             if (line.startsWith("FUNCTION")) {
                 String str = line.substring(0, line.length() - 1);
                 functions.put(str, i);
@@ -146,10 +147,10 @@ public class FunctionsManager {
     //returns the index of the first ret found after this index
     private int getReturnIndex(int index) throws Exception {
         for (int i = index + 1; i < list.size(); i++) {
-            if (list.get(i).startsWith("RET")) {
+            if (list.get(i).getLine().startsWith("RET")) {
                 return i;
             }
-            if (list.get(i).startsWith("FUNCTION")) {
+            if (list.get(i).getLine().startsWith("FUNCTION")) {
                 break;
             }
         }

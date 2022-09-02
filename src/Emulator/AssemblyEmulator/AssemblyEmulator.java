@@ -3,6 +3,7 @@ package src.Emulator.AssemblyEmulator;
 import src.Emulator.Address.AddressManager;
 import src.Emulator.Branches.BranchesManager;
 import src.Emulator.Files.FilesManager;
+import src.Emulator.Files.Lines;
 import src.Emulator.Functions.FunctionsManager;
 import src.Emulator.Memory.MemoryManager;
 import src.Emulator.Registers.RegistersManager;
@@ -22,7 +23,7 @@ public class AssemblyEmulator {
     private AddressManager addressManager;
     private BranchesManager branchesManager;
     private FunctionsManager functionsManager;
-    private ArrayList<String> list;
+    private ArrayList<Lines> list;
     private int currentLine;
     private int ending;
 
@@ -66,15 +67,8 @@ public class AssemblyEmulator {
             stackManager.removeFunctionName(0);
             currentLine++;
             return false;
-//        if (currentLine == (list.size())) {
-//            if (!list.get(currentLine - 1).startsWith("RET")){
-//                throw new Exception("missing RET");
-//            }
-//            memoryManager.deleteSavedPC();
-//            currentLine++;
-//            return false;
         } else {
-            int line = processLine(list.get(currentLine), currentLine);
+            int line = processLine(list.get(currentLine).getLine(), currentLine);
             if (line != -1) {
                 currentLine = line - 1;
             }

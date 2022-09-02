@@ -16,10 +16,10 @@ class FilesManagerTest {
         String [] args = new String[2];
         args[0] = "src/Tests/testFiles1.asm";
         args[1] = "src/Tests/testFiles2.asm";
-        List<String> list = filesManager.createList(args);
-        assertEquals("SP=SP-4;", list.get(0));
-        assertEquals("FUNCTIONMAIN;", list.get(1));
-        assertEquals("RET;", list.get(2));
+        List<Lines> list = filesManager.createList(args);
+        assertEquals("SP=SP-4;", list.get(0).getLine());
+        assertEquals("FUNCTIONMAIN;", list.get(1).getLine());
+        assertEquals("RET;", list.get(2).getLine());
         assertEquals(3, list.size());
     }
 
