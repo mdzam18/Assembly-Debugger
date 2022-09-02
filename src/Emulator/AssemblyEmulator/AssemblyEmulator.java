@@ -46,6 +46,11 @@ public class AssemblyEmulator {
         return assertsText;
     }
 
+    //If there are several operation on the same Line
+    public int getActualLineNumber(){
+        return list.get(currentLine).getActualLineNumber();
+    }
+
     public void setCurrentLine(int line) {
         currentLine = line;
     }
@@ -62,6 +67,7 @@ public class AssemblyEmulator {
     //executes next line
     public boolean next() throws Exception {
         assertsText = "";
+        System.out.println("currentLine: " + currentLine + " actual: " + list.get(currentLine).getActualLineNumber());
         if (currentLine == ending) {
             memoryManager.deleteSavedPC();
             stackManager.removeFunctionName(0);
