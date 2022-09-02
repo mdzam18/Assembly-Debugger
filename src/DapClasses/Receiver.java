@@ -58,9 +58,9 @@ import java.util.*;
 
 public class Receiver {
     private FileWriter fWriter = new FileWriter(
-            "/Users/mariami/Desktop/Assembly-Debugger/src/Emulator/Main/testInputFile");
+            "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile");
     private FileWriter fWriterEmulator = new FileWriter(
-            "/Users/mariami/Desktop/Assembly-Debugger/src/Emulator/Main/testEmulator.txt");
+            "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testEmulator.txt");
 
     private Gson gson;
     private String name;
@@ -240,12 +240,9 @@ public class Receiver {
                 if (!isProgramRunning) {
                     if (emulator.containsRv()) {
                         showTextInConsole("RV: " + emulator.getRv() + "\n");
-                        Event x = new Event();
-                        x.setEvent("exited");
-                        ExitedEvent ee = new ExitedEvent();
-                        ee.setExitCode(200);
-                        x.setBody(ee);
-                        sendProtocolMessage(gson.toJson(x));
+                        Event terminatedEvent = new Event();
+                        terminatedEvent.setEvent("terminated");
+                        sendProtocolMessage(gson.toJson(terminatedEvent));
                     }
                     break;
                     //aq rom morches mtlianad

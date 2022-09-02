@@ -7,16 +7,16 @@
 		{
 			"type": "mock",
 			"request": "launch",
-			"name": "Debug add1.md",
-			"program": "${workspaceFolder}/add1.md",
+			"name": "Debug readme.md",
+			"program": "${workspaceFolder}/readme.md",
 			"stopOnEntry": true,
 			"trace": false
 		},
 		{
 			"type": "mock",
 			"request": "attach",
-			"name": "Attach add1.md",
-			"program": "${workspaceFolder}/add1.md",
+			"name": "Attach readme.md",
+			"program": "${workspaceFolder}/readme.md",
 			"stopOnEntry": true,
 			"trace": false
 		}

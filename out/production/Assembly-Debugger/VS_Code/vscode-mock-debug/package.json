@@ -80,23 +80,23 @@
       "editor/title/run": [
         {
           "command": "extension.mock-debug.runEditorContents",
-          "when": "resourceLangId == c",
+          "when": "resourceLangId == markdown",
           "group": "navigation@1"
         },
         {
           "command": "extension.mock-debug.debugEditorContents",
-          "when": "resourceLangId == c",
+          "when": "resourceLangId == markdown",
           "group": "navigation@2"
         }
       ],
       "commandPalette": [
         {
           "command": "extension.mock-debug.debugEditorContents",
-          "when": "resourceLangId == c"
+          "when": "resourceLangId == markdown"
         },
         {
           "command": "extension.mock-debug.runEditorContents",
-          "when": "resourceLangId == c"
+          "when": "resourceLangId == markdown"
         }
       ],
       "debug/variables/context": [
@@ -128,14 +128,14 @@
     ],
     "breakpoints": [
       {
-        "language": "c"
+        "language": "markdown"
       }
     ],
     "debuggers": [
       {
         "type": "mock",
         "languages": [
-          "c"
+          "markdown"
         ],
         "label": "Mock Debug",
         "program": "./out/debugAdapter.js",
