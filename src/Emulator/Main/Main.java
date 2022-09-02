@@ -35,27 +35,43 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         //System.out.printf(test2);
-        // Receiver receiver = new Receiver();
-        // receiver.receive();
-
-
-        String fileName = "C:\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\src\\Tests\\addNumbers.asm";
-        //String fileName2 = "src/Tests/callTests.asm";
-        String arr[] = new String[1];
-        arr[0] = fileName;
-        //arr[1] = fileName2;
-        AssemblyEmulator emulator = new AssemblyEmulator(arr);
-        emulator.runWholeCode();
-        Map<String, Integer> registers = emulator.getRegisters();
-        for (String register : registers.keySet()) {
-            if(!register.equals("RV")) {
-                System.out.println(register + ": " + registers.get(register));
+        if (args.length == 0) {
+            Receiver receiver = new Receiver();
+            receiver.receive();
+        } else {
+            AssemblyEmulator emulator = new AssemblyEmulator(args);
+            emulator.runWholeCode();
+            Map<String, Integer> registers = emulator.getRegisters();
+            for (String register : registers.keySet()) {
+                if(!register.equals("RV")) {
+                    System.out.println(register + ": " + registers.get(register));
+                }
             }
+            if(emulator.containsRv()) {
+                System.out.println();
+                System.out.println("RV: " + emulator.getRv());
+            }
+            System.out.println("done");
         }
-        if(emulator.containsRv()) {
-            System.out.println();
-            System.out.println("RV: " + emulator.getRv());
-        }
-        System.out.println("done");
+
+
+//        String fileName = "C:\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\src\\Tests\\addNumbers.asm";
+//        //String fileName2 = "src/Tests/callTests.asm";
+//        String arr[] = new String[1];
+//        arr[0] = fileName;
+//        //arr[1] = fileName2;
+//        AssemblyEmulator emulator = new AssemblyEmulator(arr);
+//        emulator.runWholeCode();
+//        Map<String, Integer> registers = emulator.getRegisters();
+//        for (String register : registers.keySet()) {
+//            if(!register.equals("RV")) {
+//                System.out.println(register + ": " + registers.get(register));
+//            }
+//        }
+//        if(emulator.containsRv()) {
+//            System.out.println();
+//            System.out.println("RV: " + emulator.getRv());
+//        }
+//        System.out.println("done");
     }
 }
