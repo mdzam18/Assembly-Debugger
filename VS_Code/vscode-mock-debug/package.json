@@ -80,23 +80,23 @@
       "editor/title/run": [
         {
           "command": "extension.mock-debug.runEditorContents",
-          "when": "resourceLangId == .asm",
+          "when": "resourceLangId == c",
           "group": "navigation@1"
         },
         {
           "command": "extension.mock-debug.debugEditorContents",
-          "when": "resourceLangId == .asm",
+          "when": "resourceLangId == c",
           "group": "navigation@2"
         }
       ],
       "commandPalette": [
         {
           "command": "extension.mock-debug.debugEditorContents",
-          "when": "resourceLangId == .asm"
+          "when": "resourceLangId == c"
         },
         {
           "command": "extension.mock-debug.runEditorContents",
-          "when": "resourceLangId == .asm"
+          "when": "resourceLangId == c"
         }
       ],
       "debug/variables/context": [
@@ -128,14 +128,14 @@
     ],
     "breakpoints": [
       {
-        "language": ".asm"
+        "language": "c"
       }
     ],
     "debuggers": [
       {
         "type": "mock",
         "languages": [
-          ".asm"
+          "c"
         ],
         "label": "Mock Debug",
         "program": "./out/debugAdapter.js",
