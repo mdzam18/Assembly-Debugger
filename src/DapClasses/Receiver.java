@@ -58,9 +58,9 @@ import java.util.*;
 
 public class Receiver {
     private FileWriter fWriter = new FileWriter(
-            "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile");
+            "/Users/mariami/Desktop/Assembly-Debugger/src/Emulator/Main/testInputFile");
     private FileWriter fWriterEmulator = new FileWriter(
-            "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testEmulator.txt");
+            "/Users/mariami/Desktop/Assembly-Debugger/src/Emulator/Main/testEmulator.txt");
 
     private Gson gson;
     private String name;
@@ -232,12 +232,12 @@ public class Receiver {
             fWriter.flush();
             try {
                 boolean isProgramRunning = emulator.next();
-                if(emulator.getAssertsText().length() != 0){
+                if (emulator.getAssertsText().length() != 0) {
                     //print asserts text
                     showTextInConsole(emulator.getAssertsText());
                 }
                 if (!isProgramRunning) {
-                    if(emulator.containsRv()) {
+                    if (emulator.containsRv()) {
                         showTextInConsole("RV: " + emulator.getRv() + "\n");
                         Event x = new Event();
                         x.setEvent("exited");
@@ -246,6 +246,7 @@ public class Receiver {
                         x.setBody(ee);
                         sendProtocolMessage(gson.toJson(x));
                     }
+                    break;
                     //aq rom morches mtlianad
                 }
             } catch (Exception e) {
@@ -253,12 +254,11 @@ public class Receiver {
             }
         }
     }
+
     public void callEmulatorNextUntilFistBreakPoint() throws Exception {
-        while(true){
-
-            try {
-
-                if(breakpointLineNumbers.contains(emulator.getCurrentLine()+1)) {
+        try {
+            while (true) {
+                if (breakpointLineNumbers.contains(emulator.getCurrentLine() + 1)) {
                     break;
                 }
                 boolean isProgramRunning = emulator.next();
@@ -271,20 +271,21 @@ public class Receiver {
                 fWriter.write(String.valueOf(emulator.getCurrentLine()));
                 fWriter.write("\n\n\n ");
                 fWriter.flush();
-                if(emulator.getAssertsText().length() != 0){
+                if (emulator.getAssertsText().length() != 0) {
                     //print asserts text
                     showTextInConsole(emulator.getAssertsText());
                 }
                 if (!isProgramRunning) {
-                    if(emulator.containsRv()) {
+                    if (emulator.containsRv()) {
                         showTextInConsole("RV: " + emulator.getRv() + "\n");
                     }
                     //aq rom morches mtlianad
                 }
-            } catch (Exception e) {
-                processEmulatorException(e);
             }
+        } catch (Exception e) {
+            processEmulatorException(e);
         }
+
     }
 
 
@@ -327,10 +328,11 @@ public class Receiver {
         String command = request.getCommand();
         switch (command) {
             case "initialize":
-                Response initResponse = gson.fromJson(processInitializeRequest( json), Response.class);
+                Response initResponse = gson.fromJson(processInitializeRequest(json), Response.class);
                 initResponse.setRequest_seq(request.getSeq());
                 initResponse.setSuccess(true);
-                initResponse.setCommand("initialize");InitializedEvent initEvent = new InitializedEvent();
+                initResponse.setCommand("initialize");
+                InitializedEvent initEvent = new InitializedEvent();
                 sendProtocolMessage(gson.toJson(initResponse));
                 sendProtocolMessage(gson.toJson(initEvent));
                 return gson.toJson(initResponse) + gson.toJson(initEvent);
@@ -353,7 +355,7 @@ public class Receiver {
                 sendProtocolMessage(SetFunctionBreakpointsRes);
                 return SetFunctionBreakpointsRes;
             case "configurationDone":
-                String ConfigurationDoneRes = processConfigurationDoneRequest( json);
+                String ConfigurationDoneRes = processConfigurationDoneRequest(json);
                 sendProtocolMessage(ConfigurationDoneRes);
                 return ConfigurationDoneRes;
             case "launch":
