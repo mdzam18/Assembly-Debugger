@@ -58,7 +58,6 @@ public class FunctionsManager {
                 been = true;
                 if(name.equals("FUNCTIONMAIN")){
                     retOfMain = i;
-                    System.out.println("ret: " + retOfMain);
                 }
             }
         }

@@ -67,7 +67,6 @@ public class AssemblyEmulator {
     //executes next line
     public boolean next() throws Exception {
         assertsText = "";
-        System.out.println("currentLine: " + currentLine + " actual: " + list.get(currentLine).getActualLineNumber());
         if (currentLine == ending) {
             memoryManager.deleteSavedPC();
             stackManager.removeFunctionName(0);
@@ -83,8 +82,8 @@ public class AssemblyEmulator {
         }
     }
 
-    //debugs whole code
-    public void debug() throws Exception {
+    //runs whole code
+    public void runWholeCode() throws Exception {
         init();
         while (true) {
             boolean b = next();
@@ -92,25 +91,7 @@ public class AssemblyEmulator {
                 break;
             }
         }
-        printRegisters();
-        printMemory();
-        System.out.println("RV: " + registersManager.getRv());
     }
-
-    private void printRegisters() {
-        Map<String, Integer> registers = registersManager.getRegisters();
-        for (String r : registers.keySet()) {
-            System.out.println(r + " : " + registers.get(r));
-        }
-    }
-
-    private void printMemory() {
-        int[] memory = memoryManager.getMemory();
-        for (int j : memory) {
-            System.out.println(j);
-        }
-    }
-
 
     private void init() throws Exception {
         registersManager = new RegistersManager();
@@ -146,7 +127,6 @@ public class AssemblyEmulator {
         String leftSide = line.substring(0, index);
         String str = line.substring(index + 1, line.indexOf(";"));
         int rightSide = addressManager.computeBytes(str);
-        System.out.println(leftSide + " " + rightSide + " current");
         registersManager.addRegister(leftSide, rightSide);
     }
 

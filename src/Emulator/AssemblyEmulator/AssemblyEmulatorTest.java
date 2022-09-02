@@ -26,7 +26,7 @@ class AssemblyEmulatorTest {
         String[] args = new String[1];
         args[0] = "src/Tests/forLoop.asm";
         AssemblyEmulator assemblyEmulator = new AssemblyEmulator(args);
-        assemblyEmulator.debug();
+        assemblyEmulator.runWholeCode();
         Map<String, Integer> registers = assemblyEmulator.getRegisters();
         Assertions.assertEquals(0, assemblyEmulator.getRv());
         Assertions.assertEquals(4, registers.size());
@@ -41,7 +41,7 @@ class AssemblyEmulatorTest {
         String[] args = new String[1];
         args[0] = "src/Tests/compare.asm";
         AssemblyEmulator assemblyEmulator = new AssemblyEmulator(args);
-        assemblyEmulator.debug();
+        assemblyEmulator.runWholeCode();
         Map<String, Integer> registers = assemblyEmulator.getRegisters();
         Assertions.assertEquals(0, assemblyEmulator.getRv());
         Assertions.assertEquals(3, registers.size());
@@ -56,7 +56,7 @@ class AssemblyEmulatorTest {
         String[] args = new String[1];
         args[0] = "src/Tests/addNumbers.asm";
         AssemblyEmulator assemblyEmulator = new AssemblyEmulator(args);
-        assemblyEmulator.debug();
+        assemblyEmulator.runWholeCode();
         Map<String, Integer> registers = assemblyEmulator.getRegisters();
         Assertions.assertEquals(5, assemblyEmulator.getRv());
         Assertions.assertEquals(4, registers.size());
@@ -69,7 +69,7 @@ class AssemblyEmulatorTest {
         String[] args = new String[1];
         args[0] = "src/Tests/factorial.asm";
         AssemblyEmulator assemblyEmulator = new AssemblyEmulator(args);
-        assemblyEmulator.debug();
+        assemblyEmulator.runWholeCode();
         Map<String, Integer> registers = assemblyEmulator.getRegisters();
         Assertions.assertEquals(120, assemblyEmulator.getRv());
         Assertions.assertEquals(4, registers.size());
@@ -83,7 +83,7 @@ class AssemblyEmulatorTest {
         String[] args = new String[1];
         args[0] = "src/Tests/add2.asm";
         AssemblyEmulator assemblyEmulator = new AssemblyEmulator(args);
-        assemblyEmulator.debug();
+        assemblyEmulator.runWholeCode();
         Map<String, Integer> registers = assemblyEmulator.getRegisters();
         Assertions.assertEquals(8, assemblyEmulator.getRv());
         Assertions.assertEquals(4, registers.size());
@@ -97,7 +97,7 @@ class AssemblyEmulatorTest {
         args[0] = "src/Tests/callTests.asm";
         args[1] = "src/Tests/sum.asm";
         AssemblyEmulator assemblyEmulator = new AssemblyEmulator(args);
-        assemblyEmulator.debug();
+        assemblyEmulator.runWholeCode();
         Map<String, Integer> registers = assemblyEmulator.getRegisters();
         Assertions.assertEquals(12, assemblyEmulator.getRv());
         Assertions.assertEquals(3, registers.size());

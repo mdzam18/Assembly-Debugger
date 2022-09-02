@@ -21,30 +21,16 @@ public class StackManager {
         savedPc.add(0);
     }
 
-    //Gets function name and returns stack of the function.
+    //Gets function index from call stack and returns stack of the function.
     public List<String> showStack(int indexInCallStack) throws Exception {
         List<String> list = new ArrayList<>();
         int[] memory = memoryManager.getMemory();
-//        if (functionName.startsWith("MAIN")) {
-//            for (int i = 0; i < memory.length; i++) {
-//                if (savedPc.contains(i)) {
-//                    list.add("SAVED PC");
-//                    System.out.println("SAVED PC");
-//                } else {
-//                    list.add(String.valueOf(memory[i]));
-//                    System.out.println(memory[i]);
-//                }
-//            }
-//            return list;
-//        }
         int lastIndex = memory.length;
         if (savedPc.size() > (indexInCallStack + 1)) {
             lastIndex = savedPc.get(indexInCallStack + 1);
         }
-        System.out.println("SAVED PC");
         list.add("SAVED PC");
         for (int i = savedPc.get(indexInCallStack) + 1; i < lastIndex; i++) {
-            System.out.println(memory[i]);
             list.add(String.valueOf(memory[i]));
         }
         return list;

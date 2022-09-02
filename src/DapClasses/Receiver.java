@@ -217,7 +217,7 @@ public class Receiver {
         OutputEvent oEvent = new OutputEvent();
         oEvent.setVariablesReference(0);
         oEvent.setOutput(text);
-       // oEvent.setLine(emulator.getCurrentLine());
+        // oEvent.setLine(emulator.getCurrentLine());
         oEvent.setLine(emulator.getActualLineNumber());
         oEvent.setCategory("stdout");
         oEvent.setGroup("end");
@@ -417,7 +417,7 @@ public class Receiver {
                 if (nextBreakpointLine != -1) {
                     callEmulatorNextNTimes(nextBreakpointLine - currLine);
                 } else {
-                    emulator.debug();
+                    emulator.runWholeCode();
                 }
 
                 return ContinueRequestRes;

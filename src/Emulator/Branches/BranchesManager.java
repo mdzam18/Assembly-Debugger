@@ -47,11 +47,6 @@ public class BranchesManager {
             //assert
             int expected = b;
             int got = a;
-           /* if (str.substring(3
-           , index).equals("RV")) {
-                expected = b;
-                got = a;
-            } */
             System.out.println(expected);
             System.out.println(currentFunction.substring(8) + " " + "FAILED");
             String message = printExpectedMessage(expected, got, str.substring(1, 3));

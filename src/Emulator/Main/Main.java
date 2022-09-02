@@ -4,6 +4,7 @@ import src.DapClasses.Receiver;
 import src.Emulator.AssemblyEmulator.AssemblyEmulator;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 
 public class Main {
@@ -31,30 +32,30 @@ public class Main {
             "\"seq\":1\r\n" +
             "}" +
             "Content-Length: 79\r\n";
+
     public static void main(String[] args) throws Exception {
         //System.out.printf(test2);
-        Receiver receiver = new Receiver();
-        receiver.receive();
+        // Receiver receiver = new Receiver();
+        // receiver.receive();
 
 
-//        String fileName = "C:\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\src\\Tests\\addNumbers.asm";
-//        //String fileName2 = "src/Tests/callTests.asm";
-//        String arr[] = new String[1];
-//        arr[0] = fileName;
-//        //arr[1] = fileName2;
-//        AssemblyEmulator emulator = new AssemblyEmulator(arr);
-//        emulator.debug();
-////        for(int i = 0; i < 13; i++){
-////            emulator.next();
-////        }
-////        ArrayList<String> list = emulator.getCallStack();
-////        System.out.println("call stack: ");
-////        for (int i = 0; i < list.size(); i++) {
-////            System.out.println(list.get(i));
-////            System.out.println("show stack: ");
-////            emulator.showStack(i);
-////            System.out.println("done");
-////        }
-////        System.out.println("done");
+        String fileName = "C:\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\src\\Tests\\addNumbers.asm";
+        //String fileName2 = "src/Tests/callTests.asm";
+        String arr[] = new String[1];
+        arr[0] = fileName;
+        //arr[1] = fileName2;
+        AssemblyEmulator emulator = new AssemblyEmulator(arr);
+        emulator.runWholeCode();
+        Map<String, Integer> registers = emulator.getRegisters();
+        for (String register : registers.keySet()) {
+            if(!register.equals("RV")) {
+                System.out.println(register + ": " + registers.get(register));
+            }
+        }
+        if(emulator.containsRv()) {
+            System.out.println();
+            System.out.println("RV: " + emulator.getRv());
+        }
+        System.out.println("done");
     }
 }
