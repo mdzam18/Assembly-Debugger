@@ -217,7 +217,8 @@ public class Receiver {
         OutputEvent oEvent = new OutputEvent();
         oEvent.setVariablesReference(0);
         oEvent.setOutput(text);
-        oEvent.setLine(emulator.getCurrentLine());
+       // oEvent.setLine(emulator.getCurrentLine());
+        oEvent.setLine(emulator.getActualLineNumber());
         oEvent.setCategory("stdout");
         oEvent.setGroup("end");
         Event e1 = new Event();
@@ -258,7 +259,7 @@ public class Receiver {
     public void callEmulatorNextUntilFistBreakPoint() throws Exception {
         try {
             while (true) {
-                if (breakpointLineNumbers.contains(emulator.getCurrentLine() + 1)) {
+                if (breakpointLineNumbers.contains(emulator.getActualLineNumber() + 1)) {
                     break;
                 }
                 boolean isProgramRunning = emulator.next();
@@ -268,7 +269,7 @@ public class Receiver {
                     fWriter.write("\n ");
                 }
                 fWriter.write("\ncurrent line:   ");
-                fWriter.write(String.valueOf(emulator.getCurrentLine()));
+                fWriter.write(String.valueOf(emulator.getActualLineNumber()));
                 fWriter.write("\n\n\n ");
                 fWriter.flush();
                 if (emulator.getAssertsText().length() != 0) {
@@ -380,7 +381,7 @@ public class Receiver {
             case "stackTrace":
                 try {
                     String StackTraceRes = processStackTraceRequest(json);
-                    if (emulator.getCurrentLine() == 0) {
+                    if (emulator.getActualLineNumber() == 0) {
                         callEmulatorNextUntilFistBreakPoint();
                     }
                     sendProtocolMessage(StackTraceRes);
@@ -408,7 +409,7 @@ public class Receiver {
                 x.setEvent("continued");
                 x.setBody(ce);
                 sendProtocolMessage(gson.toJson(x));
-                int currLine = emulator.getCurrentLine() + 1;
+                int currLine = emulator.getActualLineNumber() + 1;
                 int nextBreakpointLine = -1;
                 for (int i = 0; i < breakpointLineNumbers.size(); i++) {
                     if (currLine < breakpointLineNumbers.get(i)) {
@@ -629,10 +630,10 @@ public class Receiver {
             stackFrames[i] = new StackFrame();
             stackFrames[i].setColumn(0);
             stackFrames[i].setId(0);
-            if (emulator.getCurrentLine() == 0) {
+            if (emulator.getActualLineNumber() == 0) {
                 stackFrames[i].setLine(breakpointLineNumbers.get(0));
             } else {
-                stackFrames[i].setLine(emulator.getCurrentLine() + 1);
+                stackFrames[i].setLine(emulator.getActualLineNumber() + 1);
             }
             stackFrames[i].setName(callstack.get(i));
             stackFrames[i].setSource(createSource());
