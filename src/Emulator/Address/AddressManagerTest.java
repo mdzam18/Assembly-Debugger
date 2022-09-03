@@ -132,9 +132,9 @@ class AddressManagerTest {
         Assertions.assertEquals(memoryManager.getValue(0), 2);
 
         Throwable exception = assertThrows(Exception.class, () -> addressManager.fillMemoryArray(-1, ""));
-        Assertions.assertEquals("-1 out of bounds", exception.getMessage());
+        Assertions.assertEquals("out of bounds", exception.getMessage());
 
         exception = assertThrows(Exception.class, () -> addressManager.fillMemoryArray(3, ""));
-        Assertions.assertEquals("3 out of bounds", exception.getMessage());
+        Assertions.assertEquals("out of bounds", exception.getMessage());
     }
 }

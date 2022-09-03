@@ -213,7 +213,7 @@ public class AddressManager {
     //adds value to the memory array
     public void fillMemoryArray(int location, String line) throws Exception {
         if (location >= memoryManager.getMemoryArraySize() || location < 0) {
-            throw new Exception(location + " out of bounds");
+            throw new Exception("out of bounds");
         } else {
             String str = line.substring(line.indexOf("=") + 1, line.indexOf(";"));
             int res = computeBytes(str);
