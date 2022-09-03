@@ -99,28 +99,28 @@ class AddressManagerTest {
         Assertions.assertEquals("RET", addressManager.getLeftSide("RET"));
 
         Throwable exception = assertThrows(Exception.class, () -> addressManager.getLeftSide("Rk"));
-        Assertions.assertEquals("invalid register. do you mean RV?", exception.getMessage());
+        Assertions.assertEquals("invalid register, do you mean RV?", exception.getMessage());
 
         Assertions.assertEquals("R1", addressManager.getLeftSide("R1=2;"));
 
         exception = assertThrows(Exception.class, () -> addressManager.getLeftSide("R1"));
-        Assertions.assertEquals("should contain =", exception.getMessage());
+        Assertions.assertEquals("missing =", exception.getMessage());
 
         exception = assertThrows(Exception.class, () -> addressManager.getLeftSide("M2"));
-        Assertions.assertEquals("should contain [", exception.getMessage());
+        Assertions.assertEquals("missing [", exception.getMessage());
 
         exception = assertThrows(Exception.class, () -> addressManager.getLeftSide("M[2"));
-        Assertions.assertEquals("should contain ]", exception.getMessage());
+        Assertions.assertEquals("missing ]", exception.getMessage());
 
         exception = assertThrows(Exception.class, () -> addressManager.getLeftSide("M[1]"));
-        Assertions.assertEquals("should contain =", exception.getMessage());
+        Assertions.assertEquals("missing =", exception.getMessage());
 
         Assertions.assertEquals("0", addressManager.getLeftSide("M[SP]=2;"));
 
         Assertions.assertEquals("SP", addressManager.getLeftSide("SP=sp-2;"));
 
         exception = assertThrows(Exception.class, () -> addressManager.getLeftSide("SP"));
-        Assertions.assertEquals("should contain =", exception.getMessage());
+        Assertions.assertEquals("missing =", exception.getMessage());
     }
 
     @Test

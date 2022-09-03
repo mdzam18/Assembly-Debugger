@@ -109,29 +109,29 @@ public class AddressManager {
             return "RET";
         } else if (str.startsWith("R")) {
             if(str.charAt(1) != 'V' && !numbers.isNumber("" + str.charAt(1))){
-                throw new Exception("invalid register. do you mean RV?");
+                throw new Exception("invalid register, do you mean RV?");
             } else {
                 if(!str.contains("=")){
-                    throw new Exception("should contain =");
+                    throw new Exception("missing =");
                 }
                 return str.substring(0, str.indexOf("="));
             }
         } else if (str.startsWith("M")) {
             if (!str.contains("[")){
-                throw new Exception("should contain [");
+                throw new Exception("missing [");
             }
             if (!str.contains("]")){
-                throw new Exception("should contain ]");
+                throw new Exception("missing ]");
             }
             if(!str.contains("=")){
-                throw new Exception("should contain =");
+                throw new Exception("missing =");
             }
             String address = str.substring(str.indexOf("[") + 1, str.indexOf("]"));
             int res = getAddress(address);
             return Integer.toString(res);
         } else if (str.startsWith("S")) {
             if(!str.contains("=")){
-                throw new Exception("should contain =");
+                throw new Exception("missing =");
             }
             return str.substring(0, str.indexOf("="));
         } else {

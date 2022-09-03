@@ -22,7 +22,7 @@ public class StackManager {
     }
 
     //Gets function index from call stack and returns stack of the function.
-    public List<String> showStack(int indexInCallStack) throws Exception {
+    public List<String> showStack(int indexInCallStack) {
         List<String> list = new ArrayList<>();
         int[] memory = memoryManager.getMemory();
         int lastIndex = memory.length;
