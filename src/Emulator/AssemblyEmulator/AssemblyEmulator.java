@@ -134,6 +134,14 @@ public class AssemblyEmulator {
         String leftSide = line.substring(0, index);
         String str = line.substring(index + 1, line.indexOf(";"));
         int rightSide = addressManager.computeBytes(str);
+        if(registersManager.getRegistersWithSP().containsKey(leftSide)){
+            registersManager.removeRegister(leftSide);
+        }
+        if(str.contains("SP") && !str.contains("M")){
+            int spVirtualValue = 1000000;
+            spVirtualValue = spVirtualValue - 4 * (memoryManager.getMemoryArraySize() - 1);
+            registersManager.addRegisterInRegistersWithSP(leftSide, spVirtualValue + rightSide);
+        }
         registersManager.addRegister(leftSide, rightSide);
     }
 
