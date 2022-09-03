@@ -35,10 +35,6 @@ public class AssemblyEmulator {
         FilesManager files = new FilesManager();
         list = files.createList(arr);
         init();
-        currentLine = functionsManager.getCurrentLine();
-        ending = functionsManager.getMainReturnLine();
-        assertsText = "";
-        containsRv = false;
     }
 
     //returns result of assert
@@ -82,6 +78,13 @@ public class AssemblyEmulator {
         }
     }
 
+    public int getSpVirtualValue(){
+        //sets virtual value
+        int spVirtualValue = 1000000;
+        spVirtualValue = spVirtualValue - (memoryManager.getMemoryArraySize() - 1) * 4;
+        return spVirtualValue;
+    }
+
     //runs whole code
     public void runWholeCode() throws Exception {
         init();
@@ -100,6 +103,10 @@ public class AssemblyEmulator {
         stackManager = new StackManager(memoryManager);
         branchesManager = new BranchesManager(registersManager);
         functionsManager = new FunctionsManager(list, memoryManager, stackManager);
+        currentLine = functionsManager.getCurrentLine();
+        ending = functionsManager.getMainReturnLine();
+        assertsText = "";
+        containsRv = false;
     }
 
 

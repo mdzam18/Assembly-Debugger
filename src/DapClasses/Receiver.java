@@ -489,13 +489,32 @@ public class Receiver {
         Variable[] variables = new Variable[variablesMap.size()];
         int counter = 0;
         for (String key : variablesMap.keySet()) {
-            Variable v = new Variable();
-            v.setName(key);
-            v.setVariablesReference(0);
-            v.setValue(String.valueOf(variablesMap.get(key)));
-            variables[counter] = v;
-            counter++;
+            if(!key.equals("RV")) {
+                Variable v = new Variable();
+                v.setName(key);
+                v.setVariablesReference(0);
+                v.setValue(String.valueOf(variablesMap.get(key)));
+                variables[counter] = v;
+                counter++;
+            }
         }
+        return variables;
+    }
+
+    //returns rv and virtual value of sp
+    private Variable[] showSpecialRegisters(){
+        Variable[] variables = new Variable[2];
+        Variable v = new Variable();
+        v.setName("RV");
+        v.setVariablesReference(0);
+        v.setValue(String.valueOf(emulator.getRv()));
+        variables[0] = v;
+
+        v = new Variable();
+        v.setName("Virtual address of SP");
+        v.setVariablesReference(0);
+        v.setValue(String.valueOf(emulator.getSpVirtualValue()));
+        variables[1] = v;
         return variables;
     }
 
@@ -525,8 +544,10 @@ public class Receiver {
         if (request.getArguments().getVariablesReference() == 10) {
             //registers
             variables = showRegisters();
-        } else {
+        } else if(request.getArguments().getVariablesReference() == 11){
             variables = showStackFrame();
+        } else {
+            variables = showSpecialRegisters();
         }
         response.setVariables(variables);
         Response r = new Response();
@@ -541,7 +562,7 @@ public class Receiver {
     private String processScopesRequest(String json) {
         ScopesRequest request = gson.fromJson(json, ScopesRequest.class);
         ScopesResponse response = new ScopesResponse();
-        Scope[] scopes = new Scope[2];
+        Scope[] scopes = new Scope[3];
         scopes[0] = new Scope();
         scopes[0].setExpensive(false);
         scopes[0].setName("Registers");
@@ -550,6 +571,10 @@ public class Receiver {
         scopes[1].setExpensive(false);
         scopes[1].setName("Stack Frame");
         scopes[1].setVariablesReference(11);
+        scopes[2] = new Scope();
+        scopes[2].setExpensive(false);
+        scopes[2].setName("Special Registers");
+        scopes[2].setVariablesReference(12);
         response.setScopes(scopes);
         Response r = new Response();
         r.setCommand("scopes");
