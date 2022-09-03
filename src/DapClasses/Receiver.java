@@ -58,9 +58,7 @@ import java.util.*;
 
 public class Receiver {
     private FileWriter fWriter = new FileWriter(
-            "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile");
-    private FileWriter fWriterEmulator = new FileWriter(
-            "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testEmulator.txt");
+            "/Users/mariami/Desktop/Assembly-Debugger-1/src/Emulator/Main/testInputFile");
 
     private Gson gson;
     private String name;
@@ -508,18 +506,29 @@ public class Receiver {
 
     //returns rv and virtual value of sp
     private Variable[] showSpecialRegisters(){
-        Variable[] variables = new Variable[2];
+        if(emulator.containsRv()) {
+            Variable[] variables = new Variable[2];
+            Variable v = new Variable();
+            v.setName("RV");
+            v.setVariablesReference(0);
+            v.setValue(String.valueOf(emulator.getRv()));
+            variables[0] = v;
+
+            v = new Variable();
+            v.setName("Virtual address of SP");
+            v.setVariablesReference(0);
+            v.setValue(String.valueOf(emulator.getSpVirtualValue()));
+            variables[1] = v;
+            return variables;
+        }
+        Variable[] variables = new Variable[1];
         Variable v = new Variable();
-        v.setName("RV");
-        v.setVariablesReference(0);
-        v.setValue(String.valueOf(emulator.getRv()));
-        variables[0] = v;
 
         v = new Variable();
         v.setName("Virtual address of SP");
         v.setVariablesReference(0);
         v.setValue(String.valueOf(emulator.getSpVirtualValue()));
-        variables[1] = v;
+        variables[0] = v;
         return variables;
     }
 
