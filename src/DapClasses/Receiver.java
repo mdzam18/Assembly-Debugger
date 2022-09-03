@@ -486,6 +486,7 @@ public class Receiver {
 
     private Variable[] showRegisters() {
         Map<String, Integer> variablesMap = emulator.getRegisters();
+        Map<String, Integer> registersWithSp = emulator.getRegistersWithSP();
         Variable[] variables = new Variable[variablesMap.size()];
         int counter = 0;
         for (String key : variablesMap.keySet()) {
@@ -493,7 +494,11 @@ public class Receiver {
                 Variable v = new Variable();
                 v.setName(key);
                 v.setVariablesReference(0);
-                v.setValue(String.valueOf(variablesMap.get(key)));
+                if(registersWithSp.containsKey(key)){
+                    v.setValue(String.valueOf(registersWithSp.get(key)));
+                } else {
+                    v.setValue(String.valueOf(variablesMap.get(key)));
+                }
                 variables[counter] = v;
                 counter++;
             }

@@ -124,6 +124,10 @@ public class AssemblyEmulator {
         return registersManager.getRv();
     }
 
+    public Map<String, Integer> getRegistersWithSP(){
+        return registersManager.getRegistersWithSP();
+    }
+
     //returns list of methods in call stack
     public ArrayList<String> getCallStack() {
         return stackManager.getCallStack();
