@@ -121,7 +121,10 @@ public class FunctionsManager {
         return currentFunction;
     }
 
-    private void callFunction(String name) {
+    private void callFunction(String name) throws Exception {
+        if(!functions.containsKey(name)){
+            throw new Exception("function " + name.substring(8) + " does not exists.");
+        }
         int index = functions.get(name) + 1;
         String curr = name.substring(8);
         if (curr.startsWith("TEST")) {

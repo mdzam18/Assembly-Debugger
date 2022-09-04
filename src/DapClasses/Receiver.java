@@ -58,7 +58,7 @@ import java.util.*;
 
 public class Receiver {
     private FileWriter fWriter = new FileWriter(
-            "/Users/mariami/Desktop/Assembly-Debugger-1/src/Emulator/Main/testInputFile");
+            "C:\\Users\\mdzam\\Desktop\\assembly\\Assembly-Debugger\\src\\Emulator\\Main\\testInputFile");
 
     private Gson gson;
     private String name;
