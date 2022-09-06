@@ -14,18 +14,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SetBreakpointsManager {
-
-    private Gson gson;
-    private SendProtocolMessage send;
     private Breakpoint[] breakpoints;
     private List<Integer> breakpointLineNumbers;
 
     public SetBreakpointsManager(){
-        gson = new Gson();
-        send = new SendProtocolMessage();
         breakpointLineNumbers = new ArrayList<>();
     }
-    private String processSetBreakpointsRequest(String json) {
+    private String processSetBreakpointsRequest(String json, Gson gson) {
         SetBreakpointsRequest request = gson.fromJson(json, SetBreakpointsRequest.class);
         SetBreakpointsResponse response = new SetBreakpointsResponse();
         response.setRequest_seq(request.getSeq());
@@ -47,8 +42,8 @@ public class SetBreakpointsManager {
         return jsonResponse;
     }
 
-    public String createSetBreakpointResponse(String json){
-        String SetBreakpointsRes = processSetBreakpointsRequest(json);
+    public String createSetBreakpointResponse(String json, Gson gson, SendProtocolMessage send){
+        String SetBreakpointsRes = processSetBreakpointsRequest(json, gson);
         //String SetBreakpointsRes = SetBreakpointsResponseBuilder.processSetBreakpointsRequest(gson, json, breakpoints,breakpointLineNumbers);
         send.sendProtocolMessage(SetBreakpointsRes);
         StoppedEvent stoppedEvent = new StoppedEvent();

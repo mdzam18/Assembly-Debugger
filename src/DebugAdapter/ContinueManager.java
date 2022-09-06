@@ -44,7 +44,7 @@ public class ContinueManager {
         }
         if (nextBreakpointLine != -1) {
             CallEmulatorMethods callEmulatorMethods = new CallEmulatorMethods();
-            callEmulatorMethods.callEmulatorNextNTimes(nextBreakpointLine - currLine, emulator, gson, exceptionInfoManager);
+            callEmulatorMethods.callEmulatorNextNTimes(send, nextBreakpointLine - currLine, emulator, gson, exceptionInfoManager);
         } else {
             emulator.runWholeCode();
         }

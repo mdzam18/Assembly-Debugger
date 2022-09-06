@@ -1,20 +1,10 @@
 package src.DebugAdapter;
 
 import com.google.gson.Gson;
-import src.DapClasses.Attachs.AttachResponse;
-import src.DapClasses.Configurations.ConfigurationDoneRequest;
-import src.DapClasses.Configurations.ConfigurationDoneResponse;
-import src.DapClasses.Event.Event;
 import src.DapClasses.Pauses.PauseResponse;
 import src.DapClasses.Pauses.ProtocolMessage;
 import src.DapClasses.Request;
-import src.DapClasses.Response;
 import src.DapClasses.RunInTerminal.RunInTerminalResponse;
-import src.DapClasses.SetVariables.SetVariableResponse;
-import src.DapClasses.StoppedEvent.StoppedEvent;
-import src.DapClasses.Threads.Thread;
-import src.DapClasses.Threads.ThreadsRequest;
-import src.DapClasses.Threads.ThreadsResponse;
 import src.Emulator.AssemblyEmulator.AssemblyEmulator;
 
 import java.io.FileWriter;
@@ -26,25 +16,23 @@ public class Receiver {
             "/Users/mariami/Desktop/Assembly-Debugger-1/src/Emulator/Main/testInputFile");
 
     private Gson gson;
-    //private RequestsReader requestsReader;
     private BreakpointLocationsManager breakpointLocationsManager;
     private  ExceptionInfoManager exceptionInfoManager;
     private SendProtocolMessage send;
     private InitializeManager initializeManager;
     private SetBreakpointsManager setBreakpointsManager;
-    private SetExceptionBreakpointsManager setExceptionBreakpointsManager;
-    private LaunchResponseManager launchResponseManager;
+    private LaunchManager launchResponseManager;
     private StackTraceManager stackTraceManager;
-    private CallEmulatorMethods callEmulatorMethods;
     private ScopesManager scopesManager;
     private VariablesManager variablesManager;
     private NextManager nextManager;
     private DisconnectManager disconnectManager;
     private ContinueManager continueManager;
+    private ThreadsManager threadsManager;
+    private  ConfigurationDoneManager configurationDoneManager;
 
     public Receiver() throws Exception {
         init();
-        //requestsReader = new RequestsReader();
     }
 
     private void init(){
@@ -54,15 +42,15 @@ public class Receiver {
         send = new SendProtocolMessage();
         initializeManager = new InitializeManager();
         setBreakpointsManager = new SetBreakpointsManager();
-        setExceptionBreakpointsManager = new SetExceptionBreakpointsManager();
-        launchResponseManager = new LaunchResponseManager();
+        launchResponseManager = new LaunchManager();
         stackTraceManager = new StackTraceManager();
-        callEmulatorMethods = new CallEmulatorMethods();
         scopesManager = new ScopesManager();
         variablesManager = new VariablesManager();
         nextManager = new NextManager();
         disconnectManager = new DisconnectManager();
         continueManager = new ContinueManager();
+        threadsManager = new ThreadsManager();
+        configurationDoneManager = new ConfigurationDoneManager();
     }
 
     private String readHeader(Scanner scanner) {
@@ -112,7 +100,6 @@ public class Receiver {
             scanner.useDelimiter("");
             while (true) {
                 String message = readRequest(scanner);
-                //String message = requestsReader.readRequest();
                 fWriter.write("\n Received \n\n");
                 fWriter.write(message);
                 fWriter.flush();
@@ -135,32 +122,8 @@ public class Receiver {
             case "response":
                 break;
             case "event":
-                return processEvent(json);
+                return "";
         }
-        return null;
-    }
-
-    public String processEvent(String json) {
-        Event event = gson.fromJson(json, Event.class);
-        String command = event.getEvent();
-        switch (command) {
-            case "initialized":
-                return processInitializedEvent();
-            case "stopped":
-                return processStoppedEvent(json);
-            case "thread":
-                return processThreadEvent();
-            case "terminated":
-                return processTerminatedEvent(json);
-            case "exited":
-                return processExitedEvent();
-            default:
-                return null;
-        }
-    }
-
-
-    public String processInitializedEvent() {
         return null;
     }
 
@@ -170,33 +133,23 @@ public class Receiver {
         AssemblyEmulator emulator = launchResponseManager.getEmulator();
         switch (command) {
             case "initialize":
-                return initializeManager.createInitializeResponse(request, json);
+                return initializeManager.createInitializeResponse(request, json, gson, send);
             case "setBreakpoints":
-                return setBreakpointsManager.createSetBreakpointResponse(json);
-            case "setExceptionBreakpoints":
-                return setExceptionBreakpointsManager.processSetExceptionBreakpointsRequest(gson, json);
+                return setBreakpointsManager.createSetBreakpointResponse(json, gson, send);
             case "configurationDone":
-                String ConfigurationDoneRes = processConfigurationDoneRequest(json);
-                send.sendProtocolMessage(ConfigurationDoneRes);
-                return ConfigurationDoneRes;
+                return configurationDoneManager.createConfigurationDoneResponse(json, send, gson);
             case "launch":
                return launchResponseManager.createLaunchResponse(json, gson, send);
             case "breakpointLocations":
-                return breakpointLocationsManager.createBreakpointResponse(json, gson);
+                return breakpointLocationsManager.createBreakpointResponse(json, gson, send);
             case "runInTerminal":
                 return processRunInTerminalRequest();
-            case "attach":
-                return processSetVariableRequest();
-            case "setVariable":
-                return processAttachRequest();
             case "threads":
-                String ThreadsRes = processThreadsRequest(json);
-                send.sendProtocolMessage(ThreadsRes);
-                return ThreadsRes;
+                return threadsManager.createThreadsResponse(json, gson, send);
             case "stackTrace":
-                return stackTraceManager.createStackTraceResponse(exceptionInfoManager, launchResponseManager.getName(), launchResponseManager.getProgram(), setBreakpointsManager.getBreakpointLineNumbers(), emulator, gson, json);
+                return stackTraceManager.createStackTraceResponse(send, exceptionInfoManager, launchResponseManager.getName(), launchResponseManager.getProgram(), setBreakpointsManager.getBreakpointLineNumbers(), emulator, gson, json);
             case "scopes":
-                return scopesManager.createScopesResponse(json, gson);
+                return scopesManager.createScopesResponse(json, gson, send);
             case "variables":
                 return variablesManager.createVariablesResponse(json, gson, emulator, send);
             case "pause":
@@ -214,67 +167,14 @@ public class Receiver {
         }
     }
 
-    private String processExitedEvent() {
-        return null;
-    }
-
-    private String processTerminatedEvent(String json) {
-        return null;
-    }
-
-    private String processThreadEvent() {
-        return null;
-    }
-
-    private String processStoppedEvent(String json) {
-        StoppedEvent request = gson.fromJson(json, StoppedEvent.class);
-        return null;
-    }
-
     private String processPauseRequest() {
         PauseResponse response = new PauseResponse();
-        return null;
-    }
-
-    private String processThreadsRequest(String json) {
-        ThreadsRequest request = gson.fromJson(json, ThreadsRequest.class);
-        ThreadsResponse response = new ThreadsResponse();
-        Thread[] threads = new Thread[1];
-        threads[0] = new Thread();
-        threads[0].setId(1);
-        threads[0].setName("thread 1");
-        response.setThreads(threads);
-        Response r = new Response();
-        r.setBody(response);
-        r.setCommand("threads");
-        r.setRequest_seq(request.getSeq());
-        r.setSuccess(true);
-        String jsonResponse = gson.toJson(r);
-        return jsonResponse;
-    }
-
-    private String processSetVariableRequest() {
-        SetVariableResponse response = new SetVariableResponse();
-        return null;
-    }
-
-    private String processAttachRequest() {
-        AttachResponse response = new AttachResponse();
         return null;
     }
 
     private String processRunInTerminalRequest() {
         RunInTerminalResponse response = new RunInTerminalResponse();
         return null;
-    }
-
-    private String processConfigurationDoneRequest(String json) {
-        ConfigurationDoneRequest request = gson.fromJson(json, ConfigurationDoneRequest.class);
-        ConfigurationDoneResponse response = new ConfigurationDoneResponse();
-        response.setRequest_seq(request.getSeq());
-        response.setSuccess(true);
-        String jsonResponse = gson.toJson(response);
-        return jsonResponse;
     }
 
 }

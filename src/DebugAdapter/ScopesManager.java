@@ -7,11 +7,7 @@ import src.DapClasses.Scopes.ScopesRequest;
 import src.DapClasses.Scopes.ScopesResponse;
 
 public class ScopesManager {
-    private SendProtocolMessage send;
 
-    public ScopesManager(){
-        send = new SendProtocolMessage();
-    }
     private String processScopesRequest(String json, Gson gson) {
         ScopesRequest request = gson.fromJson(json, ScopesRequest.class);
         ScopesResponse response = new ScopesResponse();
@@ -38,7 +34,7 @@ public class ScopesManager {
         return jsonResponse;
     }
 
-    public String createScopesResponse(String json, Gson gson){
+    public String createScopesResponse(String json, Gson gson, SendProtocolMessage send){
         String ScopesRequestRes = processScopesRequest(json, gson);
         send.sendProtocolMessage(ScopesRequestRes);
         return ScopesRequestRes;

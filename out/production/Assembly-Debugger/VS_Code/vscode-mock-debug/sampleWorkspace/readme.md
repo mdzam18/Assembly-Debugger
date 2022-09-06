@@ -6,7 +6,7 @@ SP = SP - 4;
 M[SP] = R1;
 CALL<FACT>;
 SP = SP + 4;
-SP = SP + 4;
+SP = SP + 12;
 RET;
 Function FACT;
 R1 = M[SP+4];

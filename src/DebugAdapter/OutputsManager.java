@@ -8,13 +8,8 @@ import src.Emulator.AssemblyEmulator.AssemblyEmulator;
 import java.io.IOException;
 
 public class OutputsManager {
-    private SendProtocolMessage send;
 
-    public OutputsManager(){
-        send = new SendProtocolMessage();
-    }
-
-    public void showTextInConsole(String text, AssemblyEmulator emulator, Gson gson) throws IOException {
+    public void showTextInConsole(String text, AssemblyEmulator emulator, Gson gson, SendProtocolMessage send) throws IOException {
         OutputEvent oEvent = new OutputEvent();
         oEvent.setVariablesReference(0);
         oEvent.setOutput(text);

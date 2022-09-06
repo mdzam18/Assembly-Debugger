@@ -4,7 +4,7 @@
 {"command":"initialize","arguments":{"clientID":"vscode","clientName":"Visual Studio Code","adapterID":"mock","pathFormat":"path","linesStartAt1":true,"columnsStartAt1":true,"supportsVariableType":true,"supportsVariablePaging":true,"supportsRunInTerminalRequest":true,"locale":"en-us","supportsProgressReporting":true,"supportsInvalidatedEvent":true,"supportsMemoryReferences":true,"supportsArgsCanBeInterpretedByShell":true},"type":"request","seq":1}
  Received 
 
-{"command":"launch","arguments":{"type":"mock","request":"launch","name":"Debug readme.md","program":"/Users/mariami/Desktop/Assembly-Debugger-1/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","stopOnEntry":true,"trace":false,"__configurationTarget":6,"__sessionId":"9b389f2d-f338-4262-a1b8-4ef2e50e3bf2"},"type":"request","seq":2}
+{"command":"launch","arguments":{"type":"mock","request":"launch","name":"Debug readme.md","program":"/Users/mariami/Desktop/Assembly-Debugger-1/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","stopOnEntry":true,"trace":false,"__configurationTarget":6,"__sessionId":"95a8cbaa-9877-417d-8ebd-075c84566325"},"type":"request","seq":2}
  Received 
 
 {"command":"setBreakpoints","arguments":{"source":{"name":"readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger-1/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md"},"lines":[8],"breakpoints":[{"line":8}],"sourceModified":false},"type":"request","seq":3}
@@ -13,10 +13,10 @@
 {"command":"threads","type":"request","seq":4}
  Received 
 
-{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":5}
+{"command":"breakpointLocations","arguments":{"source":{"name":"readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger-1/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md"},"line":8},"type":"request","seq":5}
  Received 
 
-{"command":"breakpointLocations","arguments":{"source":{"name":"readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger-1/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md"},"line":8},"type":"request","seq":6}
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":6}
  Received 
 
 {"command":"breakpointLocations","arguments":{"source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger-1/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":8},"type":"request","seq":7}
@@ -52,25 +52,22 @@
 {"command":"threads","type":"request","seq":17}
  Received 
 
-{"command":"threads","type":"request","seq":18}
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":18}
  Received 
 
-{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":19}
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger-1/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":8},"type":"request","seq":19}
  Received 
 
-{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":20}
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":20}
  Received 
 
-{"command":"exceptionInfo","arguments":{"threadId":1},"type":"request","seq":21}
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":21}
  Received 
 
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug readme.md","path":"/Users/mariami/Desktop/Assembly-Debugger-1/VS_Code/vscode-mock-debug/sampleWorkspace/readme.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":8},"type":"request","seq":22}
+{"command":"next","arguments":{"threadId":1},"type":"request","seq":22}
  Received 
 
-{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":23}
+{"command":"threads","type":"request","seq":23}
  Received 
 
-{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":24}
- Received 
-
-{"command":"disconnect","arguments":{"restart":false},"type":"request","seq":25}
+{"command":"disconnect","arguments":{"restart":false},"type":"request","seq":24}

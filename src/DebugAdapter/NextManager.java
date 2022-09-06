@@ -28,7 +28,7 @@ public class NextManager {
         e1.setEvent("stopped");
         send.sendProtocolMessage(gson.toJson(e1));
         CallEmulatorMethods callEmulatorMethods = new CallEmulatorMethods();
-        callEmulatorMethods.callEmulatorNextNTimes(1, emulator, gson, exceptionInfoManager);
+        callEmulatorMethods.callEmulatorNextNTimes(send, 1, emulator, gson, exceptionInfoManager);
         return NextRequestRes;
     }
 

@@ -12,11 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StackTraceManager {
-    private SendProtocolMessage send;
     private CallEmulatorMethods emulatorMethods;
 
     public StackTraceManager(){
-        send = new SendProtocolMessage();
         emulatorMethods = new CallEmulatorMethods();
     }
     private String processStackTraceRequest(String name, String program, List<Integer> breakpointLineNumbers, AssemblyEmulator emulator, Gson gson, String json) {
@@ -56,11 +54,11 @@ public class StackTraceManager {
         return source;
     }
 
-    public String createStackTraceResponse(ExceptionInfoManager exceptionInfoManager, String name, String program, List<Integer> breakpoints, AssemblyEmulator emulator, Gson gson, String json) {
+    public String createStackTraceResponse(SendProtocolMessage send, ExceptionInfoManager exceptionInfoManager, String name, String program, List<Integer> breakpoints, AssemblyEmulator emulator, Gson gson, String json) {
         try {
             String StackTraceRes = processStackTraceRequest(name, program, breakpoints, emulator, gson, json);
             if (emulator.getActualLineNumber() == 0) {
-                emulatorMethods.callEmulatorNextUntilFistBreakPoint(exceptionInfoManager, emulator, breakpoints, gson);
+                emulatorMethods.callEmulatorNextUntilFistBreakPoint(send, exceptionInfoManager, emulator, breakpoints, gson);
             }
             send.sendProtocolMessage(StackTraceRes);
             return StackTraceRes;

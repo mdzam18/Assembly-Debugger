@@ -9,15 +9,7 @@ import src.DapClasses.Response;
 
 public class InitializeManager {
 
-    private Gson gson;
-    private SendProtocolMessage send;
-
-    public InitializeManager(){
-        gson = new Gson();
-        send = new SendProtocolMessage();
-    }
-
-    private String processInitializeRequest(String json) {
+    private String processInitializeRequest(String json, Gson gson) {
         Request request = gson.fromJson(json, Request.class);
         InitializeResponse response = new InitializeResponse();
         Capabilities capabilities = new Capabilities();
@@ -32,8 +24,8 @@ public class InitializeManager {
         return gson.toJson(r);
     }
 
-    public String createInitializeResponse(Request request, String json){
-        Response initResponse = gson.fromJson(processInitializeRequest(json), Response.class);
+    public String createInitializeResponse(Request request, String json, Gson gson, SendProtocolMessage send){
+        Response initResponse = gson.fromJson(processInitializeRequest(json, gson), Response.class);
         initResponse.setRequest_seq(request.getSeq());
         initResponse.setSuccess(true);
         initResponse.setCommand("initialize");
