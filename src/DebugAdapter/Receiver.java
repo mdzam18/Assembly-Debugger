@@ -4,11 +4,6 @@ import com.google.gson.Gson;
 import src.DapClasses.Attachs.AttachResponse;
 import src.DapClasses.Configurations.ConfigurationDoneRequest;
 import src.DapClasses.Configurations.ConfigurationDoneResponse;
-import src.DapClasses.Continues.ContinueRequest;
-import src.DapClasses.Continues.ContinueResponse;
-import src.DapClasses.Continues.ContinuedEvent;
-import src.DapClasses.Disconnects.DisconnectRequest;
-import src.DapClasses.Disconnects.DisconnectResponse;
 import src.DapClasses.Event.Event;
 import src.DapClasses.Pauses.PauseResponse;
 import src.DapClasses.Pauses.ProtocolMessage;
@@ -45,6 +40,7 @@ public class Receiver {
     private VariablesManager variablesManager;
     private NextManager nextManager;
     private DisconnectManager disconnectManager;
+    private ContinueManager continueManager;
 
     public Receiver() throws Exception {
         init();
@@ -66,6 +62,7 @@ public class Receiver {
         variablesManager = new VariablesManager();
         nextManager = new NextManager();
         disconnectManager = new DisconnectManager();
+        continueManager = new ContinueManager();
     }
 
     private String readHeader(Scanner scanner) {
@@ -205,30 +202,7 @@ public class Receiver {
             case "pause":
                 return processPauseRequest();
             case "continue":
-                String ContinueRequestRes = processContinueRequest(json);
-                send.sendProtocolMessage(ContinueRequestRes);
-                ContinuedEvent ce = new ContinuedEvent();
-                ce.setThreadId(1);
-                ce.setAllThreadsContinued(true);
-                Event x = new Event();
-                x.setEvent("continued");
-                x.setBody(ce);
-               send.sendProtocolMessage(gson.toJson(x));
-                int currLine = emulator.getActualLineNumber() + 1;
-                int nextBreakpointLine = -1;
-                List<Integer> breakpointLineNumbers = setBreakpointsManager.getBreakpointLineNumbers();
-                for (int i = 0; i < breakpointLineNumbers.size(); i++) {
-                    if (currLine < breakpointLineNumbers.get(i)) {
-                        nextBreakpointLine = breakpointLineNumbers.get(i);
-                        break;
-                    }
-                }
-                if (nextBreakpointLine != -1) {
-                    callEmulatorMethods.callEmulatorNextNTimes(nextBreakpointLine - currLine, emulator, gson, exceptionInfoManager);
-                } else {
-                    emulator.runWholeCode();
-                }
-                return ContinueRequestRes;
+                return continueManager.createContinueResponse(exceptionInfoManager, json, send, gson, emulator, setBreakpointsManager.getBreakpointLineNumbers());
             case "next":
                 return nextManager.createNextResponse(exceptionInfoManager, json, gson, send, emulator);
             case "disconnect":
@@ -255,27 +229,6 @@ public class Receiver {
     private String processStoppedEvent(String json) {
         StoppedEvent request = gson.fromJson(json, StoppedEvent.class);
         return null;
-    }
-
-    private String processDisconnectRequest(String json) {
-        DisconnectRequest request = gson.fromJson(json, DisconnectRequest.class);
-        DisconnectResponse response = new DisconnectResponse();
-        response.setRequest_seq(request.getSeq());
-        response.setSuccess(true);
-        return gson.toJson(response);
-    }
-
-    private String processContinueRequest(String json) {
-        ContinueRequest request = gson.fromJson(json, ContinueRequest.class);
-        ContinueResponse response = new ContinueResponse();
-        Response r = new Response();
-        r.setCommand("continue");
-        r.setRequest_seq(request.getSeq());
-        r.setSuccess(true);
-        response.setAllThreadsContinued(true);
-        // r.setBody(response);
-        String jsonResponse = gson.toJson(r);
-        return jsonResponse;
     }
 
     private String processPauseRequest() {

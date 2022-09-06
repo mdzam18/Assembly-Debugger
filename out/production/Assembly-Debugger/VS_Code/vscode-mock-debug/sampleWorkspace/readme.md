@@ -10,7 +10,6 @@ SP = SP + 4;
 RET;
 Function FACT;
 R1 = M[SP+4];
-BNE;
 RV = 1;
 RET;
 SP = SP - 4;
