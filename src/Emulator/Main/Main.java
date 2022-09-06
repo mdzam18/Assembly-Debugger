@@ -1,6 +1,6 @@
 package src.Emulator.Main;
 
-import src.DapClasses.Receiver;
+import src.DebugAdapter.Receiver;
 import src.Emulator.AssemblyEmulator.AssemblyEmulator;
 
 import java.util.ArrayList;

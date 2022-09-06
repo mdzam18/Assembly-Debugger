@@ -8,13 +8,13 @@ import com.google.gson.Gson;
 
 public class BreakpointLocationsManager {
 
-    private Gson gson;
+    private SendProtocolMessage send;
 
     public BreakpointLocationsManager(){
-        gson = new Gson();
+        send = new SendProtocolMessage();
     }
 
-    public String processBreakpointLocationsRequest(String json) {
+    private String processBreakpointLocationsRequest(String json, Gson gson) {
         BreakpointLocationsRequest request = gson.fromJson(json, BreakpointLocationsRequest.class);
         BreakpointLocationsResponse response = new BreakpointLocationsResponse();
         response.setRequest_seq(request.getSeq());
@@ -28,5 +28,11 @@ public class BreakpointLocationsManager {
         response.setBody(breakpointLocations);
         String jsonResponse = gson.toJson(response);
         return jsonResponse;
+    }
+
+    public String createBreakpointResponse(String json, Gson gson){
+        String BreakpointLocationsRes = processBreakpointLocationsRequest(json, gson);
+        send.sendProtocolMessage(BreakpointLocationsRes);
+        return BreakpointLocationsRes;
     }
 }
