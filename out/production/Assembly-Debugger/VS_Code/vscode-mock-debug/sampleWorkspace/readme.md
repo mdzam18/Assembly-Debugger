@@ -1,15 +1,16 @@
 Function main;
 SP = SP - 4;
-M[SP] = 0;
+M[SP] = 5;
 R1 = M[SP];
 SP = SP - 4;
 M[SP] = R1;
 CALL<FACT>;
 SP = SP + 4;
-SP = SP + 12;
+SP = SP + 4;
 RET;
 Function FACT;
 R1 = M[SP+4];
+BNE R1 , 0 , PC+12;
 RV = 1;
 RET;
 SP = SP - 4;

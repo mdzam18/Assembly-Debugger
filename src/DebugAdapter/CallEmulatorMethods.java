@@ -14,10 +14,12 @@ public class CallEmulatorMethods {
 
     public void callEmulatorNextUntilFistBreakPoint(SendProtocolMessage send, ExceptionInfoManager exceptionInfoManager, AssemblyEmulator emulator, List<Integer> breakpointLineNumbers, Gson gson) throws Exception {
         try {
+            boolean first = true;
             while (true) {
-                if (breakpointLineNumbers.contains(emulator.getActualLineNumber() + 1)) {
+                if (!first && breakpointLineNumbers.contains(emulator.getActualLineNumber() + 1)) {
                     break;
                 }
+                first = false;
                 boolean isProgramRunning = emulator.next();
                 if (emulator.getAssertsText().length() != 0) {
                     //print asserts text

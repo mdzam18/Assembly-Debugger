@@ -17,6 +17,10 @@ public class SetBreakpointsManager {
     private Breakpoint[] breakpoints;
     private List<Integer> breakpointLineNumbers;
 
+    public Breakpoint[] getBreakpoints() {
+        return breakpoints;
+    }
+
     public SetBreakpointsManager(){
         breakpointLineNumbers = new ArrayList<>();
     }
