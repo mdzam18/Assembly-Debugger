@@ -56,11 +56,11 @@ public class StackTraceManager {
         return source;
     }
 
-    public String createStackTraceResponse(String name, String program, List<Integer> breakpoints, AssemblyEmulator emulator, Gson gson, String json) {
+    public String createStackTraceResponse(ExceptionInfoManager exceptionInfoManager, String name, String program, List<Integer> breakpoints, AssemblyEmulator emulator, Gson gson, String json) {
         try {
             String StackTraceRes = processStackTraceRequest(name, program, breakpoints, emulator, gson, json);
             if (emulator.getActualLineNumber() == 0) {
-                emulatorMethods.callEmulatorNextUntilFistBreakPoint(emulator, breakpoints, gson);
+                emulatorMethods.callEmulatorNextUntilFistBreakPoint(exceptionInfoManager, emulator, breakpoints, gson);
             }
             send.sendProtocolMessage(StackTraceRes);
             return StackTraceRes;

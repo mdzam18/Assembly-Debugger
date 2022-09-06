@@ -17,7 +17,7 @@ public class LaunchResponseManager {
         send = new SendProtocolMessage();
     }
 
-    private String processLaunchRequest(String json, Gson gson) throws IOException {
+    private String processLaunchRequest(String json, Gson gson, SendProtocolMessage send) throws IOException {
         ExceptionInfoManager exceptionInfoManager = new ExceptionInfoManager();
         LaunchRequest request = gson.fromJson(json, LaunchRequest.class);
         name = request.getArguments().getName();
@@ -32,7 +32,7 @@ public class LaunchResponseManager {
             String jsonResponse = gson.toJson(response);
             return jsonResponse;
         } catch (Exception e) {
-            exceptionInfoManager.processEmulatorException(e);
+            exceptionInfoManager.processEmulatorException(e, gson, send);
         }
         return "";
     }
@@ -49,8 +49,8 @@ public class LaunchResponseManager {
         return program;
     }
 
-    public String createLaunchResponse(String json, Gson gson) throws IOException {
-        String LaunchRes = processLaunchRequest(json, gson);
+    public String createLaunchResponse(String json, Gson gson, SendProtocolMessage send) throws IOException {
+        String LaunchRes = processLaunchRequest(json, gson, send);
         //String LaunchRes = LaunchResponseBuilder.processLaunchRequest(gson, json, name, program);
         send.sendProtocolMessage(LaunchRes);
         return LaunchRes;

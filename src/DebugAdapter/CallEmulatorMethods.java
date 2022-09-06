@@ -14,7 +14,7 @@ public class CallEmulatorMethods {
         outputsManager = new OutputsManager();
     }
 
-    public void callEmulatorNextUntilFistBreakPoint(AssemblyEmulator emulator, List<Integer> breakpointLineNumbers, Gson gson) throws Exception {
+    public void callEmulatorNextUntilFistBreakPoint(ExceptionInfoManager exceptionInfoManager, AssemblyEmulator emulator, List<Integer> breakpointLineNumbers, Gson gson) throws Exception {
         try {
             while (true) {
                 if (breakpointLineNumbers.contains(emulator.getActualLineNumber() + 1)) {
@@ -32,12 +32,11 @@ public class CallEmulatorMethods {
                 }
             }
         } catch (Exception e) {
-            ExceptionInfoManager exceptionInfoManager = new ExceptionInfoManager();
-            exceptionInfoManager.processEmulatorException(e);
+            exceptionInfoManager.processEmulatorException(e, gson, send);
         }
     }
 
-    public void callEmulatorNextNTimes(int num, AssemblyEmulator emulator, Gson gson) throws Exception {
+    public void callEmulatorNextNTimes(int num, AssemblyEmulator emulator, Gson gson, ExceptionInfoManager exceptionInfoManager) throws Exception {
         for (int i = 0; i < num; i++) {
             try {
                 boolean isProgramRunning = emulator.next();
@@ -55,8 +54,7 @@ public class CallEmulatorMethods {
                     break;
                 }
             } catch (Exception e) {
-                ExceptionInfoManager exceptionInfoManager = new ExceptionInfoManager();
-                exceptionInfoManager.processEmulatorException(e);
+                exceptionInfoManager.processEmulatorException(e, gson, send);
             }
         }
     }

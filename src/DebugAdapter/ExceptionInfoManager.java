@@ -10,16 +10,9 @@ import src.DapClasses.StoppedEvent.StoppedEvent;
 import java.io.IOException;
 
 public class ExceptionInfoManager {
+    private String exceptionMessage;
 
-    private Gson gson;
-    private SendProtocolMessage send;
-
-    public ExceptionInfoManager(){
-        gson = new Gson();
-        send = new SendProtocolMessage();
-    }
-
-    public String processExceptionInfoRequest(String json, String exceptionMessage) throws IOException {
+    private String processExceptionInfoRequest(String json, Gson gson) throws IOException {
         ExceptionInfoRequest request = gson.fromJson(json, ExceptionInfoRequest.class);
         Response r = new Response();
         r.setCommand("exceptionInfo");
@@ -34,11 +27,12 @@ public class ExceptionInfoManager {
         return jsonResponse;
     }
 
-    public void processEmulatorException(Exception e) throws IOException {
+    public void processEmulatorException(Exception e, Gson gson, SendProtocolMessage send) throws IOException {
         StoppedEvent stoppedEvent = new StoppedEvent();
         stoppedEvent.setReason("exception");
         stoppedEvent.setThreadId(1);
         stoppedEvent.setText(e.getMessage());
+        exceptionMessage = e.getMessage();
         stoppedEvent.setDescription(e.getMessage());
         stoppedEvent.setAllThreadsStopped(false);
         stoppedEvent.setPreserveFocusHint(false);
@@ -46,5 +40,11 @@ public class ExceptionInfoManager {
         exc.setBody(stoppedEvent);
         exc.setEvent("stopped");
         send.sendProtocolMessage(gson.toJson(exc));
+    }
+
+    public String createExceptionInfoResponse(String json, Gson gson, SendProtocolMessage send) throws IOException {
+        String exceptionInfoRequestRes = processExceptionInfoRequest(json, gson);
+        send.sendProtocolMessage(exceptionInfoRequestRes);
+        return exceptionInfoRequestRes;
     }
 }

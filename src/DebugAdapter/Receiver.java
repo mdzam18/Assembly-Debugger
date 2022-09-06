@@ -10,20 +10,13 @@ import src.DapClasses.Continues.ContinuedEvent;
 import src.DapClasses.Disconnects.DisconnectRequest;
 import src.DapClasses.Disconnects.DisconnectResponse;
 import src.DapClasses.Event.Event;
-import src.DapClasses.Nexts.NextRequest;
-import src.DapClasses.Nexts.NextResponse;
 import src.DapClasses.Pauses.PauseResponse;
 import src.DapClasses.Pauses.ProtocolMessage;
 import src.DapClasses.Request;
 import src.DapClasses.Response;
 import src.DapClasses.RunInTerminal.RunInTerminalResponse;
-import src.DapClasses.SetBreakpoints.SetFunctionBreakpointsRequest;
-import src.DapClasses.SetBreakpoints.SetFunctionBreakpointsResponse;
 import src.DapClasses.SetVariables.SetVariableResponse;
-import src.DapClasses.StepIn.StepInResponse;
-import src.DapClasses.StepOut.StepOutResponse;
 import src.DapClasses.StoppedEvent.StoppedEvent;
-import src.DapClasses.Terminate.TerminateResponse;
 import src.DapClasses.Threads.Thread;
 import src.DapClasses.Threads.ThreadsRequest;
 import src.DapClasses.Threads.ThreadsResponse;
@@ -38,9 +31,7 @@ public class Receiver {
             "/Users/mariami/Desktop/Assembly-Debugger-1/src/Emulator/Main/testInputFile");
 
     private Gson gson;
-    private String exceptionMessage;
     //private RequestsReader requestsReader;
-
     private BreakpointLocationsManager breakpointLocationsManager;
     private  ExceptionInfoManager exceptionInfoManager;
     private SendProtocolMessage send;
@@ -52,6 +43,8 @@ public class Receiver {
     private CallEmulatorMethods callEmulatorMethods;
     private ScopesManager scopesManager;
     private VariablesManager variablesManager;
+    private NextManager nextManager;
+    private DisconnectManager disconnectManager;
 
     public Receiver() throws Exception {
         init();
@@ -71,6 +64,8 @@ public class Receiver {
         callEmulatorMethods = new CallEmulatorMethods();
         scopesManager = new ScopesManager();
         variablesManager = new VariablesManager();
+        nextManager = new NextManager();
+        disconnectManager = new DisconnectManager();
     }
 
     private String readHeader(Scanner scanner) {
@@ -127,7 +122,7 @@ public class Receiver {
                 receiveProtocolMessage(message);
             }
         } catch (Exception e) {
-            exceptionInfoManager.processEmulatorException(e);
+            exceptionInfoManager.processEmulatorException(e, gson, send);
         } finally {
             fWriter.close();
         }
@@ -183,16 +178,12 @@ public class Receiver {
                 return setBreakpointsManager.createSetBreakpointResponse(json);
             case "setExceptionBreakpoints":
                 return setExceptionBreakpointsManager.processSetExceptionBreakpointsRequest(gson, json);
-            case "setFunctionBreakpoints":
-                String SetFunctionBreakpointsRes = processSetFunctionBreakpointsRequest(json);
-                send.sendProtocolMessage(SetFunctionBreakpointsRes);
-                return SetFunctionBreakpointsRes;
             case "configurationDone":
                 String ConfigurationDoneRes = processConfigurationDoneRequest(json);
                 send.sendProtocolMessage(ConfigurationDoneRes);
                 return ConfigurationDoneRes;
             case "launch":
-               return launchResponseManager.createLaunchResponse(json, gson);
+               return launchResponseManager.createLaunchResponse(json, gson, send);
             case "breakpointLocations":
                 return breakpointLocationsManager.createBreakpointResponse(json, gson);
             case "runInTerminal":
@@ -206,7 +197,7 @@ public class Receiver {
                 send.sendProtocolMessage(ThreadsRes);
                 return ThreadsRes;
             case "stackTrace":
-                return stackTraceManager.createStackTraceResponse(launchResponseManager.getName(), launchResponseManager.getProgram(), setBreakpointsManager.getBreakpointLineNumbers(), emulator, gson, json);
+                return stackTraceManager.createStackTraceResponse(exceptionInfoManager, launchResponseManager.getName(), launchResponseManager.getProgram(), setBreakpointsManager.getBreakpointLineNumbers(), emulator, gson, json);
             case "scopes":
                 return scopesManager.createScopesResponse(json, gson);
             case "variables":
@@ -233,38 +224,17 @@ public class Receiver {
                     }
                 }
                 if (nextBreakpointLine != -1) {
-                    callEmulatorMethods.callEmulatorNextNTimes(nextBreakpointLine - currLine, emulator, gson);
+                    callEmulatorMethods.callEmulatorNextNTimes(nextBreakpointLine - currLine, emulator, gson, exceptionInfoManager);
                 } else {
                     emulator.runWholeCode();
                 }
-
                 return ContinueRequestRes;
             case "next":
-                String NextRequestRes = processNextRequest(json);
-                send.sendProtocolMessage(NextRequestRes);
-                StoppedEvent stoppedEvent1 = new StoppedEvent();
-                stoppedEvent1.setReason("step");
-                stoppedEvent1.setThreadId(1);
-                Event e1 = new Event();
-                e1.setBody(stoppedEvent1);
-                e1.setEvent("stopped");
-                send.sendProtocolMessage(gson.toJson(e1));
-                callEmulatorMethods.callEmulatorNextNTimes(1, emulator, gson);
-                return NextRequestRes;
-            case "stepIn":
-                return processStepInRequest();
-            case "stepOut":
-                return processStepOutRequest();
-            case "terminate":
-                return processTerminateRequest();
+                return nextManager.createNextResponse(exceptionInfoManager, json, gson, send, emulator);
             case "disconnect":
-                String DisconnectRequestRes = processDisconnectRequest(json);
-                send.sendProtocolMessage(DisconnectRequestRes);
-                return DisconnectRequestRes;
+                return disconnectManager.createDisconnectResponse(json, gson, send);
             case "exceptionInfo":
-                String exceptionInfoRequestRes = exceptionInfoManager.processExceptionInfoRequest(json, exceptionMessage);
-               send.sendProtocolMessage(exceptionInfoRequestRes);
-                return exceptionInfoRequestRes;
+                exceptionInfoManager.createExceptionInfoResponse(json, gson, send);
             default:
                 return null;
         }
@@ -293,30 +263,6 @@ public class Receiver {
         response.setRequest_seq(request.getSeq());
         response.setSuccess(true);
         return gson.toJson(response);
-    }
-
-    private String processTerminateRequest() {
-        TerminateResponse response = new TerminateResponse();
-        return null;
-    }
-
-    private String processStepOutRequest() {
-        StepOutResponse response = new StepOutResponse();
-        return null;
-    }
-
-    private String processStepInRequest() {
-        StepInResponse response = new StepInResponse();
-        return null;
-    }
-
-    private String processNextRequest(String json) {
-        NextRequest request = gson.fromJson(json, NextRequest.class);
-        NextResponse response = new NextResponse();
-        response.setRequest_seq(request.getSeq());
-        response.setSuccess(true);
-        String jsonResponse = gson.toJson(response);
-        return jsonResponse;
     }
 
     private String processContinueRequest(String json) {
@@ -357,15 +303,6 @@ public class Receiver {
     private String processSetVariableRequest() {
         SetVariableResponse response = new SetVariableResponse();
         return null;
-    }
-
-    private String processSetFunctionBreakpointsRequest(String json) {
-        SetFunctionBreakpointsRequest request = gson.fromJson(json, SetFunctionBreakpointsRequest.class);
-        SetFunctionBreakpointsResponse response = new SetFunctionBreakpointsResponse();
-        response.setRequest_seq(request.getSeq());
-        response.setSuccess(true);
-        String jsonResponse = gson.toJson(response);
-        return jsonResponse;
     }
 
     private String processAttachRequest() {
