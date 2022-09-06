@@ -12,22 +12,14 @@ import src.DapClasses.Disconnects.DisconnectResponse;
 import src.DapClasses.Event.Event;
 import src.DapClasses.Nexts.NextRequest;
 import src.DapClasses.Nexts.NextResponse;
-import src.DapClasses.Output.OutputEvent;
 import src.DapClasses.Pauses.PauseResponse;
 import src.DapClasses.Pauses.ProtocolMessage;
 import src.DapClasses.Request;
 import src.DapClasses.Response;
 import src.DapClasses.RunInTerminal.RunInTerminalResponse;
-import src.DapClasses.Scopes.Scope;
-import src.DapClasses.Scopes.ScopesRequest;
-import src.DapClasses.Scopes.ScopesResponse;
 import src.DapClasses.SetBreakpoints.SetFunctionBreakpointsRequest;
 import src.DapClasses.SetBreakpoints.SetFunctionBreakpointsResponse;
 import src.DapClasses.SetVariables.SetVariableResponse;
-import src.DapClasses.Sources.Source;
-import src.DapClasses.StackFrames.StackFrame;
-import src.DapClasses.StackFrames.StackTraceRequest;
-import src.DapClasses.StackFrames.StackTraceResponse;
 import src.DapClasses.StepIn.StepInResponse;
 import src.DapClasses.StepOut.StepOutResponse;
 import src.DapClasses.StoppedEvent.StoppedEvent;
@@ -35,13 +27,9 @@ import src.DapClasses.Terminate.TerminateResponse;
 import src.DapClasses.Threads.Thread;
 import src.DapClasses.Threads.ThreadsRequest;
 import src.DapClasses.Threads.ThreadsResponse;
-import src.DapClasses.Variables.Variable;
-import src.DapClasses.Variables.VariablesRequest;
-import src.DapClasses.Variables.VariablesResponse;
 import src.Emulator.AssemblyEmulator.AssemblyEmulator;
 
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.*;
 
 
@@ -62,14 +50,16 @@ public class Receiver {
     private LaunchResponseManager launchResponseManager;
     private StackTraceManager stackTraceManager;
     private CallEmulatorMethods callEmulatorMethods;
+    private ScopesManager scopesManager;
+    private VariablesManager variablesManager;
 
     public Receiver() throws Exception {
-        gson = new Gson();
         init();
         //requestsReader = new RequestsReader();
     }
 
     private void init(){
+        gson = new Gson();
         breakpointLocationsManager = new BreakpointLocationsManager();
         exceptionInfoManager = new ExceptionInfoManager();
         send = new SendProtocolMessage();
@@ -79,6 +69,8 @@ public class Receiver {
         launchResponseManager = new LaunchResponseManager();
         stackTraceManager = new StackTraceManager();
         callEmulatorMethods = new CallEmulatorMethods();
+        scopesManager = new ScopesManager();
+        variablesManager = new VariablesManager();
     }
 
     private String readHeader(Scanner scanner) {
@@ -216,13 +208,9 @@ public class Receiver {
             case "stackTrace":
                 return stackTraceManager.createStackTraceResponse(launchResponseManager.getName(), launchResponseManager.getProgram(), setBreakpointsManager.getBreakpointLineNumbers(), emulator, gson, json);
             case "scopes":
-                String ScopesRequestRes = processScopesRequest(json);
-                send.sendProtocolMessage(ScopesRequestRes);
-                return ScopesRequestRes;
+                return scopesManager.createScopesResponse(json, gson);
             case "variables":
-                String VariablesRequestRes = processVariablesRequest(json);
-                send.sendProtocolMessage(VariablesRequestRes);
-                return VariablesRequestRes;
+                return variablesManager.createVariablesResponse(json, gson, emulator, send);
             case "pause":
                 return processPauseRequest();
             case "continue":
@@ -297,126 +285,6 @@ public class Receiver {
     private String processStoppedEvent(String json) {
         StoppedEvent request = gson.fromJson(json, StoppedEvent.class);
         return null;
-    }
-
-    private Variable[] showRegisters() {
-        AssemblyEmulator emulator = launchResponseManager.getEmulator();
-        Map<String, Integer> variablesMap = emulator.getRegisters();
-        Map<String, Integer> registersWithSp = emulator.getRegistersWithSP();
-        Variable[] variables = new Variable[variablesMap.size()];
-        int counter = 0;
-        for (String key : variablesMap.keySet()) {
-            if(!key.equals("RV")) {
-                Variable v = new Variable();
-                v.setName(key);
-                v.setVariablesReference(0);
-                if(registersWithSp.containsKey(key)){
-                    v.setValue(String.valueOf(registersWithSp.get(key)));
-                } else {
-                    v.setValue(String.valueOf(variablesMap.get(key)));
-                }
-                variables[counter] = v;
-                counter++;
-            }
-        }
-        return variables;
-    }
-
-    //returns rv and virtual value of sp
-    private Variable[] showSpecialRegisters(){
-        AssemblyEmulator emulator = launchResponseManager.getEmulator();
-        if(emulator.containsRv()) {
-            Variable[] variables = new Variable[2];
-            Variable v = new Variable();
-            v.setName("RV");
-            v.setVariablesReference(0);
-            v.setValue(String.valueOf(emulator.getRv()));
-            variables[0] = v;
-
-            v = new Variable();
-            v.setName("Virtual address of SP");
-            v.setVariablesReference(0);
-            v.setValue(String.valueOf(emulator.getSpVirtualValue()));
-            variables[1] = v;
-            return variables;
-        }
-        Variable[] variables = new Variable[1];
-        Variable v = new Variable();
-
-        v = new Variable();
-        v.setName("Virtual address of SP");
-        v.setVariablesReference(0);
-        v.setValue(String.valueOf(emulator.getSpVirtualValue()));
-        variables[0] = v;
-        return variables;
-    }
-
-    //shows stack frame of every method in callstack
-    private Variable[] showStackFrame() throws Exception {
-        AssemblyEmulator emulator = launchResponseManager.getEmulator();
-        List<String> callStack = emulator.getCallStack();
-        Variable[] variables = new Variable[callStack.size()];
-        for (int j = 0; j < callStack.size(); j++) {
-            List<String> stackFrame = emulator.showStack(j);
-            Variable v = new Variable();
-            v.setName(callStack.get(j));
-            v.setVariablesReference(0);
-            String[] arr = new String[stackFrame.size()];
-            for (int i = 0; i < stackFrame.size(); i++) {
-                arr[i] = stackFrame.get(i);
-            }
-            v.setValue(Arrays.toString(arr));
-            variables[j] = v;
-        }
-        return variables;
-    }
-
-    private String processVariablesRequest(String json) throws Exception {
-        VariablesRequest request = gson.fromJson(json, VariablesRequest.class);
-        VariablesResponse response = new VariablesResponse();
-        Variable[] variables = null;
-        if (request.getArguments().getVariablesReference() == 10) {
-            //registers
-            variables = showRegisters();
-        } else if(request.getArguments().getVariablesReference() == 11){
-            variables = showStackFrame();
-        } else {
-            variables = showSpecialRegisters();
-        }
-        response.setVariables(variables);
-        Response r = new Response();
-        r.setCommand("variables");
-        r.setRequest_seq(request.getSeq());
-        r.setSuccess(true);
-        r.setBody(response);
-        String jsonResponse = gson.toJson(r);
-        return jsonResponse;
-    }
-
-    private String processScopesRequest(String json) {
-        ScopesRequest request = gson.fromJson(json, ScopesRequest.class);
-        ScopesResponse response = new ScopesResponse();
-        Scope[] scopes = new Scope[3];
-        scopes[0] = new Scope();
-        scopes[0].setExpensive(false);
-        scopes[0].setName("Registers");
-        scopes[0].setVariablesReference(10);
-        scopes[1] = new Scope();
-        scopes[1].setExpensive(false);
-        scopes[1].setName("Stack Frame");
-        scopes[1].setVariablesReference(11);
-        scopes[2] = new Scope();
-        scopes[2].setExpensive(false);
-        scopes[2].setName("Special Registers");
-        scopes[2].setVariablesReference(12);
-        response.setScopes(scopes);
-        Response r = new Response();
-        r.setCommand("scopes");
-        r.setRequest_seq(request.getSeq());
-        r.setSuccess(true);
-        r.setBody(response);
-        String jsonResponse = gson.toJson(r);
-        return jsonResponse;
     }
 
     private String processDisconnectRequest(String json) {
