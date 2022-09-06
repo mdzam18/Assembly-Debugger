@@ -7,6 +7,8 @@ import src.DapClasses.Initialize.InitializedEvent;
 import src.DapClasses.Request;
 import src.DapClasses.Response;
 
+import java.io.IOException;
+
 public class InitializeManager {
 
     private String processInitializeRequest(String json, Gson gson) {
@@ -24,7 +26,7 @@ public class InitializeManager {
         return gson.toJson(r);
     }
 
-    public String createInitializeResponse(Request request, String json, Gson gson, SendProtocolMessage send){
+    public String createInitializeResponse(Request request, String json, Gson gson, SendProtocolMessage send) throws IOException {
         Response initResponse = gson.fromJson(processInitializeRequest(json, gson), Response.class);
         initResponse.setRequest_seq(request.getSeq());
         initResponse.setSuccess(true);

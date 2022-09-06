@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import src.DapClasses.Disconnects.DisconnectRequest;
 import src.DapClasses.Disconnects.DisconnectResponse;
 
+import java.io.IOException;
+
 public class DisconnectManager {
     private String processDisconnectRequest(Gson gson, String json) {
         DisconnectRequest request = gson.fromJson(json, DisconnectRequest.class);
@@ -13,7 +15,7 @@ public class DisconnectManager {
         return gson.toJson(response);
     }
 
-    public String createDisconnectResponse(String json, Gson gson, SendProtocolMessage send){
+    public String createDisconnectResponse(String json, Gson gson, SendProtocolMessage send) throws IOException {
         String DisconnectRequestRes = processDisconnectRequest(gson, json);
         send.sendProtocolMessage(DisconnectRequestRes);
         return DisconnectRequestRes;

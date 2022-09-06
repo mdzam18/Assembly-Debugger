@@ -29,6 +29,10 @@ public class CallEmulatorMethods {
                     if (emulator.containsRv()) {
                         outputsManager.showTextInConsole("RV: " + emulator.getRv() + "\n", emulator, gson, send);
                     }
+                    Event terminatedEvent = new Event();
+                    terminatedEvent.setEvent("terminated");
+                    send.sendProtocolMessage(gson.toJson(terminatedEvent));
+                    break;
                 }
             }
         } catch (Exception e) {

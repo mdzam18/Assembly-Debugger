@@ -6,6 +6,8 @@ import src.DapClasses.Breakpoints.BreakpointLocationsRequest;
 import src.DapClasses.Breakpoints.BreakpointLocationsResponse;
 import com.google.gson.Gson;
 
+import java.io.IOException;
+
 public class BreakpointLocationsManager {
 
     private String processBreakpointLocationsRequest(String json, Gson gson) {
@@ -24,7 +26,7 @@ public class BreakpointLocationsManager {
         return jsonResponse;
     }
 
-    public String createBreakpointResponse(String json, Gson gson, SendProtocolMessage send){
+    public String createBreakpointResponse(String json, Gson gson, SendProtocolMessage send) throws IOException {
         String BreakpointLocationsRes = processBreakpointLocationsRequest(json, gson);
         send.sendProtocolMessage(BreakpointLocationsRes);
         return BreakpointLocationsRes;

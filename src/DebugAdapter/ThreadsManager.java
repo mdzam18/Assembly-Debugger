@@ -6,6 +6,8 @@ import src.DapClasses.Threads.Thread;
 import src.DapClasses.Threads.ThreadsRequest;
 import src.DapClasses.Threads.ThreadsResponse;
 
+import java.io.IOException;
+
 public class ThreadsManager {
     private String processThreadsRequest(Gson gson, String json) {
         ThreadsRequest request = gson.fromJson(json, ThreadsRequest.class);
@@ -24,7 +26,7 @@ public class ThreadsManager {
         return jsonResponse;
     }
 
-    public String createThreadsResponse(String json, Gson gson, SendProtocolMessage send){
+    public String createThreadsResponse(String json, Gson gson, SendProtocolMessage send) throws IOException {
         String ThreadsRes = processThreadsRequest(gson, json);
         send.sendProtocolMessage(ThreadsRes);
         return ThreadsRes;

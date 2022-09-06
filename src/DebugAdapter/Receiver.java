@@ -8,6 +8,7 @@ import src.DapClasses.RunInTerminal.RunInTerminalResponse;
 import src.Emulator.AssemblyEmulator.AssemblyEmulator;
 
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 
@@ -35,7 +36,7 @@ public class Receiver {
         init();
     }
 
-    private void init(){
+    private void init() throws IOException {
         gson = new Gson();
         breakpointLocationsManager = new BreakpointLocationsManager();
         exceptionInfoManager = new ExceptionInfoManager();

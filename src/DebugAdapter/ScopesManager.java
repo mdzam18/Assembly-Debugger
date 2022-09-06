@@ -6,6 +6,8 @@ import src.DapClasses.Scopes.Scope;
 import src.DapClasses.Scopes.ScopesRequest;
 import src.DapClasses.Scopes.ScopesResponse;
 
+import java.io.IOException;
+
 public class ScopesManager {
 
     private String processScopesRequest(String json, Gson gson) {
@@ -34,7 +36,7 @@ public class ScopesManager {
         return jsonResponse;
     }
 
-    public String createScopesResponse(String json, Gson gson, SendProtocolMessage send){
+    public String createScopesResponse(String json, Gson gson, SendProtocolMessage send) throws IOException {
         String ScopesRequestRes = processScopesRequest(json, gson);
         send.sendProtocolMessage(ScopesRequestRes);
         return ScopesRequestRes;

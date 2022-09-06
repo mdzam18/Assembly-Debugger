@@ -31,6 +31,7 @@ public class SetBreakpointsManager {
         response.setSuccess(true);
         SourceBreakpoint[] requestBreakpoints = request.getArguments().getBreakpoints();
         int[] requestLines = request.getArguments().getLines();
+        breakpointLineNumbers = new ArrayList<>();
         for (int i = 0; i < requestLines.length; i++) {
             breakpointLineNumbers.add(requestLines[i]);
         }
@@ -46,7 +47,7 @@ public class SetBreakpointsManager {
         return jsonResponse;
     }
 
-    public String createSetBreakpointResponse(String json, Gson gson, SendProtocolMessage send){
+    public String createSetBreakpointResponse(String json, Gson gson, SendProtocolMessage send) throws IOException {
         String SetBreakpointsRes = processSetBreakpointsRequest(json, gson);
         //String SetBreakpointsRes = SetBreakpointsResponseBuilder.processSetBreakpointsRequest(gson, json, breakpoints,breakpointLineNumbers);
         send.sendProtocolMessage(SetBreakpointsRes);
