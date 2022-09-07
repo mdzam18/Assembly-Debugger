@@ -2,7 +2,6 @@ package src.DapClasses.Threads;
 
 public class ThreadsResponse {
     private Thread[] threads;
-    //private Object body;
 
     public Thread[] getThreads() {
         return threads;
@@ -12,13 +11,4 @@ public class ThreadsResponse {
         this.threads = threads;
     }
 
-//    @Override
-//    public Object getBody() {
-//        return body;
-//    }
-//
-//    @Override
-//    public void setBody(Object body) {
-//        this.body = body;
-//    }
 }
