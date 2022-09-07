@@ -7,6 +7,8 @@ import src.DapClasses.Configurations.ConfigurationDoneResponse;
 import java.io.IOException;
 
 public class ConfigurationDoneManager {
+
+    //Reads request and creates response
     private String processConfigurationDoneRequest(Gson gson, String json) {
         ConfigurationDoneRequest request = gson.fromJson(json, ConfigurationDoneRequest.class);
         ConfigurationDoneResponse response = new ConfigurationDoneResponse();

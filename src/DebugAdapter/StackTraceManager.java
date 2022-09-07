@@ -14,9 +14,11 @@ import java.util.List;
 public class StackTraceManager {
     private CallEmulatorMethods emulatorMethods;
 
-    public StackTraceManager(){
+    public StackTraceManager() {
         emulatorMethods = new CallEmulatorMethods();
     }
+
+    //Shows stack frame of every method in call stack
     private String processStackTraceRequest(String name, String program, List<Integer> breakpointLineNumbers, AssemblyEmulator emulator, Gson gson, String json) {
         StackTraceRequest request = gson.fromJson(json, StackTraceRequest.class);
         Response r = new Response();

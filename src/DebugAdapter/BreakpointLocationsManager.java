@@ -10,6 +10,7 @@ import java.io.IOException;
 
 public class BreakpointLocationsManager {
 
+    //Reads request and fills breakpointLocation array
     private String processBreakpointLocationsRequest(String json, Gson gson) {
         BreakpointLocationsRequest request = gson.fromJson(json, BreakpointLocationsRequest.class);
         BreakpointLocationsResponse response = new BreakpointLocationsResponse();
@@ -26,6 +27,7 @@ public class BreakpointLocationsManager {
         return jsonResponse;
     }
 
+    //creates response
     public String createBreakpointResponse(String json, Gson gson, SendProtocolMessage send) throws IOException {
         String BreakpointLocationsRes = processBreakpointLocationsRequest(json, gson);
         send.sendProtocolMessage(BreakpointLocationsRes);

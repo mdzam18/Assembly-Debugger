@@ -7,6 +7,8 @@ import src.DapClasses.Disconnects.DisconnectResponse;
 import java.io.IOException;
 
 public class DisconnectManager {
+
+    //Reads disconnect request
     private String processDisconnectRequest(Gson gson, String json) {
         DisconnectRequest request = gson.fromJson(json, DisconnectRequest.class);
         DisconnectResponse response = new DisconnectResponse();

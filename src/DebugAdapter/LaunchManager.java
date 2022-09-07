@@ -12,6 +12,7 @@ public class LaunchManager {
     private String program;
     private AssemblyEmulator emulator;
 
+    //Creates launch response, if exception occurs sends exceptionInfo response
     private String processLaunchRequest(String json, Gson gson, SendProtocolMessage send) throws IOException {
         ExceptionInfoManager exceptionInfoManager = new ExceptionInfoManager();
         LaunchRequest request = gson.fromJson(json, LaunchRequest.class);

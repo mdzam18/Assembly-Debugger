@@ -11,6 +11,7 @@ import java.io.IOException;
 
 public class InitializeManager {
 
+    //initializes debugger
     private String processInitializeRequest(String json, Gson gson) {
         Request request = gson.fromJson(json, Request.class);
         InitializeResponse response = new InitializeResponse();

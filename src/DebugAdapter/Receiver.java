@@ -16,9 +16,10 @@ public class Receiver {
     private FileWriter fWriter = new FileWriter(
             "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile");
 
+    //instance variables
     private Gson gson;
     private BreakpointLocationsManager breakpointLocationsManager;
-    private  ExceptionInfoManager exceptionInfoManager;
+    private ExceptionInfoManager exceptionInfoManager;
     private SendProtocolMessage send;
     private InitializeManager initializeManager;
     private SetBreakpointsManager setBreakpointsManager;
@@ -30,7 +31,7 @@ public class Receiver {
     private DisconnectManager disconnectManager;
     private ContinueManager continueManager;
     private ThreadsManager threadsManager;
-    private  ConfigurationDoneManager configurationDoneManager;
+    private ConfigurationDoneManager configurationDoneManager;
 
     public Receiver() throws Exception {
         init();
@@ -54,6 +55,7 @@ public class Receiver {
         configurationDoneManager = new ConfigurationDoneManager();
     }
 
+    //reads headers of the request
     private String readHeader(Scanner scanner) {
         String current = "";
         while (true) {
@@ -76,6 +78,7 @@ public class Receiver {
         return current;
     }
 
+    //reads whole request
     private String readRequest(Scanner scanner) {
         Map<String, String> headers = new HashMap<>();
         while (true) {
@@ -94,6 +97,7 @@ public class Receiver {
         return rem.toString();
     }
 
+    //Read requests in infinite loop
     public void receive() throws Exception {
         Scanner scanner = null;
         try {
@@ -140,7 +144,7 @@ public class Receiver {
             case "configurationDone":
                 return configurationDoneManager.createConfigurationDoneResponse(json, send, gson);
             case "launch":
-               return launchResponseManager.createLaunchResponse(json, gson, send);
+                return launchResponseManager.createLaunchResponse(json, gson, send);
             case "breakpointLocations":
                 return breakpointLocationsManager.createBreakpointResponse(json, gson, send);
             case "runInTerminal":

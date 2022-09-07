@@ -13,6 +13,7 @@ import java.util.Map;
 
 public class VariablesManager {
 
+    //Finds what kind of variable show and shows them
     private String processVariablesRequest(String json, Gson gson, AssemblyEmulator emulator) throws Exception {
         VariablesRequest request = gson.fromJson(json, VariablesRequest.class);
         VariablesResponse response = new VariablesResponse();

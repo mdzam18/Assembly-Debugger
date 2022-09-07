@@ -9,6 +9,7 @@ import src.DapClasses.Threads.ThreadsResponse;
 import java.io.IOException;
 
 public class ThreadsManager {
+
     private String processThreadsRequest(Gson gson, String json) {
         ThreadsRequest request = gson.fromJson(json, ThreadsRequest.class);
         ThreadsResponse response = new ThreadsResponse();

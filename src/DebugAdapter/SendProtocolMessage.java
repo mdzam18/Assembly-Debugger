@@ -11,6 +11,7 @@ public class SendProtocolMessage {
     public SendProtocolMessage() throws IOException {
     }
 
+    //Sends protocol message with stdout
     public void sendProtocolMessage(String json) throws IOException {
         fWriter.write("\n\n");
         fWriter.write(json);

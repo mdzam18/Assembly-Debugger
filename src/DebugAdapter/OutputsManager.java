@@ -9,6 +9,7 @@ import java.io.IOException;
 
 public class OutputsManager {
 
+    //Creates output event to show text in console
     public void showTextInConsole(String text, AssemblyEmulator emulator, Gson gson, SendProtocolMessage send) throws IOException {
         OutputEvent oEvent = new OutputEvent();
         oEvent.setVariablesReference(0);

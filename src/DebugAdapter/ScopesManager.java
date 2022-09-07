@@ -10,6 +10,7 @@ import java.io.IOException;
 
 public class ScopesManager {
 
+    //Creates scopes response to show variables in debugger
     private String processScopesRequest(String json, Gson gson) {
         ScopesRequest request = gson.fromJson(json, ScopesRequest.class);
         ScopesResponse response = new ScopesResponse();

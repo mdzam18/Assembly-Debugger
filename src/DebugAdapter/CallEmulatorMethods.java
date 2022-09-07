@@ -8,10 +8,12 @@ import java.util.List;
 
 public class CallEmulatorMethods {
     private OutputsManager outputsManager;
-    public CallEmulatorMethods(){
+
+    public CallEmulatorMethods() {
         outputsManager = new OutputsManager();
     }
 
+    //Calls next method until reaches first breakpoint
     public void callEmulatorNextUntilFistBreakPoint(SendProtocolMessage send, ExceptionInfoManager exceptionInfoManager, AssemblyEmulator emulator, List<Integer> breakpointLineNumbers, Gson gson) throws Exception {
         try {
             boolean first = true;
@@ -40,6 +42,7 @@ public class CallEmulatorMethods {
         }
     }
 
+    //Calls next for n times
     public void callEmulatorNextNTimes(SendProtocolMessage send, int num, AssemblyEmulator emulator, Gson gson, ExceptionInfoManager exceptionInfoManager) throws Exception {
         for (int i = 0; i < num; i++) {
             try {

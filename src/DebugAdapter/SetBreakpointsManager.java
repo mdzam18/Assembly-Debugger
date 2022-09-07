@@ -21,9 +21,11 @@ public class SetBreakpointsManager {
         return breakpoints;
     }
 
-    public SetBreakpointsManager(){
+    public SetBreakpointsManager() {
         breakpointLineNumbers = new ArrayList<>();
     }
+
+    //Fills breakpoints array and sends response
     private String processSetBreakpointsRequest(String json, Gson gson) {
         SetBreakpointsRequest request = gson.fromJson(json, SetBreakpointsRequest.class);
         SetBreakpointsResponse response = new SetBreakpointsResponse();
@@ -61,9 +63,9 @@ public class SetBreakpointsManager {
         return SetBreakpointsRes;
     }
 
-    public List<Integer> getBreakpointLineNumbers(){
+    public List<Integer> getBreakpointLineNumbers() {
         List<Integer> breakpointsLines = new ArrayList<>();
-        for(int i = 0; i < breakpointLineNumbers.size(); i++){
+        for (int i = 0; i < breakpointLineNumbers.size(); i++) {
             breakpointsLines.add(breakpointLineNumbers.get(i));
         }
         return breakpointsLines;

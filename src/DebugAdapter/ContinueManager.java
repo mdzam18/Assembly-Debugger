@@ -13,6 +13,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ContinueManager {
+
+    //Reads continue request and creates response
     private String processContinueRequest(Gson gson, String json) {
         ContinueRequest request = gson.fromJson(json, ContinueRequest.class);
         ContinueResponse response = new ContinueResponse();
@@ -26,6 +28,7 @@ public class ContinueManager {
         return jsonResponse;
     }
 
+    //Calls method of callEmulatorMethods to reach second breakpoint
     public String createContinueResponse(ExceptionInfoManager exceptionInfoManager, String json, SendProtocolMessage send, Gson gson, AssemblyEmulator emulator, List<Integer> breakpointLineNumbers) throws Exception {
         String ContinueRequestRes = processContinueRequest(gson, json);
         ContinueRequest r1 = gson.fromJson(json, ContinueRequest.class);

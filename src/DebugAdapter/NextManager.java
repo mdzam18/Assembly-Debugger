@@ -8,6 +8,7 @@ import src.DapClasses.StoppedEvent.StoppedEvent;
 import src.Emulator.AssemblyEmulator.AssemblyEmulator;
 
 public class NextManager {
+
     private String processNextRequest(String json, Gson gson) {
         NextRequest request = gson.fromJson(json, NextRequest.class);
         NextResponse response = new NextResponse();
@@ -17,6 +18,7 @@ public class NextManager {
         return jsonResponse;
     }
 
+    //Creates next response and sends stopped event
     public String createNextResponse(ExceptionInfoManager exceptionInfoManager, String json, Gson gson, SendProtocolMessage send, AssemblyEmulator emulator) throws Exception {
         String NextRequestRes = processNextRequest(json, gson);
         send.sendProtocolMessage(NextRequestRes);

@@ -12,6 +12,7 @@ import java.io.IOException;
 public class ExceptionInfoManager {
     private String exceptionMessage;
 
+    //Creates exception message
     private String processExceptionInfoRequest(String json, Gson gson) throws IOException {
         ExceptionInfoRequest request = gson.fromJson(json, ExceptionInfoRequest.class);
         Response r = new Response();
@@ -27,6 +28,7 @@ public class ExceptionInfoManager {
         return jsonResponse;
     }
 
+    //Sends stopped event
     public void processEmulatorException(Exception e, Gson gson, SendProtocolMessage send) throws IOException {
         StoppedEvent stoppedEvent = new StoppedEvent();
         stoppedEvent.setReason("exception");
