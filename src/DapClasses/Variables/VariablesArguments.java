@@ -1,6 +1,6 @@
 package src.DapClasses.Variables;
 
-import src.DapClasses.ValueFormat;
+import src.DapClasses.StackFrames.ValueFormat;
 
 public class VariablesArguments {
     private int variablesReference;

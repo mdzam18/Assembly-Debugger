@@ -4,34 +4,43 @@
 {"command":"initialize","arguments":{"clientID":"vscode","clientName":"Visual Studio Code","adapterID":"mock","pathFormat":"path","linesStartAt1":true,"columnsStartAt1":true,"supportsVariableType":true,"supportsVariablePaging":true,"supportsRunInTerminalRequest":true,"locale":"en-us","supportsProgressReporting":true,"supportsInvalidatedEvent":true,"supportsMemoryReferences":true,"supportsArgsCanBeInterpretedByShell":true},"type":"request","seq":1}
  Received 
 
-{"command":"launch","arguments":{"type":"mock","request":"launch","name":"Debug addNumbers.md","program":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/addNumbers.md","stopOnEntry":true,"trace":false,"__configurationTarget":6,"__sessionId":"52751f18-55a9-466c-95e9-3174e60ff715"},"type":"request","seq":2}
+{"command":"launch","arguments":{"type":"mock","request":"launch","name":"Debug Factorial.md","program":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","stopOnEntry":true,"trace":false,"__configurationTarget":6,"__sessionId":"ffc5ec81-8607-4993-9fc2-cc663a28aab9"},"type":"request","seq":2}
  Received 
 
 {"command":"setBreakpoints","arguments":{"source":{"name":"addNumbers.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/addNumbers.md"},"lines":[3],"breakpoints":[{"line":3}],"sourceModified":false},"type":"request","seq":3}
  Received 
 
-{"command":"threads","type":"request","seq":4}
+{"command":"setBreakpoints","arguments":{"source":{"name":"Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md"},"lines":[8,12],"breakpoints":[{"line":8},{"line":12}],"sourceModified":false},"type":"request","seq":4}
  Received 
 
-{"command":"breakpointLocations","arguments":{"source":{"name":"addNumbers.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/addNumbers.md"},"line":3},"type":"request","seq":5}
+{"command":"breakpointLocations","arguments":{"source":{"name":"Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md"},"line":8},"type":"request","seq":5}
  Received 
 
-{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":6}
+{"command":"breakpointLocations","arguments":{"source":{"name":"Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md"},"line":12},"type":"request","seq":6}
  Received 
 
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug addNumbers.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/addNumbers.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":3},"type":"request","seq":7}
+{"command":"threads","type":"request","seq":7}
  Received 
 
-{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":8}
+{"command":"threads","type":"request","seq":8}
  Received 
 
-{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":9}
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":9}
  Received 
 
-{"command":"continue","arguments":{"threadId":1},"type":"request","seq":10}
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":10}
  Received 
 
-{"command":"threads","type":"request","seq":11}
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":8},"type":"request","seq":11}
  Received 
 
-{"command":"disconnect","arguments":{"restart":false},"type":"request","seq":12}
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":12},"type":"request","seq":12}
+ Received 
+
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":13}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":14}
+ Received 
+
+{"command":"disconnect","arguments":{"restart":false},"type":"request","seq":15}

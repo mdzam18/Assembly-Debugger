@@ -20,31 +20,7 @@
 
 
 
-{"request_seq":4,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
-
-
-
-{"request_seq":5,"success":true,"command":"breakpointLocations","body":[{"line":3,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
-
-
-
-{"request_seq":6,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug addNumbers.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/addNumbers.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":3,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
-
-
-
-{"request_seq":7,"success":true,"command":"breakpointLocations","body":[{"line":3,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
-
-
-
-{"request_seq":8,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Special Registers","variablesReference":12,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
-
-
-
-{"request_seq":9,"success":true,"command":"variables","body":{"variables":[],"request_seq":0,"type":"response"},"type":"response"}
-
-
-
-{"request_seq":10,"success":true,"command":"continue","type":"response"}
+{"request_seq":4,"success":true,"command":"setBreakpoints","body":[{"id":0,"verified":true,"line":8,"column":0,"endLine":0,"endColumn":0,"offset":0},{"id":0,"verified":true,"line":12,"column":0,"endLine":0,"endColumn":0,"offset":0}],"type":"response"}
 
 
 
@@ -52,17 +28,45 @@
 
 
 
-{"event":"output","body":{"category":"stdout","output":"RV: 5\n","group":"end","variablesReference":0,"line":14,"column":0},"type":"event"}
+{"request_seq":5,"success":true,"command":"breakpointLocations","body":[{"line":8,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
 
 
 
-{"event":"terminated","type":"event"}
+{"request_seq":6,"success":true,"command":"breakpointLocations","body":[{"line":12,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
 
 
 
-{"request_seq":11,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+{"request_seq":7,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
 
 
 
-{"request_seq":12,"success":true,"command":"disconnect","type":"response"}
+{"request_seq":8,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+
+
+
+{"request_seq":9,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":8,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
+
+
+
+{"request_seq":10,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":12,"column":0,"endLine":0,"endColumn":0,"canRestart":false},{"id":0,"name":"FACT","source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":12,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":2},"type":"response"}
+
+
+
+{"request_seq":11,"success":true,"command":"breakpointLocations","body":[{"line":8,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":12,"success":true,"command":"breakpointLocations","body":[{"line":12,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":13,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Special Registers","variablesReference":12,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+
+
+
+{"request_seq":14,"success":true,"command":"variables","body":{"variables":[{"name":"R1","value":"5","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":15,"success":true,"command":"disconnect","type":"response"}
 

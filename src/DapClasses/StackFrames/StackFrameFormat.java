@@ -1,7 +1,5 @@
 package src.DapClasses.StackFrames;
 
-import src.DapClasses.ValueFormat;
-
 public class StackFrameFormat extends ValueFormat {
     private boolean parameters;
     private boolean parameterTypes;

@@ -7,16 +7,16 @@
 		{
 			"type": "mock",
 			"request": "launch",
-			"name": "Debug addNumbers.md",
-			"program": "${workspaceFolder}/addNumbers.md",
+			"name": "Debug Factorial.md",
+			"program": "${workspaceFolder}/Factorial.md",
 			"stopOnEntry": true,
 			"trace": false
 		},
 		{
 			"type": "mock",
 			"request": "attach",
-			"name": "Attach addNumbers.md",
-			"program": "${workspaceFolder}/addNumbers.md",
+			"name": "Attach Factorial.md",
+			"program": "${workspaceFolder}/Factorial.md",
 			"stopOnEntry": true,
 			"trace": false
 		}
