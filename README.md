@@ -6,6 +6,7 @@
 ![Screenshot from 2022-09-04 19-20-05](https://user-images.githubusercontent.com/57843318/189225741-bbc8bd44-9dba-4ea1-ac02-d8fa24d125bf.png)
 
 command line-დან გაშვების ინსტრუქცია:
+
 ჩვენი პროექტის გაშვება ასევე შესაძლებელია command line-დან, შემდეგი ბრძანების დახმარებით:
 
 ![Screenshot from 2022-09-04 19-03-29](https://user-images.githubusercontent.com/57843318/189226434-cf623ddc-32eb-4d51-8d5a-9bb54f0bc753.png)
