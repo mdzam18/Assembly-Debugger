@@ -89,7 +89,7 @@ public class VariablesManager {
             variables[0] = v;
 
             v = new Variable();
-            v.setName("Virtual address of SP");
+            v.setName("SP");
             v.setVariablesReference(0);
             v.setValue(String.valueOf(emulator.getSpVirtualValue()));
             variables[1] = v;
