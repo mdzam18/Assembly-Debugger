@@ -1,6 +1,6 @@
 package src.DapClasses.Nexts;
 
-import src.DapClasses.Response;
+import src.DapClasses.BaseClasses.Response;
 
 public class NextResponse extends Response {
     public NextResponse(){

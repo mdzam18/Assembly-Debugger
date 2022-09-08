@@ -1,6 +1,6 @@
 package src.DapClasses.Variables;
 
-import src.DapClasses.Response;
+import src.DapClasses.BaseClasses.Response;
 
 public class VariablesResponse extends Response {
     private Variable[] variables;

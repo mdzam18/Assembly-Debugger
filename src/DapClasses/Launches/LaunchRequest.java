@@ -1,6 +1,6 @@
 package src.DapClasses.Launches;
 
-import src.DapClasses.Request;
+import src.DapClasses.BaseClasses.Request;
 
 public class LaunchRequest extends Request {
     public LaunchRequest() {

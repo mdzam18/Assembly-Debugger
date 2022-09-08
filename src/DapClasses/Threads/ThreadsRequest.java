@@ -1,6 +1,6 @@
 package src.DapClasses.Threads;
 
-import src.DapClasses.Request;
+import src.DapClasses.BaseClasses.Request;
 
 public class ThreadsRequest extends Request {
     public  ThreadsRequest() {

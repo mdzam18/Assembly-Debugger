@@ -1,6 +1,6 @@
 package src.DapClasses.Continues;
 
-import src.DapClasses.Request;
+import src.DapClasses.BaseClasses.Request;
 
 public class ContinueRequest extends Request {
     public ContinueRequest() {

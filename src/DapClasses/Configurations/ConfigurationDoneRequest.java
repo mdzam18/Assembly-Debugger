@@ -1,6 +1,6 @@
 package src.DapClasses.Configurations;
 
-import src.DapClasses.Request;
+import src.DapClasses.BaseClasses.Request;
 
 public class ConfigurationDoneRequest extends Request {
     public ConfigurationDoneRequest() {

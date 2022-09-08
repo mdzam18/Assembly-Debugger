@@ -1,6 +1,6 @@
 package src.DapClasses.Attachs;
 
-import src.DapClasses.Request;
+import src.DapClasses.BaseClasses.Request;
 
 public class AttachRequest extends Request {
     public AttachRequest() {

@@ -1,6 +1,6 @@
 package src.DapClasses.Disconnects;
 
-import src.DapClasses.Response;
+import src.DapClasses.BaseClasses.Response;
 
 public class DisconnectResponse extends Response {
     public DisconnectResponse(){

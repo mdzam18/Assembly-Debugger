@@ -1,15 +1,13 @@
 package src.DebugAdapter;
 
 import com.google.gson.Gson;
-import src.DapClasses.Breakpoints.Breakpoint;
 import src.DapClasses.Continues.ContinueRequest;
 import src.DapClasses.Continues.ContinueResponse;
 import src.DapClasses.Event.Event;
-import src.DapClasses.Response;
+import src.DapClasses.BaseClasses.Response;
 import src.DapClasses.StoppedEvent.StoppedEvent;
 import src.Emulator.AssemblyEmulator.AssemblyEmulator;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class ContinueManager {

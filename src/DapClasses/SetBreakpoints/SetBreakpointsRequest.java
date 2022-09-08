@@ -1,6 +1,6 @@
 package src.DapClasses.SetBreakpoints;
 
-import src.DapClasses.Request;
+import src.DapClasses.BaseClasses.Request;
 
 public class SetBreakpointsRequest extends Request {
     public SetBreakpointsRequest() {

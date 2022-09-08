@@ -1,6 +1,6 @@
 package src.DapClasses.Exceptions;
 
-import src.DapClasses.Request;
+import src.DapClasses.BaseClasses.Request;
 
 public class ExceptionInfoRequest extends Request {
 

@@ -1,6 +1,6 @@
 package src.DapClasses.Attachs;
 
-import src.DapClasses.Response;
+import src.DapClasses.BaseClasses.Response;
 
 public class AttachResponse extends Response {
 }

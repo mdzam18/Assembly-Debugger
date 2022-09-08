@@ -1,6 +1,6 @@
 package src.DapClasses.Disconnects;
 
-import src.DapClasses.Request;
+import src.DapClasses.BaseClasses.Request;
 
 public class DisconnectRequest extends Request {
     public DisconnectRequest() {

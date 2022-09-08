@@ -1,6 +1,6 @@
 package src.DapClasses.Nexts;
 
-import src.DapClasses.Request;
+import src.DapClasses.BaseClasses.Request;
 
 public class NextRequest extends Request {
     public NextRequest(){

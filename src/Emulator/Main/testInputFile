@@ -4,175 +4,73 @@
 {"command":"initialize","arguments":{"clientID":"vscode","clientName":"Visual Studio Code","adapterID":"mock","pathFormat":"path","linesStartAt1":true,"columnsStartAt1":true,"supportsVariableType":true,"supportsVariablePaging":true,"supportsRunInTerminalRequest":true,"locale":"en-us","supportsProgressReporting":true,"supportsInvalidatedEvent":true,"supportsMemoryReferences":true,"supportsArgsCanBeInterpretedByShell":true},"type":"request","seq":1}
  Received 
 
-{"command":"launch","arguments":{"type":"mock","request":"launch","name":"Debug Factorial.md","program":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","stopOnEntry":true,"trace":false,"__configurationTarget":6,"__sessionId":"21b1a603-5013-44a5-b874-8ffa8196eb3d"},"type":"request","seq":2}
+{"command":"threads","type":"request","seq":2}
  Received 
 
-{"command":"setBreakpoints","arguments":{"source":{"name":"Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md"},"lines":[3,7],"breakpoints":[{"line":3},{"line":7}],"sourceModified":false},"type":"request","seq":3}
+{"command":"launch","arguments":{"type":"mock","request":"launch","name":"Debug Factorial.md","program":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","stopOnEntry":true,"trace":false,"__configurationTarget":6,"__sessionId":"419fc54e-4737-4325-80b5-7578daf6deae"},"type":"request","seq":3}
  Received 
 
-{"command":"breakpointLocations","arguments":{"source":{"name":"Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md"},"line":3},"type":"request","seq":4}
+{"command":"setBreakpoints","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"lines":[3,7],"breakpoints":[{"line":3},{"line":7}],"sourceModified":false},"type":"request","seq":4}
  Received 
 
-{"command":"breakpointLocations","arguments":{"source":{"name":"Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md"},"line":7},"type":"request","seq":5}
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":3},"type":"request","seq":5}
  Received 
 
-{"command":"threads","type":"request","seq":6}
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7},"type":"request","seq":6}
  Received 
 
-{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":7}
+{"command":"threads","type":"request","seq":7}
  Received 
 
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":3},"type":"request","seq":8}
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":8}
  Received 
 
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7},"type":"request","seq":9}
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":3},"type":"request","seq":9}
  Received 
 
-{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":10}
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7},"type":"request","seq":10}
  Received 
 
-{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":11}
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":11}
  Received 
 
-{"command":"next","arguments":{"threadId":1},"type":"request","seq":12}
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":12}
  Received 
 
-{"command":"threads","type":"request","seq":13}
+{"command":"continue","arguments":{"threadId":1},"type":"request","seq":13}
  Received 
 
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":3},"type":"request","seq":14}
+{"command":"threads","type":"request","seq":14}
  Received 
 
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7},"type":"request","seq":15}
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":3},"type":"request","seq":15}
  Received 
 
-{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":16}
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7},"type":"request","seq":16}
  Received 
 
 {"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":17}
  Received 
 
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":3},"type":"request","seq":18}
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":18}
  Received 
 
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7},"type":"request","seq":19}
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":3},"type":"request","seq":19}
  Received 
 
-{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":20}
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7},"type":"request","seq":20}
  Received 
 
-{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":21}
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":21}
  Received 
 
-{"command":"variables","arguments":{"variablesReference":11},"type":"request","seq":22}
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":22}
  Received 
 
-{"command":"variables","arguments":{"variablesReference":12},"type":"request","seq":23}
+{"command":"continue","arguments":{"threadId":1},"type":"request","seq":23}
  Received 
 
-{"command":"next","arguments":{"threadId":1},"type":"request","seq":24}
+{"command":"threads","type":"request","seq":24}
  Received 
 
-{"command":"threads","type":"request","seq":25}
- Received 
-
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":3},"type":"request","seq":26}
- Received 
-
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7},"type":"request","seq":27}
- Received 
-
-{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":28}
- Received 
-
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":3},"type":"request","seq":29}
- Received 
-
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7},"type":"request","seq":30}
- Received 
-
-{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":31}
- Received 
-
-{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":32}
- Received 
-
-{"command":"variables","arguments":{"variablesReference":11},"type":"request","seq":33}
- Received 
-
-{"command":"variables","arguments":{"variablesReference":12},"type":"request","seq":34}
- Received 
-
-{"command":"next","arguments":{"threadId":1},"type":"request","seq":35}
- Received 
-
-{"command":"threads","type":"request","seq":36}
- Received 
-
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":3},"type":"request","seq":37}
- Received 
-
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7},"type":"request","seq":38}
- Received 
-
-{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":39}
- Received 
-
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":3},"type":"request","seq":40}
- Received 
-
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7},"type":"request","seq":41}
- Received 
-
-{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":42}
- Received 
-
-{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":43}
- Received 
-
-{"command":"variables","arguments":{"variablesReference":11},"type":"request","seq":44}
- Received 
-
-{"command":"variables","arguments":{"variablesReference":12},"type":"request","seq":45}
- Received 
-
-{"command":"next","arguments":{"threadId":1},"type":"request","seq":46}
- Received 
-
-{"command":"threads","type":"request","seq":47}
- Received 
-
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":3},"type":"request","seq":48}
- Received 
-
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7},"type":"request","seq":49}
- Received 
-
-{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":50}
- Received 
-
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":3},"type":"request","seq":51}
- Received 
-
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7},"type":"request","seq":52}
- Received 
-
-{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":53}
- Received 
-
-{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":54}
- Received 
-
-{"command":"variables","arguments":{"variablesReference":11},"type":"request","seq":55}
- Received 
-
-{"command":"variables","arguments":{"variablesReference":12},"type":"request","seq":56}
- Received 
-
-{"command":"continue","arguments":{"threadId":1},"type":"request","seq":57}
- Received 
-
-{"command":"threads","type":"request","seq":58}
- Received 
-
-{"command":"disconnect","arguments":{"restart":false},"type":"request","seq":59}
+{"command":"disconnect","arguments":{"restart":false},"type":"request","seq":25}

@@ -1,6 +1,6 @@
 package src.DapClasses.Initialize;
 
-import src.DapClasses.Request;
+import src.DapClasses.BaseClasses.Request;
 
 public class InitializeRequest extends Request {
     public InitializeRequest() {

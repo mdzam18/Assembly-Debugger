@@ -1,6 +1,6 @@
 package src.DapClasses.Variables;
 
-import src.DapClasses.Request;
+import src.DapClasses.BaseClasses.Request;
 
 public class VariablesRequest extends Request {
     public VariablesRequest() {

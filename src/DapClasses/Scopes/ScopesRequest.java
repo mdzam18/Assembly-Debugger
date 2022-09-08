@@ -1,6 +1,6 @@
 package src.DapClasses.Scopes;
 
-import src.DapClasses.Request;
+import src.DapClasses.BaseClasses.Request;
 
 public class ScopesRequest extends Request {
     public ScopesRequest() {

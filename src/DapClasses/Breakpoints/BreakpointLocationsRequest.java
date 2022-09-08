@@ -1,6 +1,6 @@
 package src.DapClasses.Breakpoints;
 
-import src.DapClasses.Request;
+import src.DapClasses.BaseClasses.Request;
 
 public class BreakpointLocationsRequest extends Request {
     public BreakpointLocationsRequest(){

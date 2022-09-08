@@ -1,7 +1,7 @@
 package src.DebugAdapter;
 
 import com.google.gson.Gson;
-import src.DapClasses.Response;
+import src.DapClasses.BaseClasses.Response;
 import src.DapClasses.Threads.Thread;
 import src.DapClasses.Threads.ThreadsRequest;
 import src.DapClasses.Threads.ThreadsResponse;

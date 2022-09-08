@@ -1,9 +1,8 @@
 package src.DebugAdapter;
 
 import com.google.gson.Gson;
-import src.DapClasses.Pauses.PauseResponse;
-import src.DapClasses.Pauses.ProtocolMessage;
-import src.DapClasses.Request;
+import src.DapClasses.BaseClasses.ProtocolMessage;
+import src.DapClasses.BaseClasses.Request;
 import src.DapClasses.RunInTerminal.RunInTerminalResponse;
 import src.Emulator.AssemblyEmulator.AssemblyEmulator;
 
@@ -157,8 +156,7 @@ public class Receiver {
                 return scopesManager.createScopesResponse(json, gson, send);
             case "variables":
                 return variablesManager.createVariablesResponse(json, gson, emulator, send);
-            case "pause":
-                return processPauseRequest();
+
             case "continue":
                 return continueManager.createContinueResponse(exceptionInfoManager, json, send, gson, emulator, setBreakpointsManager.getBreakpointLineNumbers());
             case "next":
@@ -172,10 +170,7 @@ public class Receiver {
         }
     }
 
-    private String processPauseRequest() {
-        PauseResponse response = new PauseResponse();
-        return null;
-    }
+
 
     private String processRunInTerminalRequest() {
         RunInTerminalResponse response = new RunInTerminalResponse();

@@ -1,6 +1,6 @@
 package src.DapClasses.SetBreakpoints;
 
-import src.DapClasses.Response;
+import src.DapClasses.BaseClasses.Response;
 
 public class SetBreakpointsResponse extends Response {
     public SetBreakpointsResponse(){

@@ -1,7 +1,7 @@
 package src.DebugAdapter;
 
 import com.google.gson.Gson;
-import src.DapClasses.Response;
+import src.DapClasses.BaseClasses.Response;
 import src.DapClasses.Variables.Variable;
 import src.DapClasses.Variables.VariablesRequest;
 import src.DapClasses.Variables.VariablesResponse;

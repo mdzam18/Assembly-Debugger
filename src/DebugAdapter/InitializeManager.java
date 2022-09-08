@@ -4,8 +4,8 @@ import com.google.gson.Gson;
 import src.DapClasses.Capabilities.Capabilities;
 import src.DapClasses.Initialize.InitializeResponse;
 import src.DapClasses.Initialize.InitializedEvent;
-import src.DapClasses.Request;
-import src.DapClasses.Response;
+import src.DapClasses.BaseClasses.Request;
+import src.DapClasses.BaseClasses.Response;
 
 import java.io.IOException;
 

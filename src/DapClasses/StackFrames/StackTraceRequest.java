@@ -1,6 +1,6 @@
 package src.DapClasses.StackFrames;
 
-import src.DapClasses.Request;
+import src.DapClasses.BaseClasses.Request;
 
 public class StackTraceRequest extends Request {
     public StackTraceRequest() {

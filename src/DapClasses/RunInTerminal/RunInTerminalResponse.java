@@ -1,6 +1,6 @@
 package src.DapClasses.RunInTerminal;
 
-import src.DapClasses.Response;
+import src.DapClasses.BaseClasses.Response;
 
 public class RunInTerminalResponse extends Response {
     private int processId;

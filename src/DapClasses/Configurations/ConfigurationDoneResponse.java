@@ -1,6 +1,6 @@
 package src.DapClasses.Configurations;
 
-import src.DapClasses.Response;
+import src.DapClasses.BaseClasses.Response;
 
 public class ConfigurationDoneResponse extends Response {
     public ConfigurationDoneResponse(){

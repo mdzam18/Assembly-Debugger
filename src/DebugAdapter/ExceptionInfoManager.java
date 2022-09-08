@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import src.DapClasses.Event.Event;
 import src.DapClasses.Exceptions.ExceptionInfoRequest;
 import src.DapClasses.Exceptions.ExceptionInfoResponse;
-import src.DapClasses.Response;
+import src.DapClasses.BaseClasses.Response;
 import src.DapClasses.StoppedEvent.StoppedEvent;
 
 import java.io.IOException;

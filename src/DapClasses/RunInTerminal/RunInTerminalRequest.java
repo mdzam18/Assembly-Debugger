@@ -1,6 +1,6 @@
 package src.DapClasses.RunInTerminal;
 
-import src.DapClasses.Request;
+import src.DapClasses.BaseClasses.Request;
 
 public class RunInTerminalRequest extends Request {
     public RunInTerminalRequest() {
