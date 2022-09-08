@@ -7,7 +7,7 @@ public class RegistersManager {
 
     private Map<String, Integer> registers;
     private int rv;
-    private Map<String, Integer> registersWithSP; //remembers all registers witch contained sp during computation.
+    private Map<String, Integer> registersWithSP; //remembers all registers which contained sp during computation.
 
     public RegistersManager() {
         registers = new HashMap<>();
@@ -22,11 +22,12 @@ public class RegistersManager {
         registersWithSP.remove(key);
     }
 
-    //add registers value witch contained sp in computation.
+    //add registers value which contained sp in computation.
     public void addRegisterInRegistersWithSP(String name, int value){
         registersWithSP.put(name, value);
     }
 
+    //Returs all registers
     public Map<String, Integer> getRegisters() {
         Map<String, Integer> mp = new HashMap<>();
         for(String key: registers.keySet()){
@@ -35,6 +36,7 @@ public class RegistersManager {
         return mp;
     }
 
+    //Returs all registers, which contained sp in computation
     public Map<String, Integer> getRegistersWithSP() {
         Map<String, Integer> mp = new HashMap<>();
         for(String key: registersWithSP.keySet()){
