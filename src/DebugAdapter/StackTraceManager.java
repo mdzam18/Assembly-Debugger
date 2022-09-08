@@ -8,13 +8,16 @@ import src.DapClasses.StackFrames.StackTraceRequest;
 import src.DapClasses.StackFrames.StackTraceResponse;
 import src.Emulator.AssemblyEmulator.AssemblyEmulator;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class StackTraceManager {
     private CallEmulatorMethods emulatorMethods;
 
-    public StackTraceManager() {
+
+    public StackTraceManager() throws IOException {
         emulatorMethods = new CallEmulatorMethods();
     }
 
@@ -32,10 +35,10 @@ public class StackTraceManager {
             stackFrames[i] = new StackFrame();
             stackFrames[i].setColumn(0);
             stackFrames[i].setId(0);
-            if (emulator.getCurrentLine() == 0) {
-                stackFrames[i].setLine(breakpointLineNumbers.get(0));
+            if (emulator.getActualLineNumber() == 0) {
+                stackFrames[i].setLine(emulator.getActualLineNumber() + 1);
             } else {
-                stackFrames[i].setLine(emulator.getCurrentLine() + 1);
+                stackFrames[i].setLine(emulator.getActualLineNumber() + 1);
             }
             stackFrames[i].setName(callstack.get(i));
             stackFrames[i].setSource(createSource(name, program));
@@ -56,15 +59,21 @@ public class StackTraceManager {
         return source;
     }
 
-    public String createStackTraceResponse(SendProtocolMessage send, ExceptionInfoManager exceptionInfoManager, String name, String program, List<Integer> breakpoints, AssemblyEmulator emulator, Gson gson, String json) {
+    public String createStackTraceResponse(SendProtocolMessage send, ExceptionInfoManager exceptionInfoManager, String name, String program, List<Integer> breakpoints, AssemblyEmulator emulator, Gson gson, String json) throws IOException {
         try {
-            String StackTraceRes = processStackTraceRequest(name, program, breakpoints, emulator, gson, json);
             if (emulator.getActualLineNumber() == 0) {
                 emulatorMethods.callEmulatorNextUntilFistBreakPoint(send, exceptionInfoManager, emulator, breakpoints, gson);
+            }
+            String StackTraceRes = processStackTraceRequest(name, program, breakpoints, emulator, gson, json);
+            if (emulator.getActualLineNumber() == 0) {
+
+
+               // emulatorMethods.callEmulatorNextUntilFistBreakPoint(send, exceptionInfoManager, emulator, breakpoints, gson);
             }
             send.sendProtocolMessage(StackTraceRes);
             return StackTraceRes;
         } catch (Exception exception) {
+
             //  processEmulatorException(exception);
         }
         return "";

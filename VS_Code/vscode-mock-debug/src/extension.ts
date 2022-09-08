@@ -75,7 +75,9 @@ class DebugAdapterExecutableFactory implements vscode.DebugAdapterDescriptorFact
 			const args = [
 				"-jar",
 				"/home/nroga/Final/Assembly-Debugger/out/artifacts/test2_jar/Assembly-Debugger.jar"
-				//"/home/nroga/Final/Assembly-Debugger/out/artifacts/debugger_jar/Assembly-Debugger.jar"
+				//"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/addNumbers.md"
+				//"/home/nroga/Final/Assembly-Debugger/src/Tests/callTests.asm"
+				//"/home/nroga/Final/Assembly-Debugger/src/Tests/sum.asm"
 			];
 			const options = {
 				//cwd: "working directory for executable",

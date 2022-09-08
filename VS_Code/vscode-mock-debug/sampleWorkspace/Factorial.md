@@ -1,7 +1,7 @@
 Function main;
 SP = SP - 4;
-M[SP] = 3;
-R1 = M[SP];
+M[SP] = 3; 
+R1 = M[SP]; 
 SP = SP - 4;
 M[SP] = R1;
 CALL<FACT>;

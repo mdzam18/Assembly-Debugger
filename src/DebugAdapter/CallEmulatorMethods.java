@@ -4,12 +4,15 @@ import src.DapClasses.Event.Event;
 import src.Emulator.AssemblyEmulator.AssemblyEmulator;
 import com.google.gson.Gson;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 public class CallEmulatorMethods {
     private OutputsManager outputsManager;
 
-    public CallEmulatorMethods() {
+
+    public CallEmulatorMethods() throws IOException {
         outputsManager = new OutputsManager();
     }
 
@@ -18,7 +21,11 @@ public class CallEmulatorMethods {
         try {
             boolean first = true;
             while (true) {
+                if (emulator.getActualLineNumber() == 0) {
+                    first = false;
+                }
                 if (!first && breakpointLineNumbers.contains(emulator.getActualLineNumber() + 1)) {
+
                     break;
                 }
                 first = false;
@@ -38,6 +45,7 @@ public class CallEmulatorMethods {
                 }
             }
         } catch (Exception e) {
+
             exceptionInfoManager.processEmulatorException(e, gson, send);
         }
     }
@@ -61,6 +69,7 @@ public class CallEmulatorMethods {
                     break;
                 }
             } catch (Exception e) {
+
                 exceptionInfoManager.processEmulatorException(e, gson, send);
             }
         }
