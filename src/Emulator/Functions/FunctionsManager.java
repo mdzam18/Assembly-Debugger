@@ -123,7 +123,7 @@ public class FunctionsManager {
 
     private void callFunction(String name) throws Exception {
         if(!functions.containsKey(name)){
-            throw new Exception("function " + name.substring(8) + " does not exists.");
+            throw new Exception("function " + name.substring(8) + " does not exist.");
         }
         int index = functions.get(name) + 1;
         String curr = name.substring(8);
