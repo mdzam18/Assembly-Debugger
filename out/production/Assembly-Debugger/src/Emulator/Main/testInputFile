@@ -7,70 +7,490 @@
 {"command":"threads","type":"request","seq":2}
  Received 
 
-{"command":"launch","arguments":{"type":"mock","request":"launch","name":"Debug Factorial.md","program":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","stopOnEntry":true,"trace":false,"__configurationTarget":6,"__sessionId":"419fc54e-4737-4325-80b5-7578daf6deae"},"type":"request","seq":3}
+{"command":"launch","arguments":{"type":"mock","request":"launch","name":"Debug Add2.md","program":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","stopOnEntry":true,"trace":false,"__configurationTarget":6,"__sessionId":"fa1ad40e-b76d-4427-892f-74b47dd628b8"},"type":"request","seq":3}
  Received 
 
-{"command":"setBreakpoints","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"lines":[3,7],"breakpoints":[{"line":3},{"line":7}],"sourceModified":false},"type":"request","seq":4}
+{"command":"setBreakpoints","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"lines":[2],"breakpoints":[{"line":2}],"sourceModified":false},"type":"request","seq":4}
  Received 
 
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":3},"type":"request","seq":5}
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":5}
  Received 
 
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7},"type":"request","seq":6}
+{"command":"threads","type":"request","seq":6}
  Received 
 
-{"command":"threads","type":"request","seq":7}
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":7}
  Received 
 
-{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":8}
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":8}
  Received 
 
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":3},"type":"request","seq":9}
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":9}
  Received 
 
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7},"type":"request","seq":10}
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":10}
  Received 
 
-{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":11}
+{"command":"variables","arguments":{"variablesReference":11},"type":"request","seq":11}
  Received 
 
-{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":12}
+{"command":"variables","arguments":{"variablesReference":12},"type":"request","seq":12}
  Received 
 
-{"command":"continue","arguments":{"threadId":1},"type":"request","seq":13}
+{"command":"next","arguments":{"threadId":1},"type":"request","seq":13}
  Received 
 
 {"command":"threads","type":"request","seq":14}
  Received 
 
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":3},"type":"request","seq":15}
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":15}
  Received 
 
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7},"type":"request","seq":16}
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":16}
  Received 
 
 {"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":17}
  Received 
 
-{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":18}
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":18}
  Received 
 
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":3},"type":"request","seq":19}
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":19}
  Received 
 
-{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7},"type":"request","seq":20}
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":20}
  Received 
 
-{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":21}
+{"command":"variables","arguments":{"variablesReference":11},"type":"request","seq":21}
  Received 
 
-{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":22}
+{"command":"variables","arguments":{"variablesReference":12},"type":"request","seq":22}
  Received 
 
-{"command":"continue","arguments":{"threadId":1},"type":"request","seq":23}
+{"command":"next","arguments":{"threadId":1},"type":"request","seq":23}
  Received 
 
 {"command":"threads","type":"request","seq":24}
  Received 
 
-{"command":"disconnect","arguments":{"restart":false},"type":"request","seq":25}
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":25}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":26}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":27}
+ Received 
+
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":28}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":29}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":11},"type":"request","seq":30}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":12},"type":"request","seq":31}
+ Received 
+
+{"command":"next","arguments":{"threadId":1},"type":"request","seq":32}
+ Received 
+
+{"command":"threads","type":"request","seq":33}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":34}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":35}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":36}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":37}
+ Received 
+
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":38}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":39}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":11},"type":"request","seq":40}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":12},"type":"request","seq":41}
+ Received 
+
+{"command":"next","arguments":{"threadId":1},"type":"request","seq":42}
+ Received 
+
+{"command":"threads","type":"request","seq":43}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":44}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":45}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":46}
+ Received 
+
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":47}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":48}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":11},"type":"request","seq":49}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":12},"type":"request","seq":50}
+ Received 
+
+{"command":"next","arguments":{"threadId":1},"type":"request","seq":51}
+ Received 
+
+{"command":"threads","type":"request","seq":52}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":53}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":54}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":55}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":56}
+ Received 
+
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":57}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":58}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":11},"type":"request","seq":59}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":12},"type":"request","seq":60}
+ Received 
+
+{"command":"next","arguments":{"threadId":1},"type":"request","seq":61}
+ Received 
+
+{"command":"threads","type":"request","seq":62}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":63}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":64}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":65}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":66}
+ Received 
+
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":67}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":68}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":11},"type":"request","seq":69}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":12},"type":"request","seq":70}
+ Received 
+
+{"command":"next","arguments":{"threadId":1},"type":"request","seq":71}
+ Received 
+
+{"command":"threads","type":"request","seq":72}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":73}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":74}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":75}
+ Received 
+
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":76}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":77}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":11},"type":"request","seq":78}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":12},"type":"request","seq":79}
+ Received 
+
+{"command":"next","arguments":{"threadId":1},"type":"request","seq":80}
+ Received 
+
+{"command":"threads","type":"request","seq":81}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":82}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":83}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":84}
+ Received 
+
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":85}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":86}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":11},"type":"request","seq":87}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":12},"type":"request","seq":88}
+ Received 
+
+{"command":"next","arguments":{"threadId":1},"type":"request","seq":89}
+ Received 
+
+{"command":"threads","type":"request","seq":90}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":91}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":92}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":93}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":94}
+ Received 
+
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":95}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":96}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":11},"type":"request","seq":97}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":12},"type":"request","seq":98}
+ Received 
+
+{"command":"next","arguments":{"threadId":1},"type":"request","seq":99}
+ Received 
+
+{"command":"threads","type":"request","seq":100}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":101}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":102}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":103}
+ Received 
+
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":104}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":105}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":11},"type":"request","seq":106}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":12},"type":"request","seq":107}
+ Received 
+
+{"command":"next","arguments":{"threadId":1},"type":"request","seq":108}
+ Received 
+
+{"command":"threads","type":"request","seq":109}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":110}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":111}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":112}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":113}
+ Received 
+
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":114}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":115}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":11},"type":"request","seq":116}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":12},"type":"request","seq":117}
+ Received 
+
+{"command":"next","arguments":{"threadId":1},"type":"request","seq":118}
+ Received 
+
+{"command":"threads","type":"request","seq":119}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":120}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":121}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":122}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":123}
+ Received 
+
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":124}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":125}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":11},"type":"request","seq":126}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":12},"type":"request","seq":127}
+ Received 
+
+{"command":"next","arguments":{"threadId":1},"type":"request","seq":128}
+ Received 
+
+{"command":"threads","type":"request","seq":129}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":130}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":131}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":132}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":133}
+ Received 
+
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":134}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":135}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":11},"type":"request","seq":136}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":12},"type":"request","seq":137}
+ Received 
+
+{"command":"next","arguments":{"threadId":1},"type":"request","seq":138}
+ Received 
+
+{"command":"threads","type":"request","seq":139}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":140}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":141}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":142}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":143}
+ Received 
+
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":144}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":145}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":11},"type":"request","seq":146}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":12},"type":"request","seq":147}
+ Received 
+
+{"command":"next","arguments":{"threadId":1},"type":"request","seq":148}
+ Received 
+
+{"command":"threads","type":"request","seq":149}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":150}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":151}
+ Received 
+
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":152}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":153}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":11},"type":"request","seq":154}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":12},"type":"request","seq":155}
+ Received 
+
+{"command":"next","arguments":{"threadId":1},"type":"request","seq":156}
+ Received 
+
+{"command":"threads","type":"request","seq":157}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":158}
+ Received 
+
+{"command":"stackTrace","arguments":{"threadId":1,"startFrame":0,"levels":20},"type":"request","seq":159}
+ Received 
+
+{"command":"breakpointLocations","arguments":{"source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2},"type":"request","seq":160}
+ Received 
+
+{"command":"scopes","arguments":{"frameId":0},"type":"request","seq":161}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":10},"type":"request","seq":162}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":11},"type":"request","seq":163}
+ Received 
+
+{"command":"variables","arguments":{"variablesReference":12},"type":"request","seq":164}
+ Received 
+
+{"command":"disconnect","arguments":{"restart":false},"type":"request","seq":165}

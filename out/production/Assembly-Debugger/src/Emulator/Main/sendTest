@@ -16,7 +16,7 @@
 
 
 
-{"request_seq":4,"success":true,"command":"setBreakpoints","body":[{"id":0,"verified":true,"line":3,"column":0,"endLine":0,"endColumn":0,"offset":0},{"id":0,"verified":true,"line":7,"column":0,"endLine":0,"endColumn":0,"offset":0}],"type":"response"}
+{"request_seq":4,"success":true,"command":"setBreakpoints","body":[{"id":0,"verified":true,"line":2,"column":0,"endLine":0,"endColumn":0,"offset":0}],"type":"response"}
 
 
 
@@ -24,43 +24,43 @@
 
 
 
-{"request_seq":5,"success":true,"command":"breakpointLocations","body":[{"line":3,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+{"request_seq":5,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
 
 
 
-{"request_seq":6,"success":true,"command":"breakpointLocations","body":[{"line":7,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+{"request_seq":6,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
 
 
 
-{"request_seq":7,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+{"request_seq":7,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":2,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
 
 
 
-{"request_seq":8,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":3,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
+{"request_seq":8,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
 
 
 
-{"request_seq":9,"success":true,"command":"breakpointLocations","body":[{"line":3,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+{"request_seq":9,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Special Registers","variablesReference":12,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
 
 
 
-{"request_seq":10,"success":true,"command":"breakpointLocations","body":[{"line":7,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+{"request_seq":10,"success":true,"command":"variables","body":{"variables":[],"request_seq":0,"type":"response"},"type":"response"}
 
 
 
-{"request_seq":11,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Special Registers","variablesReference":12,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+{"request_seq":11,"success":true,"command":"variables","body":{"variables":[{"name":"MAIN","value":"[SAVED PC]","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
 
 
 
-{"request_seq":12,"success":true,"command":"variables","body":{"variables":[],"request_seq":0,"type":"response"},"type":"response"}
+{"request_seq":12,"success":true,"command":"variables","body":{"variables":[{"name":"Virtual address of SP","value":"1000000","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
 
 
 
-{"request_seq":13,"success":true,"command":"continue","type":"response"}
+{"request_seq":13,"success":true,"command":"next","type":"response"}
 
 
 
-{"event":"stopped","body":{"reason":"breakpoint","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
+{"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
 
 
 
@@ -68,51 +68,43 @@
 
 
 
-{"request_seq":15,"success":true,"command":"breakpointLocations","body":[{"line":3,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+{"request_seq":15,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
 
 
 
-{"request_seq":16,"success":true,"command":"breakpointLocations","body":[{"line":7,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+{"request_seq":16,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":3,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
 
 
 
-{"request_seq":17,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
+{"request_seq":17,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":3,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
 
 
 
-{"request_seq":18,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Factorial.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Factorial.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
+{"request_seq":18,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
 
 
 
-{"request_seq":19,"success":true,"command":"breakpointLocations","body":[{"line":3,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+{"request_seq":19,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Special Registers","variablesReference":12,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
 
 
 
-{"request_seq":20,"success":true,"command":"breakpointLocations","body":[{"line":7,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+{"request_seq":20,"success":true,"command":"variables","body":{"variables":[],"request_seq":0,"type":"response"},"type":"response"}
 
 
 
-{"request_seq":21,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Special Registers","variablesReference":12,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+{"request_seq":21,"success":true,"command":"variables","body":{"variables":[{"name":"MAIN","value":"[SAVED PC, 0, 0]","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
 
 
 
-{"request_seq":22,"success":true,"command":"variables","body":{"variables":[{"name":"R1","value":"5","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+{"request_seq":22,"success":true,"command":"variables","body":{"variables":[{"name":"Virtual address of SP","value":"999992","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
 
 
 
-{"request_seq":23,"success":true,"command":"continue","type":"response"}
+{"request_seq":23,"success":true,"command":"next","type":"response"}
 
 
 
-{"event":"stopped","body":{"reason":"breakpoint","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
-
-
-
-{"event":"output","body":{"category":"stdout","output":"RV: 120\n","group":"end","variablesReference":0,"line":10,"column":0},"type":"event"}
-
-
-
-{"event":"terminated","type":"event"}
+{"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
 
 
 
@@ -120,5 +112,621 @@
 
 
 
-{"request_seq":25,"success":true,"command":"disconnect","type":"response"}
+{"request_seq":25,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":26,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":4,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
+
+
+
+{"request_seq":27,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":28,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Special Registers","variablesReference":12,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+
+
+
+{"request_seq":29,"success":true,"command":"variables","body":{"variables":[],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":30,"success":true,"command":"variables","body":{"variables":[{"name":"MAIN","value":"[SAVED PC, 0, 3]","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":31,"success":true,"command":"variables","body":{"variables":[{"name":"Virtual address of SP","value":"999992","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":32,"success":true,"command":"next","type":"response"}
+
+
+
+{"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
+
+
+
+{"request_seq":33,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+
+
+
+{"request_seq":34,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":35,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":5,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
+
+
+
+{"request_seq":36,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":5,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
+
+
+
+{"request_seq":37,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":38,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Special Registers","variablesReference":12,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+
+
+
+{"request_seq":39,"success":true,"command":"variables","body":{"variables":[{"name":"R1","value":"999996","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":40,"success":true,"command":"variables","body":{"variables":[{"name":"MAIN","value":"[SAVED PC, 0, 3]","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":41,"success":true,"command":"variables","body":{"variables":[{"name":"Virtual address of SP","value":"999992","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":42,"success":true,"command":"next","type":"response"}
+
+
+
+{"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
+
+
+
+{"request_seq":43,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+
+
+
+{"request_seq":44,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":6,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
+
+
+
+{"request_seq":45,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":46,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":47,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Special Registers","variablesReference":12,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+
+
+
+{"request_seq":48,"success":true,"command":"variables","body":{"variables":[{"name":"R1","value":"999996","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":49,"success":true,"command":"variables","body":{"variables":[{"name":"MAIN","value":"[SAVED PC, 2, 3]","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":50,"success":true,"command":"variables","body":{"variables":[{"name":"Virtual address of SP","value":"999992","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":51,"success":true,"command":"next","type":"response"}
+
+
+
+{"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
+
+
+
+{"request_seq":52,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+
+
+
+{"request_seq":53,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
+
+
+
+{"request_seq":54,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":55,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":7,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
+
+
+
+{"request_seq":56,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":57,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Special Registers","variablesReference":12,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+
+
+
+{"request_seq":58,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"999996","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":59,"success":true,"command":"variables","body":{"variables":[{"name":"MAIN","value":"[SAVED PC, 2, 3]","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":60,"success":true,"command":"variables","body":{"variables":[{"name":"Virtual address of SP","value":"999992","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":61,"success":true,"command":"next","type":"response"}
+
+
+
+{"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
+
+
+
+{"request_seq":62,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+
+
+
+{"request_seq":63,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":8,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
+
+
+
+{"request_seq":64,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":65,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":8,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
+
+
+
+{"request_seq":66,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":67,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Special Registers","variablesReference":12,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+
+
+
+{"request_seq":68,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"999996","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":69,"success":true,"command":"variables","body":{"variables":[{"name":"MAIN","value":"[SAVED PC, 2, 3]","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":70,"success":true,"command":"variables","body":{"variables":[{"name":"Virtual address of SP","value":"999992","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":71,"success":true,"command":"next","type":"response"}
+
+
+
+{"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
+
+
+
+{"request_seq":72,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+
+
+
+{"request_seq":73,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":9,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
+
+
+
+{"request_seq":74,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":75,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":76,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Special Registers","variablesReference":12,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+
+
+
+{"request_seq":77,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"999996","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":78,"success":true,"command":"variables","body":{"variables":[{"name":"MAIN","value":"[SAVED PC, 2, 3, 0, 0]","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":79,"success":true,"command":"variables","body":{"variables":[{"name":"Virtual address of SP","value":"999984","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":80,"success":true,"command":"next","type":"response"}
+
+
+
+{"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
+
+
+
+{"request_seq":81,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+
+
+
+{"request_seq":82,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":10,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
+
+
+
+{"request_seq":83,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":84,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":85,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Special Registers","variablesReference":12,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+
+
+
+{"request_seq":86,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"999996","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":87,"success":true,"command":"variables","body":{"variables":[{"name":"MAIN","value":"[SAVED PC, 2, 3, 0, 2]","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":88,"success":true,"command":"variables","body":{"variables":[{"name":"Virtual address of SP","value":"999984","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":89,"success":true,"command":"next","type":"response"}
+
+
+
+{"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
+
+
+
+{"request_seq":90,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+
+
+
+{"request_seq":91,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":11,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
+
+
+
+{"request_seq":92,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":93,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":11,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":1},"type":"response"}
+
+
+
+{"request_seq":94,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":95,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Special Registers","variablesReference":12,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+
+
+
+{"request_seq":96,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"999996","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":97,"success":true,"command":"variables","body":{"variables":[{"name":"MAIN","value":"[SAVED PC, 2, 3, 3, 2]","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":98,"success":true,"command":"variables","body":{"variables":[{"name":"Virtual address of SP","value":"999984","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":99,"success":true,"command":"next","type":"response"}
+
+
+
+{"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
+
+
+
+{"request_seq":100,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+
+
+
+{"request_seq":101,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":16,"column":0,"endLine":0,"endColumn":0,"canRestart":false},{"id":0,"name":"ADD","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":16,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":2},"type":"response"}
+
+
+
+{"request_seq":102,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":103,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":104,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Special Registers","variablesReference":12,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+
+
+
+{"request_seq":105,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"999996","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":106,"success":true,"command":"variables","body":{"variables":[{"name":"MAIN","value":"[SAVED PC, 2, 3, 3, 2]","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"ADD","value":"[SAVED PC]","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":107,"success":true,"command":"variables","body":{"variables":[{"name":"Virtual address of SP","value":"999980","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":108,"success":true,"command":"next","type":"response"}
+
+
+
+{"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
+
+
+
+{"request_seq":109,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+
+
+
+{"request_seq":110,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":111,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":17,"column":0,"endLine":0,"endColumn":0,"canRestart":false},{"id":0,"name":"ADD","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":17,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":2},"type":"response"}
+
+
+
+{"request_seq":112,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":17,"column":0,"endLine":0,"endColumn":0,"canRestart":false},{"id":0,"name":"ADD","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":17,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":2},"type":"response"}
+
+
+
+{"request_seq":113,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":114,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Special Registers","variablesReference":12,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+
+
+
+{"request_seq":115,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":116,"success":true,"command":"variables","body":{"variables":[{"name":"MAIN","value":"[SAVED PC, 2, 3, 3, 2]","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"ADD","value":"[SAVED PC]","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":117,"success":true,"command":"variables","body":{"variables":[{"name":"Virtual address of SP","value":"999980","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":118,"success":true,"command":"next","type":"response"}
+
+
+
+{"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
+
+
+
+{"request_seq":119,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+
+
+
+{"request_seq":120,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":18,"column":0,"endLine":0,"endColumn":0,"canRestart":false},{"id":0,"name":"ADD","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":18,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":2},"type":"response"}
+
+
+
+{"request_seq":121,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":122,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":18,"column":0,"endLine":0,"endColumn":0,"canRestart":false},{"id":0,"name":"ADD","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":18,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":2},"type":"response"}
+
+
+
+{"request_seq":123,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":124,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Special Registers","variablesReference":12,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+
+
+
+{"request_seq":125,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":126,"success":true,"command":"variables","body":{"variables":[{"name":"MAIN","value":"[SAVED PC, 2, 3, 3, 2]","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"ADD","value":"[SAVED PC]","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":127,"success":true,"command":"variables","body":{"variables":[{"name":"Virtual address of SP","value":"999980","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":128,"success":true,"command":"next","type":"response"}
+
+
+
+{"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
+
+
+
+{"request_seq":129,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+
+
+
+{"request_seq":130,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":19,"column":0,"endLine":0,"endColumn":0,"canRestart":false},{"id":0,"name":"ADD","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":19,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":2},"type":"response"}
+
+
+
+{"request_seq":131,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":132,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":19,"column":0,"endLine":0,"endColumn":0,"canRestart":false},{"id":0,"name":"ADD","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":19,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":2},"type":"response"}
+
+
+
+{"request_seq":133,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":134,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Special Registers","variablesReference":12,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+
+
+
+{"request_seq":135,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":136,"success":true,"command":"variables","body":{"variables":[{"name":"MAIN","value":"[SAVED PC, 2, 3, 3, 2]","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"ADD","value":"[SAVED PC, 0, 0]","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":137,"success":true,"command":"variables","body":{"variables":[{"name":"Virtual address of SP","value":"999972","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":138,"success":true,"command":"next","type":"response"}
+
+
+
+{"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
+
+
+
+{"request_seq":139,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+
+
+
+{"request_seq":140,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":20,"column":0,"endLine":0,"endColumn":0,"canRestart":false},{"id":0,"name":"ADD","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":20,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":2},"type":"response"}
+
+
+
+{"request_seq":141,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":142,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":20,"column":0,"endLine":0,"endColumn":0,"canRestart":false},{"id":0,"name":"ADD","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":20,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":2},"type":"response"}
+
+
+
+{"request_seq":143,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":144,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Special Registers","variablesReference":12,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+
+
+
+{"request_seq":145,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":146,"success":true,"command":"variables","body":{"variables":[{"name":"MAIN","value":"[SAVED PC, 2, 3, 3, 2]","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"ADD","value":"[SAVED PC, 0, 1]","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":147,"success":true,"command":"variables","body":{"variables":[{"name":"Virtual address of SP","value":"999972","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":148,"success":true,"command":"next","type":"response"}
+
+
+
+{"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
+
+
+
+{"request_seq":149,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+
+
+
+{"request_seq":150,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":21,"column":0,"endLine":0,"endColumn":0,"canRestart":false},{"id":0,"name":"ADD","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":21,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":2},"type":"response"}
+
+
+
+{"request_seq":151,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":152,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Special Registers","variablesReference":12,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+
+
+
+{"request_seq":153,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":154,"success":true,"command":"variables","body":{"variables":[{"name":"MAIN","value":"[SAVED PC, 2, 3, 3, 2]","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"ADD","value":"[SAVED PC, 2, 1]","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":155,"success":true,"command":"variables","body":{"variables":[{"name":"Virtual address of SP","value":"999972","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":156,"success":true,"command":"next","type":"response"}
+
+
+
+{"event":"stopped","body":{"reason":"step","threadId":1,"preserveFocusHint":false,"allThreadsStopped":false},"type":"event"}
+
+
+
+{"request_seq":157,"success":true,"command":"threads","body":{"threads":[{"id":1,"name":"thread 1"}]},"type":"response"}
+
+
+
+{"request_seq":158,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":159,"success":true,"command":"stackTrace","body":{"stackFrames":[{"id":0,"name":"MAIN","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":29,"column":0,"endLine":0,"endColumn":0,"canRestart":false},{"id":0,"name":"ADD","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":29,"column":0,"endLine":0,"endColumn":0,"canRestart":false},{"id":0,"name":"ADD2","source":{"name":"Debug Add2.md","path":"/home/nroga/Final/Assembly-Debugger/VS_Code/vscode-mock-debug/sampleWorkspace/Add2.md","sourceReference":0,"adapterData":"mock-adapter-data"},"line":29,"column":0,"endLine":0,"endColumn":0,"canRestart":false}],"totalFrames":3},"type":"response"}
+
+
+
+{"request_seq":160,"success":true,"command":"breakpointLocations","body":[{"line":2,"column":0,"endLine":0,"endColumn":0}],"type":"response"}
+
+
+
+{"request_seq":161,"success":true,"command":"scopes","body":{"scopes":[{"name":"Registers","variablesReference":10,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Stack Frame","variablesReference":11,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0},{"name":"Special Registers","variablesReference":12,"namedVariables":0,"indexedVariables":0,"expensive":false,"line":0,"column":0,"endLine":0,"endColumn":0}]},"type":"response"}
+
+
+
+{"request_seq":162,"success":true,"command":"variables","body":{"variables":[{"name":"R2","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R3","value":"3","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"R1","value":"2","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":163,"success":true,"command":"variables","body":{"variables":[{"name":"MAIN","value":"[SAVED PC, 2, 3, 3, 2]","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"ADD","value":"[SAVED PC, 2, 1]","variablesReference":0,"namedVariables":0,"indexedVariables":0},{"name":"ADD2","value":"[SAVED PC]","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":164,"success":true,"command":"variables","body":{"variables":[{"name":"Virtual address of SP","value":"999968","variablesReference":0,"namedVariables":0,"indexedVariables":0}],"request_seq":0,"type":"response"},"type":"response"}
+
+
+
+{"request_seq":165,"success":true,"command":"disconnect","type":"response"}
 

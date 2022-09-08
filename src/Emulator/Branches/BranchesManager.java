@@ -47,7 +47,7 @@ public class BranchesManager {
             //assert
             int expected = b;
             int got = a;
-            System.out.println(expected);
+            //System.out.println(expected);
             System.out.println(currentFunction.substring(8) + " " + "FAILED");
             String message = printExpectedMessage(expected, got, str.substring(1, 3));
             System.out.println(message);
