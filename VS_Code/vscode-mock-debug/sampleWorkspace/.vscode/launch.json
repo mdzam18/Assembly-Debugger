@@ -7,16 +7,16 @@
 		{
 			"type": "mock",
 			"request": "launch",
-			"name": "Debug CallTests.md",
-			"program": "${workspaceFolder}/CallTests.md",
+			"name": "Debug addNumbers.md",
+			"program": "${workspaceFolder}/addNumbers.md",
 			"stopOnEntry": true,
 			"trace": false
 		},
 		{
 			"type": "mock",
 			"request": "attach",
-			"name": "Attach CallTests.md",
-			"program": "${workspaceFolder}/CallTests.md",
+			"name": "Attach addNumbers.md",
+			"program": "${workspaceFolder}/addNumbers.md",
 			"stopOnEntry": true,
 			"trace": false
 		}

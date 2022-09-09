@@ -1,5 +1,5 @@
 Function main;
-SP = SP - 8; 
+SP = SP - 8;
 M[SP] = 3; 
 R1 = SP + 4; 
 M[R1] = 2; 

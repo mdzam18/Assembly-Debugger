@@ -12,8 +12,6 @@ import java.util.*;
 
 
 public class Receiver {
-    private FileWriter fWriter = new FileWriter(
-            "/home/nroga/Final/Assembly-Debugger/src/Emulator/Main/testInputFile");
 
     //instance variables
     private Gson gson;
@@ -104,15 +102,12 @@ public class Receiver {
             scanner.useDelimiter("");
             while (true) {
                 String message = readRequest(scanner);
-                fWriter.write("\n Received \n\n");
-                fWriter.write(message);
-                fWriter.flush();
                 receiveProtocolMessage(message);
             }
         } catch (Exception e) {
             exceptionInfoManager.processEmulatorException(e, gson, send);
         } finally {
-            fWriter.close();
+
         }
     }
 
